@@ -1,15 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Field, InputType, ObjectType } from "type-graphql";
-
-@ObjectType()
-class FriendOfUser {
-  @Field()
-  id: number;
-
-  @Field()
-  name: string;
-}
-
 
 @ObjectType()
 class EventOfUser {
@@ -20,6 +10,14 @@ class EventOfUser {
   name: string;
 }
 
+@ObjectType()
+class Friends {
+  @Field()
+  id: number;
+
+  @Field()
+  nickName: string;
+}
 
 
 @Entity()
@@ -30,7 +28,7 @@ class User {
   id: number;
 
   @Field()
-  @Column({ length: 100 })
+  @Column({ length: 100 , type: "varchar", unique: true})
   nickName: string;
 
   @Field()
@@ -49,8 +47,10 @@ class User {
   @Column({ nullable: true })
   image?: string;
 
-  @Field(() => [FriendOfUser])
-  friends?: FriendOfUser[];
+  @Field(() => [Friends])
+  @Column({ nullable: true })
+  @ManyToMany(() => User, (user) => user.friends)
+  friends?: Friends[]; 
 
   @Field(() => [EventOfUser])
   events?: EventOfUser[];

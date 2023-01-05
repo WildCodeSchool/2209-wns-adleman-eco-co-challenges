@@ -1,5 +1,5 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
-import User, { UserInput } from "../entity/User";
+import  User,{ UserInput } from "../entity/User";
 
 import DataSource from "../db";
 
