@@ -20,6 +20,7 @@ export class EventResolver {
             startDate: event.startDate,
             endDate: event.endDate,
             image: event.image,
+            participant: event.participant,
 
     }));
     }

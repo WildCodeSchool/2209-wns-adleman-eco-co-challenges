@@ -1,5 +1,5 @@
-import { Arg, Mutation, Query, Resolver } from "type-graphql";
-import  User,{ UserInput } from "../entity/User";
+import { Arg, Int, Mutation, Query, Resolver } from "type-graphql";
+import  User,{ FriendInput, UserInput } from "../entity/User";
 
 import DataSource from "../db";
 
@@ -30,5 +30,15 @@ export class UserResolver {
 async createUser (@Arg("data")  data: UserInput): Promise<User> {
   return await DataSource.getRepository(User).save({...data});
 }
-}
 
+@Mutation(() => User)
+async updateUser(@Arg("id", () => Int) id: number, @Arg("data")  data: FriendInput): Promise<User> {
+const { friend } = data;
+const updated = await DataSource.getRepository(User).findOne({ where: { id } });
+
+updated.friends.push(friend)
+ await DataSource.getRepository(User).save(updated);
+
+ return user
+}
+}
