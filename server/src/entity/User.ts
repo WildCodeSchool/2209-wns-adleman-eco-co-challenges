@@ -1,11 +1,10 @@
-import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Field, InputType, ObjectType } from "type-graphql";
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Field, InputType, Int, ObjectType } from "type-graphql";
 
 import Event from "./Event";
-import Friend from "../entity/Friend";
 
 @ObjectType()
-class EventOfUser {
+export class EventOfUser {
   @Field()
   id: number;
 
@@ -38,31 +37,53 @@ class User {
   xp?: number;
 
   @Field({ nullable: true })
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: "varchar" })
   image?: string;
 
-  @OneToMany(() =>User, (user) => user.friends)
-  friends: Friend[]; 
+  
+  @Field(() => [Int], { nullable: true })
+  @Column({ nullable: true })
+  friends?: number[]; 
 
   @ManyToMany(() => Event)
-  @JoinTable()
-  events: EventOfUser[];
+  @Field(() => [Event])
+  eventOfUser: Event[];
 }
 
 @InputType()
 export class UserInput {
   @Field()
+  @Column({ length: 100 , type: "varchar", unique: true})
   nickName: string;
   
   @Field()
+  @Column({ length: 100, type: "varchar" })
   password: string;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true, length: 100, type: "varchar" })
+  role?: string;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  xp?: number;
 }
+
 
 @InputType()
 export class FriendInput {
   
   @Field()
-  friend: string;
+  @Column({ length: 100 , type: "varchar", unique: true})
+  nickName: string;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true, length: 100, type: "varchar" })
+  role?: string;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  xp?: number;
 }
 
 export default User;
