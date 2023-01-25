@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Field, InputType, Int, ObjectType } from "type-graphql";
+import { Field, InputType, ObjectType } from "type-graphql";
 
 import Event from "./Event";
 
@@ -12,7 +12,6 @@ export class EventOfUser {
   name: string;
 }
 
-
 @Entity()
 @ObjectType()
 class User {
@@ -21,7 +20,7 @@ class User {
   id: number;
 
   @Field()
-  @Column({ length: 100 , type: "varchar", unique: true})
+  @Column({ length: 100, type: "varchar", unique: true })
   nickName: string;
 
   @Field()
@@ -40,12 +39,11 @@ class User {
   @Column({ nullable: true, type: "varchar" })
   image?: string;
 
-  
   @Field(() => [User])
-  @ManyToMany(() => User, (user) => user.friends, {cascade : true})
-  friends?: User[]; 
+  @ManyToMany(() => User, (user) => user.friends, { cascade: true })
+  friends?: User[];
 
-  @ManyToMany(() => Event, (event) => event.users)
+  @ManyToMany(() => Event, (event) => event.participant)
   @Field(() => [Event])
   eventOfUser?: Event[];
 }
@@ -54,7 +52,7 @@ class User {
 export class UserInput {
   @Field()
   nickName: string;
-  
+
   @Field()
   password: string;
 
@@ -65,7 +63,7 @@ export class UserInput {
   xp?: number;
 
   @Field({ nullable: true })
-  friendsId?: number[];
+  friendsId?: number;
 
   @Field({ nullable: true })
   image?: string;
@@ -73,6 +71,5 @@ export class UserInput {
   @Field({ nullable: true })
   eventOfUser?: number[];
 }
-
 
 export default User;
