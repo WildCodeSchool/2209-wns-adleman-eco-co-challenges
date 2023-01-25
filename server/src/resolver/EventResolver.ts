@@ -13,7 +13,7 @@ export class EventResolver {
         .getRepository(Event)
         .find()
         
-        return events.map((event) => ({
+        return events.map((event: Event) => ({
             
             id: event.id,
             name: event.name,

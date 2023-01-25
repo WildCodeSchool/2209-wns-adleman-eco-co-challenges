@@ -1,5 +1,5 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
-import User, { FriendInput, UserInput } from "../entity/User";
+import User, { UserInput } from "../entity/User";
 
 import DataSource from "../db";
 
@@ -9,7 +9,7 @@ export class UserResolver {
   async users(): Promise<User[]> {
     const users = await DataSource.getRepository(User).find();
 
-    return users.map((user) => ({
+    return users.map((user: User) => ({
       id: user.id,
       nickName: user.nickName,
       password: user.password,
@@ -23,31 +23,23 @@ export class UserResolver {
 
   @Mutation(() => User)
   async createUser(@Arg("data") data: UserInput): Promise<User> {
-    return await DataSource.getRepository(User).save({ ...data });
+    const {nickName, password, role, xp, image} = data
+    return await DataSource.getRepository(User).save({nickName, password, role, xp, image});
   }
 
   @Mutation(() => User)
-  async createNewFriend(@Arg('userId') userId: number, @Arg("friendId") friendId: number): Promise<User> {
+  async updateUser(@Arg("data") data: UserInput, @Arg("userId") userId: number): Promise<User> {
+    const {friendsId} = data
+    const userUpdated = await DataSource.getRepository(User).findOneOrFail({where: {id: userId}});
 
-    try {
-      const userToChange: User | null = await DataSource.getRepository(User).findOne({where: {id: userId}});
-      const friendToChange: User | null = await DataSource.getRepository(User).findOne({where: {id: friendId}});
-
-      if (userToChange != null && friendToChange != null) {
-
-        userToChange?.friends?.push(friendId);
-
-        await DataSource.getRepository(User).save(userToChange);
-
-        friendToChange?.friends?.push(userId);
-
-        await DataSource.getRepository(User).save(friendToChange);
-
-        return userToChange;
-      }
-      throw new Error("User not found");
-    } catch (error) {
-      throw new Error("User not found");
+    if (typeof friendsId !== 'undefined') {
+      const friends = await Promise.all(friendsId?.map(async (id) => await DataSource.getRepository(User).findOneOrFail({where: {id}})))
+      userUpdated.friends = friends
     }
+
+    await DataSource.manager.save(userUpdated)
+    
+    return userUpdated
   }
+
 }

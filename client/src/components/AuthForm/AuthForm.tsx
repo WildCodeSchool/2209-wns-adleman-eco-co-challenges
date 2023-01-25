@@ -1,10 +1,13 @@
 import "./AuthForm.css";
 
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 
 const AuthForm = () => {
-  const { register, handleSubmit } = useForm();
   const onSubmit = (data: any) => console.log(data);
+  const [userInfos, setUserInfo] = useState({ nickName: "", password: "" });
+  const [passwordError, setPasswordError] = useState(false);
+  // const [createUser] = useCreateUserMutation();
 
   const signUpButton = document.getElementById("signUp");
   const signInButton = document.getElementById("signIn");
@@ -72,7 +75,7 @@ const AuthForm = () => {
         name="password"
       />
       <a href="#">Forgot your password?</a>
-      <button>Sign In</button>
+      <button id="loginButton">Sign In</button>
     </form>
   </div>
   <div className="overlay-container">

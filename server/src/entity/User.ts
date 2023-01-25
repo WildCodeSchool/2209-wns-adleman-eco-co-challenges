@@ -41,49 +41,38 @@ class User {
   image?: string;
 
   
-  @Field(() => [Int], { nullable: true })
-  @Column({ nullable: true })
-  friends?: number[]; 
+  @Field(() => [User])
+  @ManyToMany(() => User, (user) => user.friends, {cascade : true})
+  friends?: User[]; 
 
-  @ManyToMany(() => Event)
+  @ManyToMany(() => Event, (event) => event.users)
   @Field(() => [Event])
-  eventOfUser: Event[];
+  eventOfUser?: Event[];
 }
 
 @InputType()
 export class UserInput {
   @Field()
-  @Column({ length: 100 , type: "varchar", unique: true})
   nickName: string;
   
   @Field()
-  @Column({ length: 100, type: "varchar" })
   password: string;
 
   @Field({ nullable: true })
-  @Column({ nullable: true, length: 100, type: "varchar" })
   role?: string;
 
   @Field({ nullable: true })
-  @Column({ nullable: true })
   xp?: number;
-}
-
-
-@InputType()
-export class FriendInput {
-  
-  @Field()
-  @Column({ length: 100 , type: "varchar", unique: true})
-  nickName: string;
 
   @Field({ nullable: true })
-  @Column({ nullable: true, length: 100, type: "varchar" })
-  role?: string;
+  friendsId?: number[];
 
   @Field({ nullable: true })
-  @Column({ nullable: true })
-  xp?: number;
+  image?: string;
+
+  @Field({ nullable: true })
+  eventOfUser?: number[];
 }
+
 
 export default User;
