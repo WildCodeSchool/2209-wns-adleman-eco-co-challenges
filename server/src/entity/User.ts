@@ -50,11 +50,10 @@ class User {
   @JoinTable({ joinColumn: { name: "users_id_1" } })
   friends?: User[];
 
-  /*
-  @ManyToMany(() => Event, (event) => event.participant)
   @Field(() => [Event])
+  @ManyToMany(() => Event, (event) => event.participants)
+  @JoinTable({ joinColumn: { name: "users_id_1" } })
   eventOfUser?: Event[];
-  */
 }
 
 @InputType()
@@ -77,10 +76,8 @@ export class UserInput {
   @Field({ nullable: true })
   image?: string;
 
-  /*
-  @Field({ nullable: true })
+  @Field(() => [Number], { nullable: true })
   eventOfUser?: number[];
-  */
 }
 
 export default User;

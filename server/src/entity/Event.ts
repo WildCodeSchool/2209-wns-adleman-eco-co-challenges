@@ -1,4 +1,10 @@
-import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { Field, ID, InputType, ObjectType } from "type-graphql";
 
 import User from "./User";
@@ -14,11 +20,11 @@ class Event {
   @Field({ nullable: true })
   name: string;
 
-  @Column({type: "date", nullable: true })
+  @Column({ type: "date", nullable: true })
   @Field({ nullable: true })
   startDate: Date;
 
-  @Column({type: "date", nullable: true })
+  @Column({ type: "date", nullable: true })
   @Field({ nullable: true })
   endDate: Date;
 
@@ -28,18 +34,24 @@ class Event {
 
   @ManyToMany(() => User)
   @JoinTable()
-  participant: User[];
-
-  
+  participants: User[];
 }
 
 @InputType()
 export class EventInput {
-  
   @Field()
   name: string;
-  
-  @Field()
-  startDate: Date;
+
+  @Field({ nullable: true })
+  startDate?: Date;
+
+  @Field({ nullable: true })
+  endDate?: Date;
+
+  @Field({ nullable: true })
+  image: string;
+
+  @Field(() => [Number], { nullable: true })
+  participantsId?: number[];
 }
 export default Event;
