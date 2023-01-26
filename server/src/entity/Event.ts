@@ -32,14 +32,16 @@ class Event {
   @Field({ nullable: true })
   image: string;
 
-  @ManyToMany(() => User)
-  @JoinTable()
+  // ici j'ai rajouté le field, j'ai rajouté "(user) => user.eventOfUser)"  dans @ManyToMany j'ai rajouté la column nullable
+  // @Column({ nullable: true })
+  @Field(() => [User], { nullable: true })
+  @ManyToMany(() => User, (user) => user.eventOfUser)
   participants: User[];
 }
 
 @InputType()
 export class EventInput {
-  @Field()
+  @Field({ nullable: true })
   name: string;
 
   @Field({ nullable: true })

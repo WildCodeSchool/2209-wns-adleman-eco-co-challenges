@@ -51,8 +51,8 @@ class User {
   friends?: User[];
 
   @Field(() => [Event])
-  @ManyToMany(() => Event, (event) => event.participants)
-  @JoinTable({ joinColumn: { name: "users_id_1" } })
+  @ManyToMany(() => Event, (event) => event.participants, { cascade: true })
+  @JoinTable()
   eventOfUser?: Event[];
 }
 

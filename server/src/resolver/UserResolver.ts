@@ -8,21 +8,10 @@ export class UserResolver {
   @Query(() => [User])
   async users(): Promise<User[]> {
     const users = await DataSource.getRepository(User).find({
-      relations: { friends: true },
+      relations: { friends: true, eventOfUser: true },
     });
 
-    return users.map((user: User) => ({
-      id: user.id,
-      nickName: user.nickName,
-      password: user.password,
-      role: user.role,
-      xp: user.xp,
-      image: user.image,
-      friends: user.friends,
-      /*
-      eventOfUser: user.eventOfUser,
-      */
-    }));
+    return users;
   }
 
   @Mutation(() => User)

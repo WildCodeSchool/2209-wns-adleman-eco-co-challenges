@@ -8,16 +8,10 @@ import DataSource from "../db";
 export class EventResolver {
   @Query(() => [Event])
   async events(): Promise<Event[]> {
-    const events = await DataSource.getRepository(Event).find();
-
-    return events.map((event: Event) => ({
-      id: event.id,
-      name: event.name,
-      startDate: event.startDate,
-      endDate: event.endDate,
-      image: event.image,
-      participants: event.participants,
-    }));
+    const events = await DataSource.getRepository(Event).find({
+      relations: { participants: true },
+    });
+    return events;
   }
 
   @Mutation(() => Event)
@@ -53,19 +47,16 @@ export class EventResolver {
       // rajoute à l'évent le tableau de participants
       eventUpdated.participants = participants;
 
-      // Pour chaque participant on lui rajouter l'event
+      //   Pour chaque participant on lui rajouter l'event
       await Promise.all(
         participants.map((participant) => {
           // faire un nouveau tableau et ajouter à la fin eventUpdated
           participant.eventOfUser = [eventUpdated];
-
           return DataSource.manager.save(participant);
         })
       );
     }
 
-    await DataSource.manager.save(eventUpdated);
-
-    return eventUpdated;
+    return await DataSource.manager.save(eventUpdated);
   }
 }
