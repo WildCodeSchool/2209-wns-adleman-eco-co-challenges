@@ -3,7 +3,7 @@ import "reflect-metadata";
 import { ApolloServer } from "apollo-server";
 import { ApolloServerPluginLandingPageLocalDefault } from "apollo-server-core";
 import { EventResolver } from "./resolver/EventResolver";
-import { UserResolver } from "./resolver/UserResolver"
+import { UserResolver } from "./resolver/UserResolver";
 import { buildSchema } from "type-graphql";
 import datasource from "./db";
 
@@ -22,7 +22,7 @@ const start = async (): Promise<void> => {
   });
 
   await server.listen().then(({ url }) => {
-    console.log(`🚀  Server ready at ${url}`);
+    console.log(`🚀  oServer ready at ${url}`);
   });
 };
 

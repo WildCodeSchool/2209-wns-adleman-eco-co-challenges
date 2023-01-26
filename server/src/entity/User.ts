@@ -1,4 +1,10 @@
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+  JoinTable,
+} from "typeorm";
 import { Field, InputType, ObjectType } from "type-graphql";
 
 import Event from "./Event";
@@ -40,12 +46,15 @@ class User {
   image?: string;
 
   @Field(() => [User])
-  @ManyToMany(() => User, (user) => user.friends, { cascade: true })
+  @ManyToMany(() => User, (user) => user.friends)
+  @JoinTable({ joinColumn: { name: "users_id_1" } })
   friends?: User[];
 
+  /*
   @ManyToMany(() => Event, (event) => event.participant)
   @Field(() => [Event])
   eventOfUser?: Event[];
+  */
 }
 
 @InputType()
@@ -62,14 +71,16 @@ export class UserInput {
   @Field({ nullable: true })
   xp?: number;
 
-  @Field({ nullable: true })
-  friendsId?: number;
+  @Field(() => [Number], { nullable: true })
+  friendsId?: number[];
 
   @Field({ nullable: true })
   image?: string;
 
+  /*
   @Field({ nullable: true })
   eventOfUser?: number[];
+  */
 }
 
 export default User;
