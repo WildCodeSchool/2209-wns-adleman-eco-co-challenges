@@ -49,10 +49,10 @@ export class EventResolver {
 
       //   Pour chaque participant on lui rajouter l'event
       await Promise.all(
-        participants.map((participant) => {
+        participants.map(async (participant) => {
           // faire un nouveau tableau et ajouter à la fin eventUpdated
           participant.eventOfUser = [eventUpdated];
-          return DataSource.manager.save(participant);
+          return await DataSource.manager.save(participant);
         })
       );
     }

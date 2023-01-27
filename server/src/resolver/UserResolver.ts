@@ -47,10 +47,10 @@ export class UserResolver {
       );
       userUpdated.friends = friends;
       await Promise.all(
-        friends.map((friend) => {
+        friends.map(async (friend) => {
           friend.friends = [userUpdated];
 
-          return DataSource.manager.save(friend);
+          return await DataSource.manager.save(friend);
         })
       );
     }
