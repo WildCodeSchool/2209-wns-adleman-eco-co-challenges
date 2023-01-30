@@ -1,5 +1,11 @@
+
+
 const Users = () => {
-  return <p>ICI les users</p>;
+
+console.log("sisi un hotreload")
+
+  
+  return <p>ICI les users ou pas</p>;
 };
 
 export default Users;
