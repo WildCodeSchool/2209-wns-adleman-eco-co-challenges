@@ -1,13 +1,12 @@
 import "./App.css";
 
-import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 
 import Authentification from "./pages/authentification";
 import Users from "./pages/Users";
 
 function App() {
   return (
-    <Router>
       <div>
         <nav>
           <ul>
@@ -23,8 +22,7 @@ function App() {
           <Route path="/" element={<Authentification />} />
           <Route path="/users" element={<Users />} />
         </Routes>
-      </div>
-    </Router>
+        </div>
   );
 }
 
