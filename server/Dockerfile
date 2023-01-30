@@ -7,7 +7,8 @@ COPY .npmrc ./
 
 RUN npm install
 
+COPY .env ./
 COPY tsconfig.json .
-COPY src ./src
+COPY src src
 
 CMD npm start
