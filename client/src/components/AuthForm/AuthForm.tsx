@@ -1,123 +1,163 @@
-// import "./AuthForm.css";
+import "./AuthForm.css";
 
-// import { useForm } from "react-hook-form";
-// import { useState } from "react";
+import {
+  useCreateUserMutation,
+  useGetProfileQuery,
+  useLoginMutation,
+} from "../../gql/generated/schema";
+
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const AuthForm = () => {
-  // const onSubmit = (data: any) => console.log(data);
-  // const [userInfos, setUserInfo] = useState({ nickName: "", password: "" });
-  // const [passwordError, setPasswordError] = useState(false);
-  // // const [createUser] = useCreateUserMutation();
+  const [userInfos, setUserInfo] = useState({ nickName: "", password: "" });
+  const [passwordError, setPasswordError] = useState(false);
+  const [createUser] = useCreateUserMutation();
+  const navigate = useNavigate();
 
-  // const signUpButton = document.getElementById("signUp");
-  // const signInButton = document.getElementById("signIn");
-  // const container = document.getElementById("container");
+  const [credentials, setCredentials] = useState({
+    nickName: "",
+    password: "",
+  });
+  const [login] = useLoginMutation();
 
-  // signUpButton?.addEventListener("click", () => {
-  //   container?.classList.add("right-panel-active");
-  // });
+  const signUpButton = document.getElementById("signUp");
+  const signInButton = document.getElementById("signIn");
+  const container = document.getElementById("container");
 
-  // signInButton?.addEventListener("click", () => {
-  //   container?.classList.remove("right-panel-active");
-  // });
+  const { data: currentUser, client } = useGetProfileQuery({
+    errorPolicy: "ignore",
+  });
+
+  signUpButton?.addEventListener("click", () => {
+    container?.classList.add("right-panel-active");
+  });
+
+  signInButton?.addEventListener("click", () => {
+    container?.classList.remove("right-panel-active");
+  });
 
   return (
-    <p>VOICI LE FRONT</p>
-  //   <>
-  //   <div className="container" id="container">
-  //   <div className="form-container sign-up-container">
-  //     <form onSubmit={handleSubmit(onSubmit)}>
-  //       <h1>Create Account</h1>
-  //       <div className="social-container">
-  //         <a href="#" className="social">
-  //           <i className="fab fa-facebook-f"></i>
-  //         </a>
-  //         <a href="#" className="social">
-  //           <i className="fab fa-google-plus-g"></i>
-  //         </a>
-  //         <a href="#" className="social">
-  //           <i className="fab fa-linkedin-in"></i>
-  //         </a>
-  //       </div>
-  //       <span>or use your email for registration</span>
-  //       <input type="text" placeholder="Name" name="name" />
-  //       <input
-  //         type="email"
-  //         placeholder="Email"
-  //         name="email"
-  //       />
-  //       <input
-  //         type="password"
-  //         placeholder="Password"
-  //         name="password"
-  //       />
-  //       <button>Sign Up</button>
-  //     </form>
-  //   </div>
-  //   <div className="form-container sign-in-container">
-  //     <form onSubmit={handleSubmit(onSubmit)}>
-  //       <h1>Sign in</h1>
-  //       <div className="social-container">
-  //         <a href="#" className="social">
-  //           <i className="fab fa-facebook-f"></i>
-  //         </a>
-  //         <a href="#" className="social">
-  //           <i className="fab fa-google-plus-g"></i>
-  //         </a>
-  //         <a href="#" className="social">
-  //           <i className="fab fa-linkedin-in"></i>
-  //         </a>
-  //       </div>
-  //       <span>or use your account</span>
-  //       <input type="email" placeholder="Email" name="email" />
-  //       <input
-  //       type="password"
-  //       placeholder="Password"
-  //       name="password"
-  //     />
-  //     <a href="#">Forgot your password?</a>
-  //     <button id="loginButton">Sign In</button>
-  //   </form>
-  // </div>
-  // <div className="overlay-container">
-  //   <div className="overlay">
-  //           <div className="overlay-panel overlay-left">
-  //             <h1>Welcome Back!</h1>
-  //             <p>
-  //               To keep connected with us please login with your personal info
-  //             </p>
-  //             <button className="ghost" id="signIn">
-  //               Sign In
-  //             </button>
-  //           </div>
-  //           <div className="overlay-panel overlay-right">
-  //             <h1>Hello, Friend!</h1>
-  //             <p>Enter your personal details and start journey with us</p>
-  //             <button className="ghost" id="signUp">
-  //               Sign Up
-  //             </button>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </div>
+    <>
+      <div className="container" id="container">
+        <div className="form-container sign-up-container">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (
+                !userInfos.password.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)
+              )
+                return setPasswordError(true);
 
-  //     <footer>
-  //       <p>
-  //         Created with <i className="fa fa-heart"></i> by
-  //         <a target="_blank" href="https://florin-pop.com">
-  //           Florin Pop
-  //         </a>
-  //         - Read how I created this and how you can join the challenge
-  //         <a
-  //           target="_blank"
-  //           href="https://www.florin-pop.com/blog/2019/03/double-slider-sign-in-up-form/"
-  //         >
-  //           here
-  //         </a>
-  //         .
-  //       </p>
-  //     </footer>  ;
-  //     </>
-)};
+              createUser({ variables: { data: userInfos } })
+                .then(async () => {
+                  await login({ variables: { data: userInfos } });
+                  await client.resetStore();
+                })
+                .catch((err) => {
+                  if (err.message === "EMAIL_ALREADY_EXISTS")
+                    toast.error("This email is already taken");
+                });
+            }}
+          >
+            <h1>Create Account</h1>
+            <input
+              type="text"
+              value={userInfos.nickName}
+              onChange={(e) =>
+                setUserInfo({ ...userInfos, nickName: e.target.value })
+              }
+            />
+            <input
+              type="password"
+              id="password"
+              name="password"
+              minLength={8}
+              value={userInfos.password}
+              onChange={(e) => {
+                setUserInfo({ ...userInfos, password: e.target.value });
+                setPasswordError(false);
+              }}
+            />
+            {passwordError && (
+              <div className="text-red-500 mb-4">
+                The password must contain at least 8 caracters and include an
+                uppercase letter and a number
+              </div>
+            )}
+            <button type="submit">Sign Up</button>
+          </form>
+        </div>
+        <div className="form-container sign-in-container">
+        {currentUser ? (
+        <div className="mb-8">
+          <div data-testid="logged-in-message">
+            Logged in as {currentUser.profile.nickName}
+          </div>
+
+          <button
+            onClick={async () => {
+              navigate("/users");
+            }}
+            className="mt-4"
+          >
+            Log out
+          </button>
+        </div>
+      ) : (
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              login({ variables: { data: credentials } })
+                .then(client.resetStore)
+                .catch(() => toast.error("Invalid credentials"));
+            }}
+          >
+            <h1>Sign in</h1>
+            <span>or use your account</span>
+            <input
+              type="text"
+              value={credentials.nickName}
+              onChange={(e) =>
+                setCredentials({ ...credentials, nickName: e.target.value })
+              }
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={credentials.password}
+              onChange={(e) =>
+                setCredentials({ ...credentials, password: e.target.value })
+              }
+            />
+            <button type="submit">Sign In</button>
+          </form>
+      )}
+        </div>
+        <div className="overlay-container">
+          <div className="overlay">
+            <div className="overlay-panel overlay-left">
+              <h1>Welcome Back!</h1>
+              <p>
+                To keep connected with us please login with your personal info
+              </p>
+              <button className="ghost" id="signIn">
+                Sign In
+              </button>
+            </div>
+            <div className="overlay-panel overlay-right">
+              <h1>Hello, Friend!</h1>
+              <p>Enter your personal details and start journey with us</p>
+              <button className="ghost" id="signUp">
+                Sign Up
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default AuthForm;
