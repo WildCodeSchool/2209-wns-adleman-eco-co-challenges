@@ -1,7 +1,16 @@
-import { Arg, Mutation, Query, Resolver } from "type-graphql";
-import User, { UserInput } from "../entity/User";
+import jwt from "jsonwebtoken";
+import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from "type-graphql";
+import User, {
+  getSafeAttributes,
+  UserInput,
+  verifyPassword,
+  hashPassword,
+} from "../entity/User";
+import { ContextType } from "../index";
+import { ApolloError } from "apollo-server-errors";
 
 import DataSource from "../db";
+import { env } from "../environment";
 
 @Resolver(User)
 export class UserResolver {
@@ -16,14 +25,16 @@ export class UserResolver {
 
   @Mutation(() => User)
   async createUser(@Arg("data") data: UserInput): Promise<User> {
-    const { nickName, password, role, xp, image } = data;
-    return await DataSource.getRepository(User).save({
-      nickName,
-      password,
-      role,
-      xp,
-      image,
+    const exisitingUser = await DataSource.getRepository(User).findOne({
+      where: { nickName: data.nickName },
     });
+
+    if (exisitingUser !== null) throw new ApolloError("EMAIL_ALREADY_EXISTS");
+
+    const hashedPassword: string = await hashPassword(data.password);
+    const user = { ...data, hashedPassword, friends: [], eventOfUser: [] };
+
+    return await DataSource.getRepository(User).save(user);
   }
 
   @Mutation(() => User)
@@ -58,5 +69,37 @@ export class UserResolver {
     await DataSource.manager.save(userUpdated);
 
     return userUpdated;
+  }
+
+  @Mutation(() => String)
+  async login(
+    @Arg("data") { nickName, password }: UserInput,
+    @Ctx() ctx: ContextType
+  ): Promise<string> {
+    const user = await DataSource.getRepository(User).findOne({
+      where: { nickName },
+    });
+
+    if (
+      user === null ||
+      typeof user.hashedPassword !== "string" ||
+      !(await verifyPassword(password, user.hashedPassword))
+    )
+      throw new ApolloError("invalid credentials");
+
+    const token = jwt.sign({ userId: user.id }, env.JWT_PRIVATE_KEY);
+
+    ctx.res.cookie("token", token, {
+      secure: env.NODE_ENV === "production",
+      httpOnly: true,
+    });
+
+    return token;
+  }
+
+  @Authorized()
+  @Query(() => User)
+  async profile(@Ctx() ctx: ContextType): Promise<User> {
+    return getSafeAttributes(ctx.currentUser as User);
   }
 }

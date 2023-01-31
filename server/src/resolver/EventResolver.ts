@@ -1,6 +1,6 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import Event, { EventInput } from "../entity/Event";
-import User, { UserInput } from "../entity/User";
+import User from "../entity/User";
 
 import DataSource from "../db";
 
