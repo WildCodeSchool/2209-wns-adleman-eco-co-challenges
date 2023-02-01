@@ -4,6 +4,7 @@ import {
   useCreateUserMutation,
   useGetProfileQuery,
   useLoginMutation,
+  useLogoutMutation,
 } from "../../gql/generated/schema";
 
 import toast from "react-hot-toast";
@@ -21,6 +22,7 @@ const AuthForm = () => {
     password: "",
   });
   const [login] = useLoginMutation();
+  const [logout] = useLogoutMutation();
 
   const signUpButton = document.getElementById("signUp");
   const signInButton = document.getElementById("signIn");
@@ -29,8 +31,11 @@ const AuthForm = () => {
   const { data: currentUser, client } = useGetProfileQuery({
     errorPolicy: "ignore",
   });
-  console.log("🚀 ~ file: AuthForm.tsx:32 ~ AuthForm ~ currentUser", currentUser)
-  
+  console.log(
+    "🚀 ~ file: AuthForm.tsx:32 ~ AuthForm ~ currentUser",
+    currentUser
+  );
+
   signUpButton?.addEventListener("click", () => {
     container?.classList.add("right-panel-active");
   });
@@ -103,7 +108,8 @@ const AuthForm = () => {
 
               <button
                 onClick={async () => {
-                  navigate("/users");
+                  await logout();
+                  await client.resetStore();
                 }}
                 className="mt-4"
               >
