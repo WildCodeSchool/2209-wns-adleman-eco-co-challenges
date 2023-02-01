@@ -1,5 +1,5 @@
 import Users from "../components/Users/users";
 
-export default function Authentification() {
-  return <Users />;
+export default function UserDashboard() {
+  return( <Users />);
 }

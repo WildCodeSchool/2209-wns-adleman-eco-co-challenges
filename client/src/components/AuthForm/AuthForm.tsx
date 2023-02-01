@@ -22,7 +22,7 @@ const AuthForm = () => {
   // });
 
   return (
-    <p>VOICI LE FRONT</p>
+    <p>Ici la page de connexion</p>
   //   <>
   //   <div className="container" id="container">
   //   <div className="form-container sign-up-container">

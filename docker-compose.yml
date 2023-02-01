@@ -21,6 +21,9 @@ services:
       - 4000:4000
     volumes:
       - ./server/src:/app/src
+    
+    restart: always
+    
   client:
      build: './client'
      ports:

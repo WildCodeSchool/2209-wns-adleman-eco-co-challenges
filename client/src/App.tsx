@@ -1,28 +1,25 @@
 import "./App.css";
-
-import { Link, Route, Routes } from "react-router-dom";
-
-import Authentification from "./pages/authentification";
+import Header from "./components/Header/Header";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Authentification from "./pages/Authentification";
 import Users from "./pages/Users";
+import Dashboard from "./pages/Dashboard";
+
 
 function App() {
   return (
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/users">Connection with back</Link>
-            </li>
-          </ul>
-        </nav>
-        <Routes>
-          <Route path="/" element={<Authentification />} />
-          <Route path="/users" element={<Users />} />
-        </Routes>
-        </div>
+    <>
+    <Header />
+    <main className="container pb-8 bg-cream">
+      <Routes>
+        <Route path="/" element={<Home/>} />
+        <Route path="/login" element={<Authentification />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/home" element={<Dashboard />} />
+      </Routes>
+    </main>
+    </>
   );
 }
 
