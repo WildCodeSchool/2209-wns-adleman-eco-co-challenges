@@ -29,7 +29,7 @@ export class UserResolver {
       where: { nickName: data.nickName },
     });
 
-    if (exisitingUser !== null) throw new ApolloError("EMAIL_ALREADY_EXISTS");
+    if (exisitingUser !== null) throw new ApolloError("USER_ALREADY_EXISTS");
 
     const hashedPassword: string = await hashPassword(data.password);
     const user = { ...data, hashedPassword, friends: [], eventOfUser: [] };
@@ -88,7 +88,7 @@ export class UserResolver {
       throw new ApolloError("invalid credentials");
 
     const token = jwt.sign({ userId: user.id }, env.JWT_PRIVATE_KEY);
-
+    
     ctx.res.cookie("token", token, {
       secure: env.NODE_ENV === "production",
       httpOnly: true,
