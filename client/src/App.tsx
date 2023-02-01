@@ -9,17 +9,17 @@ import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
-    <>
-    <Header />
-    <main className="container pb-8 bg-cream">
-      <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route path="/login" element={<Authentification />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/home" element={<Dashboard />} />
-      </Routes>
-    </main>
-    </>
+    <div className="container">
+      <Header />
+        <main>
+          <Routes>
+            <Route path="/" element={<Home/>} />
+            <Route path="/login" element={<Authentification />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/home" element={<Dashboard />} />
+          </Routes>
+        </main>
+    </div>
   );
 }
 
