@@ -25,6 +25,7 @@
     "argon2": "^0.30.3",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
+    "cookie-parser": "^1.4.6",
     "graphql": "^15.8.0",
     "jsonwebtoken": "^9.0.0",
     "pg": "^8.8.0",
@@ -35,6 +36,7 @@
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.16.5",
+    "@types/cookie-parser": "^1.4.3",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "eslint": "^8.23.0",
     "eslint-config-prettier": "^8.5.0",

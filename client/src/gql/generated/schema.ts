@@ -1,7 +1,5 @@
-import * as Apollo from '@apollo/client';
-
 import { gql } from '@apollo/client';
-
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -18,13 +16,6 @@ export type Scalars = {
   DateTime: any;
 };
 
-export type Query = {
-  __typename?: 'Query';
-  events: Array<Event>;
-  profile: User;
-  users: Array<User>;
-};
-
 export type Event = {
   __typename?: 'Event';
   endDate?: Maybe<Scalars['DateTime']>;
@@ -35,16 +26,12 @@ export type Event = {
   startDate?: Maybe<Scalars['DateTime']>;
 };
 
-export type User = {
-  __typename?: 'User';
-  eventOfUser: Array<Event>;
-  friends: Array<User>;
-  hashedPassword: Scalars['String'];
-  id: Scalars['Float'];
-  image?: Maybe<Scalars['String']>;
-  nickName: Scalars['String'];
-  role?: Maybe<Scalars['String']>;
-  xp?: Maybe<Scalars['Float']>;
+export type EventInput = {
+  endDate?: InputMaybe<Scalars['DateTime']>;
+  image?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  participantsId?: InputMaybe<Array<Scalars['Float']>>;
+  startDate?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type Mutation = {
@@ -83,12 +70,23 @@ export type MutationUpdateUserArgs = {
   userId: Scalars['Float'];
 };
 
-export type EventInput = {
-  endDate?: InputMaybe<Scalars['DateTime']>;
-  image?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
-  participantsId?: InputMaybe<Array<Scalars['Float']>>;
-  startDate?: InputMaybe<Scalars['DateTime']>;
+export type Query = {
+  __typename?: 'Query';
+  events: Array<Event>;
+  profile: User;
+  users: Array<User>;
+};
+
+export type User = {
+  __typename?: 'User';
+  eventOfUser: Array<Event>;
+  friends: Array<User>;
+  hashedPassword: Scalars['String'];
+  id: Scalars['Float'];
+  image?: Maybe<Scalars['String']>;
+  nickName: Scalars['String'];
+  role?: Maybe<Scalars['String']>;
+  xp?: Maybe<Scalars['Float']>;
 };
 
 export type UserInput = {

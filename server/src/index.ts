@@ -12,7 +12,7 @@ import { env } from "./environment";
 import express from "express";
 import http from "http";
 import jwt from "jsonwebtoken";
-
+import cookieParser from "cookie-parser";
 export interface ContextType {
   req: express.Request;
   res: express.Response;
@@ -39,26 +39,25 @@ const start = async (): Promise<void> => {
       },
     })
   );
-
+  app.use(cookieParser());
   
   const schema = await buildSchema({
     resolvers: [UserResolver, EventResolver],
     authChecker: async ({ context }: { context: ContextType }, roles) => {
       const tokenInHeaders = context.req.headers.authorization?.split(" ")[1];
       const tokenInCookie = context.req.cookies?.token;
-      const token = (tokenInHeaders != null) || tokenInCookie;
-
+      const token = (tokenInHeaders) ?? tokenInCookie;
       try {
         let decoded;
-        if (token === true) decoded = jwt.verify(token, env.JWT_PRIVATE_KEY);
+        if (typeof token === "string") decoded = jwt.verify(token, env.JWT_PRIVATE_KEY);
         if (typeof decoded === "object") context.jwtPayload = decoded;
       } catch (err) {}
 
       let user;
       if (context.jwtPayload != null)
         user = await datasource
-          .getRepository(User)
-          .findOne({ where: { id: context.jwtPayload.userId } });
+        .getRepository(User)
+        .findOne({ where: { id: context.jwtPayload.userId } });
 
       if (user !== null) context.currentUser = user;
 
@@ -72,7 +71,12 @@ const start = async (): Promise<void> => {
     csrfPrevention: true,
     cache: "bounded",
     plugins: [ApolloServerPluginLandingPageLocalDefault({ embed: true })],
+
+    context: ({ req, res }) => {
+      return { req, res };
+    },
   });
+
 
   await server.start();
   server.applyMiddleware({ app, cors: false, path: "/" });

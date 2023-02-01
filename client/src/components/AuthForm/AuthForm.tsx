@@ -29,7 +29,8 @@ const AuthForm = () => {
   const { data: currentUser, client } = useGetProfileQuery({
     errorPolicy: "ignore",
   });
-
+  console.log("🚀 ~ file: AuthForm.tsx:32 ~ AuthForm ~ currentUser", currentUser)
+  
   signUpButton?.addEventListener("click", () => {
     container?.classList.add("right-panel-active");
   });
@@ -40,6 +41,8 @@ const AuthForm = () => {
 
   return (
     <>
+      {/* VOICI LE FORMULAIRE DE CREATION USER */}
+
       <div className="container" id="container">
         <div className="form-container sign-up-container">
           <form
@@ -90,50 +93,56 @@ const AuthForm = () => {
           </form>
         </div>
         <div className="form-container sign-in-container">
-        {currentUser ? (
-        <div className="mb-8">
-          <div data-testid="logged-in-message">
-            Logged in as {currentUser.profile.nickName}
-          </div>
+          {/* VOICI LE FORMULAIRE DE CONNEXION AVEC TERNAIRE VERIFICATION USER CONNECTE OU PAS */}
 
-          <button
-            onClick={async () => {
-              navigate("/users");
-            }}
-            className="mt-4"
-          >
-            Log out
-          </button>
-        </div>
-      ) : (
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              login({ variables: { data: credentials } })
-                .then(client.resetStore)
-                .catch(() => toast.error("Invalid credentials"));
-            }}
-          >
-            <h1>Sign in</h1>
-            <span>or use your account</span>
-            <input
-              type="text"
-              value={credentials.nickName}
-              onChange={(e) =>
-                setCredentials({ ...credentials, nickName: e.target.value })
-              }
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              value={credentials.password}
-              onChange={(e) =>
-                setCredentials({ ...credentials, password: e.target.value })
-              }
-            />
-            <button type="submit">Sign In</button>
-          </form>
-      )}
+          {currentUser ? (
+            <div className="mb-8">
+              <div data-testid="logged-in-message">
+                Logged in as {currentUser.profile.nickName}
+              </div>
+
+              <button
+                onClick={async () => {
+                  navigate("/users");
+                }}
+                className="mt-4"
+              >
+                Log out
+              </button>
+            </div>
+          ) : (
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                console.log("J'ai cliqué");
+                login({ variables: { data: credentials } })
+                  .then(client.resetStore)
+                  .then(() => navigate("/users"))
+                  .catch(() => toast.error("Invalid credentials"));
+              }}
+            >
+              <h1>Sign in</h1>
+              <span>or use your account</span>
+              <input
+                type="text"
+                value={credentials.nickName}
+                onChange={(e) =>
+                  setCredentials({ ...credentials, nickName: e.target.value })
+                }
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                value={credentials.password}
+                onChange={(e) =>
+                  setCredentials({ ...credentials, password: e.target.value })
+                }
+              />
+              <button type="submit">Sign In</button>
+            </form>
+          )}
+
+          {/* VOICI LE SWITCH DE PAGE ENTRE CONNEXION ET CREATION */}
         </div>
         <div className="overlay-container">
           <div className="overlay">
