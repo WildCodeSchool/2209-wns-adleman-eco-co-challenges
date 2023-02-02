@@ -21,9 +21,8 @@ services:
       - 4000:4000
     volumes:
       - ./server/src:/app/src
-    
-    restart: always
-    
+    environment:
+      CHOKIDAR_USEPOLLING: 'true'
   client:
      build: './client'
      ports:

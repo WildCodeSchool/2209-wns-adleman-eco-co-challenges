@@ -1,11 +1,13 @@
 import {
   Column,
   Entity,
+  JoinTable,
   ManyToMany,
   PrimaryGeneratedColumn,
-  JoinTable,
 } from "typeorm";
 import { Field, InputType, ObjectType } from "type-graphql";
+import { Matches, MinLength } from "class-validator";
+import { argon2id, hash, verify } from "argon2";
 
 import Event from "./Event";
 
@@ -23,15 +25,15 @@ export class EventOfUser {
 class User {
   @Field()
   @PrimaryGeneratedColumn()
-  id: number;
+  id?: number;
 
   @Field()
   @Column({ length: 100, type: "varchar", unique: true })
-  nickName: string;
+  nickName?: string;
 
   @Field()
   @Column({ length: 100, type: "varchar" })
-  password: string;
+  hashedPassword?: string;
 
   @Field({ nullable: true })
   @Column({ nullable: true, length: 100, type: "varchar" })
@@ -56,12 +58,36 @@ class User {
   eventOfUser?: Event[];
 }
 
+const hashingOptions = {
+  memoryCost: 2 ** 16,
+  timeCost: 5,
+  type: argon2id,
+};
+
+export const hashPassword = async (plainPassword: string): Promise<string> =>
+  hash(plainPassword, hashingOptions);
+
+export const verifyPassword = async (
+  plainPassword: string,
+  hashedPassword: string
+): Promise<boolean> =>
+  verify(hashedPassword, plainPassword, hashingOptions);
+
+export const getSafeAttributes = (user: User): User => ({
+  ...user,
+  hashedPassword: undefined,
+});
+
+
+
 @InputType()
 export class UserInput {
   @Field()
   nickName: string;
 
   @Field()
+  @MinLength(8)
+  @Matches(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)
   password: string;
 
   @Field({ nullable: true })
