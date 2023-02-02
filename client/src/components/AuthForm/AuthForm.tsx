@@ -63,7 +63,7 @@ const AuthForm = () => {
                   await login({ variables: { data: userInfos } });
                   await client.resetStore();
                 })
-                .catch((err) => {
+                .catch((err: { message: string }) => {
                   if (err.message === "EMAIL_ALREADY_EXISTS")
                     toast.error("This email is already taken");
                 });
