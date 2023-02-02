@@ -1,3 +1,5 @@
+
+
 * {
 	box-sizing: border-box;
 }
@@ -11,6 +13,8 @@ body {
 	font-family: 'Montserrat', sans-serif;
 	height: 100vh;
 	margin: -20px 0 50px;
+	background-image: url("../../../public/assets/BG_banana.png");
+	background-size: cover;
 }
 
 h1 {
@@ -43,8 +47,8 @@ a {
 
 button {
 	border-radius: 20px;
-	border: 1px solid #FF4B2B;
-	background-color: #FF4B2B;
+	border: 1px solid #F9C846;
+	background-color: #F9C846;
 	color: #FFFFFF;
 	font-size: 12px;
 	font-weight: bold;
@@ -96,6 +100,7 @@ input {
 	width: 768px;
 	max-width: 100%;
 	min-height: 480px;
+	margin-bottom: 20px;
 }
 
 .form-container {
@@ -103,6 +108,10 @@ input {
 	top: 0;
 	height: 100%;
 	transition: all 0.6s ease-in-out;
+}
+.password-error {
+	color: red;
+	font-size: 8px;
 }
 
 .sign-in-container {
@@ -157,9 +166,9 @@ input {
 }
 
 .overlay {
-	background: #FF416C;
-	background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-	background: linear-gradient(to right, #FF4B2B, #FF416C);
+	background: #FCDC12;
+	background: -webkit-linear-gradient(to right, #FCDC12, #FCDC12);
+	background: linear-gradient(to right, #FCDC12, #FCDC12);
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0 0;
