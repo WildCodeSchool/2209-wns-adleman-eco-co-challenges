@@ -10,10 +10,6 @@ export default function Header() {
     setShowLinks(!showLinks);
   };
 
-  <div>
-
-  </div>;
-
   return (
     <header>
       <nav
