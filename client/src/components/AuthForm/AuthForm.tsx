@@ -45,7 +45,7 @@ const AuthForm = () => {
   });
 
   return (
-    <>
+    <div className="auth-body">
       {/* VOICI LE FORMULAIRE DE CREATION USER */}
 
       <div className="container" id="container">
@@ -89,7 +89,7 @@ const AuthForm = () => {
               }}
             />
             {passwordError && (
-              <div className="text-red-500 mb-4">
+              <div className="password-error">
                 The password must contain at least 8 caracters and include an
                 uppercase letter and a number
               </div>
@@ -171,7 +171,7 @@ const AuthForm = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -1,14 +1,16 @@
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
+
+import { Route, Routes } from "react-router-dom";
+
 import Authentification from "./pages/Authentification";
 import Users from "./pages/Users";
 import Dashboard from "./pages/Dashboard";
+import Home from "./pages/Home";
 
 
 function App() {
   return (
-    <div className="container">
+    <div>
         <main>
           <Routes>
             <Route path="/" element={<Home/>} />
