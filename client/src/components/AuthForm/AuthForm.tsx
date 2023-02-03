@@ -32,10 +32,6 @@ const AuthForm = () => {
   const { data: currentUser, client } = useGetProfileQuery({
     errorPolicy: "ignore",
   });
-  console.log(
-    "🚀 ~ file: AuthForm.tsx:32 ~ AuthForm ~ currentUser",
-    currentUser
-  );
 
   signUpButton?.addEventListener("click", () => {
     container?.classList.add("right-panel-active");
@@ -49,7 +45,7 @@ const AuthForm = () => {
     <div className="AuthForm">
       <div className="body">
         <div className="logoForm">
-        <Logo />
+          <Logo />
         </div>
         {/* VOICI LE FORMULAIRE DE CREATION USER */}
 
@@ -127,7 +123,6 @@ const AuthForm = () => {
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
-                  console.log("J'ai cliqué");
                   login({ variables: { data: credentials } })
                     .then(client.resetStore)
                     .then(() => navigate(`/home/${credentials.nickName}`))
