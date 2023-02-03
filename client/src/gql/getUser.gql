@@ -1,0 +1,19 @@
+query GetUsers {
+  users {
+    xp
+    role
+    nickName
+    image
+    id
+    friends {
+      nickName
+      image
+    }
+    eventOfUser {
+      image
+      name
+      startDate
+      endDate
+    }
+  }
+}

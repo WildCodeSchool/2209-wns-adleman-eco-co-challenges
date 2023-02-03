@@ -11,35 +11,37 @@ export default function Header() {
   };
 
   return (
-    <header>
-      <nav
-        className={`navbar
+    <>
+      <header>
+        <nav
+          className={`navbar
          ${showLinks ? "show-nav" : "hide-nav"}`}
-      >
-        <div className="navbar__logo">
-          <Link to="/">
-            <img src={logo} alt="Eco-co Challenge" />
-          </Link>
-        </div>
+        >
+          <div className="navbar__logo">
+            <Link to="/">
+              <img src={logo} alt="Eco-co Challenge" />
+            </Link>
+          </div>
 
-        <ul className="navbar__links">
-          <li className="navbar__item slideInDown-1">
-            <Link to="/home">Home</Link>
-          </li>
+          <ul className="navbar__links">
+            <li className="navbar__item slideInDown-1">
+              <Link to="/home/:nickName">Home</Link>
+            </li>
 
-          <li className="navbar__item slideInDown-2">
-            <Link to="/users">Mes Amis</Link>
-          </li>
+            <li className="navbar__item slideInDown-2">
+              <Link to="/users">Mes Amis</Link>
+            </li>
 
-          <li className="navbar__item slideInDown-3">
-            <Link to="/">Logout</Link>
-          </li>
-        </ul>
+            <li className="navbar__item slideInDown-3">
+              <Link to="/">Logout</Link>
+            </li>
+          </ul>
 
-        <button className="navbar__burger" onClick={handleShowLinks}>
-          <span className="burger-bar"></span>
-        </button>
-      </nav>
-    </header>
+          <button className="navbar__burger" onClick={handleShowLinks}>
+            <span className="burger-bar"></span>
+          </button>
+        </nav>
+      </header>
+    </>
   );
 }

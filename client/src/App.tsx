@@ -12,14 +12,14 @@ import Landing from "./pages/Landing";
 function App() {
   return (
     <div>
-      <main>
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<Authentification />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/home" element={<Dashboard />} />
-        </Routes>
-      </main>
+        <main>
+          <Routes>
+            <Route path="/" element={<Landing/>} />
+            <Route path="/login" element={<Authentification />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/home/:nickName" element={<Dashboard />} />
+          </Routes>
+        </main>
     </div>
   );
 }
