@@ -5,7 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import Authentification from "./pages/Authentification";
 import Users from "./pages/Users";
 import Dashboard from "./pages/Dashboard";
-import Home from "./pages/Home";
+import Landing from "./pages/Landing";
 
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
     <div>
         <main>
           <Routes>
-            <Route path="/" element={<Home/>} />
+            <Route path="/" element={<Landing/>} />
             <Route path="/login" element={<Authentification />} />
             <Route path="/users" element={<Users />} />
             <Route path="/home" element={<Dashboard />} />

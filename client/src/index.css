@@ -1,1 +1,22 @@
+.landing{
+	background-image: url("assets/background-header.png");
+	height: 80vh;
+	align-items: center;
+}
 
+.landing h4{
+
+	margin: 0 auto;
+}
+.landing button {
+	border-radius: 20px;
+	border: 1px solid #fcdc12;
+	background-color: #fcdc12;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+}
