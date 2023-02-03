@@ -6,6 +6,7 @@ import "./CustomBootstrap.scss";
 
 import Authentification from "./pages/Authentification";
 import Users from "./pages/Users";
+import User from "./pages/User";
 import Dashboard from "./pages/Dashboard";
 import Landing from "./pages/Landing";
 
@@ -16,7 +17,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Authentification />} />
-          <Route path="/users" element={<Users />} />
+          <Route path="/friend" element={<Users />} />
+          <Route path="/friend/:id" element={<User />} />
           <Route path="/home" element={<Dashboard />} />
         </Routes>
       </main>
