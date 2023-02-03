@@ -2,17 +2,16 @@
   box-sizing: border-box;
 }
 
+.AuthForm{
+  background-image: url("../../../public/assets/BG_banana.png");
+  background-size: cover;
+}
 .AuthForm .body {
-  background: #f6f5f7;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   font-family: "Montserrat", sans-serif;
-  height: 100vh;
-  margin: -20px 0 50px;
-  background-image: url("../../../public/assets/BG_banana.png");
-  background-size: cover;
 }
 
 .AuthForm h1 {
@@ -80,6 +79,13 @@
   text-align: center;
 }
 
+.logoutButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .AuthForm input {
   background-color: #eee;
   border: none;
@@ -98,6 +104,9 @@
   max-width: 100%;
   min-height: 480px;
   margin-bottom: 20px;
+}
+.logoForm {
+  margin: 0 auto;
 }
 
 .AuthForm .form-container {

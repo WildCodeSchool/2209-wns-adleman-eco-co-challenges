@@ -48,7 +48,9 @@ const AuthForm = () => {
   return (
     <div className="AuthForm">
       <div className="body">
+        <div className="logoForm">
         <Logo />
+        </div>
         {/* VOICI LE FORMULAIRE DE CREATION USER */}
 
         <div className="container" id="container">
@@ -106,7 +108,7 @@ const AuthForm = () => {
             {/* VOICI LE FORMULAIRE DE CONNEXION AVEC TERNAIRE VERIFICATION USER CONNECTE OU PAS */}
 
             {currentUser ? (
-              <div className="mb-8">
+              <div className="logoutButton">
                 <div data-testid="logged-in-message">
                   Logged in as {currentUser.profile.nickName}
                 </div>
@@ -128,7 +130,7 @@ const AuthForm = () => {
                   console.log("J'ai cliqué");
                   login({ variables: { data: credentials } })
                     .then(client.resetStore)
-                    .then(() => navigate("/users"))
+                    .then(() => navigate(`/home/${credentials.nickName}`))
                     .catch(() => toast.error("Invalid credentials"));
                 }}
               >
