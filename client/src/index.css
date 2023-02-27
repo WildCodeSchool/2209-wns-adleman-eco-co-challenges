@@ -1,14 +1,35 @@
 .landing{
-	background-image: url("assets/background-header.png");
-	height: 80vh;
-	align-items: center;
+	background-image: url("assets/landing-bg.png");
+	background-size: cover;
+	display: flex;
 }
+.landing__logo{
+	width: 300px;
+}
+.landing__logo::after{
+	content:'';
+	position: absolute;
+	width: 100%;
+	height: 1rem;
+	background-color: #545863;
+}
+.landing__container{
+	text-align: center;
+	width: 500px;
+	margin: 0 auto;
 
-.landing h4{
-
+}
+.landing__title{
 	margin: 0 auto;
 }
-.landing button {
+
+.landing__text{
+	font-family: 'Caveat', cursive;
+	font-size: large;
+	color:#545863;
+}
+
+.landing__button {
 	border-radius: 20px;
 	border: 1px solid #fcdc12;
 	background-color: #fcdc12;
