@@ -70,15 +70,12 @@ export const hashPassword = async (plainPassword: string): Promise<string> =>
 export const verifyPassword = async (
   plainPassword: string,
   hashedPassword: string
-): Promise<boolean> =>
-  verify(hashedPassword, plainPassword, hashingOptions);
+): Promise<boolean> => verify(hashedPassword, plainPassword, hashingOptions);
 
 export const getSafeAttributes = (user: User): User => ({
   ...user,
   hashedPassword: undefined,
 });
-
-
 
 @InputType()
 export class UserInput {
@@ -104,6 +101,12 @@ export class UserInput {
 
   @Field(() => [Number], { nullable: true })
   eventOfUser?: number[];
+}
+
+@InputType()
+export class UserUpdateInput {
+  @Field(() => [Number], { nullable: true })
+  friendsId?: number[];
 }
 
 export default User;

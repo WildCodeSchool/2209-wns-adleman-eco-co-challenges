@@ -3,6 +3,7 @@ import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from "type-graphql";
 import User, {
   getSafeAttributes,
   UserInput,
+  UserUpdateInput,
   verifyPassword,
   hashPassword,
 } from "../entity/User";
@@ -39,7 +40,7 @@ export class UserResolver {
 
   @Mutation(() => User)
   async updateUser(
-    @Arg("data") data: UserInput,
+    @Arg("data") data: UserUpdateInput,
     @Arg("userId") userId: number
   ): Promise<User> {
     const { friendsId } = data;
@@ -88,7 +89,7 @@ export class UserResolver {
       throw new ApolloError("invalid credentials");
 
     const token = jwt.sign({ userId: user.id }, env.JWT_PRIVATE_KEY);
-    
+
     ctx.res.cookie("token", token, {
       secure: env.NODE_ENV === "production",
       httpOnly: true,
