@@ -1,9 +1,9 @@
-import Users from "../components/Users/Users";
+import User from "../components/User/User";
 
 export default function UserDashboard() {
   return (
     <>
-      <Users />
+      <User />
     </>
   );
 }
