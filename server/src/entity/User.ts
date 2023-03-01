@@ -32,6 +32,10 @@ class User {
   nickName?: string;
 
   @Field()
+  @Column({type: "varchar"})
+  description?: string;
+
+  @Field()
   @Column({ length: 100, type: "varchar" })
   hashedPassword?: string;
 
@@ -104,6 +108,9 @@ export class UserInput {
 
   @Field(() => [Number], { nullable: true })
   eventOfUser?: number[];
+
+  @Field({ nullable: true })
+  description?: string;
 }
 
 export default User;

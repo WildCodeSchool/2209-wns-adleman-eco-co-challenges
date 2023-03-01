@@ -1,5 +1,6 @@
-import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
+
+import { gql } from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -80,6 +81,7 @@ export type Query = {
 
 export type User = {
   __typename?: 'User';
+  description: Scalars['String'];
   eventOfUser: Array<Event>;
   friends: Array<User>;
   hashedPassword: Scalars['String'];
@@ -91,6 +93,7 @@ export type User = {
 };
 
 export type UserInput = {
+  description?: Scalars['String'];
   eventOfUser?: InputMaybe<Array<Scalars['Float']>>;
   friendsId?: InputMaybe<Array<Scalars['Float']>>;
   image?: InputMaybe<Scalars['String']>;
