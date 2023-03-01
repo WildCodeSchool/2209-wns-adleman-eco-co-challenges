@@ -29,13 +29,15 @@ export class UserResolver {
     return getSafeAttributes(ctx.currentUser as User);
   }
 
-  @Query(() => [User])
-  async friends(): Promise<User[]> {
-    const users = await DataSource.getRepository(User).find({
-      relations: { friends: true, eventOfUser: true },
-    });
-    return users;
-  }
+  // @Query(() => [User])
+  // async getFriends(@Arg("userId") userId: number): Promise<User[]> {
+  //   const user = await DataSource.getRepository(User).findOneOrFail({
+  //     where: { id: userId },
+  //     relations: { friends: true, eventOfUser: true },
+  //   });
+
+  //   return user?.friends ?? null;
+  // }
 
   @Mutation(() => User)
   async createUser(@Arg("data") data: UserInput): Promise<User> {

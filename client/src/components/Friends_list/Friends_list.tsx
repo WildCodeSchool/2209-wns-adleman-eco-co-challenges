@@ -13,7 +13,7 @@ const Friends_list = () => {
     errorPolicy: "ignore",
   });
 
-  console.log(currentUser);
+  console.log("curent user", currentUser);
 
   return (
     <div>
@@ -46,7 +46,7 @@ const Friends_list = () => {
         <button
           type="button"
           className="btn btn-custom-yellow btn-lg px-4 gap-3 text-center"
-          onClick={(e) => navigate("/friend/add")}
+          onClick={(e) => navigate("/friends/add")}
         >
           Ajouter des amis
         </button>

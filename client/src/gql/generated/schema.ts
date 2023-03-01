@@ -67,7 +67,7 @@ export type MutationUpdateEventArgs = {
 
 
 export type MutationUpdateUserArgs = {
-  data: UserInput;
+  data: UserUpdateInput;
   userId: Scalars['Float'];
 };
 
@@ -100,6 +100,10 @@ export type UserInput = {
   xp?: InputMaybe<Scalars['Float']>;
 };
 
+export type UserUpdateInput = {
+  friendsId?: InputMaybe<Array<Scalars['Float']>>;
+};
+
 export type CreateUserMutationVariables = Exact<{
   data: UserInput;
 }>;
@@ -110,7 +114,7 @@ export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __type
 export type GetProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetProfileQuery = { __typename?: 'Query', profile: { __typename?: 'User', id: number, nickName: string } };
+export type GetProfileQuery = { __typename?: 'Query', profile: { __typename?: 'User', id: number, nickName: string, friends: Array<{ __typename?: 'User', id: number }> } };
 
 export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -168,6 +172,9 @@ export const GetProfileDocument = gql`
   profile {
     id
     nickName
+    friends {
+      id
+    }
   }
 }
     `;

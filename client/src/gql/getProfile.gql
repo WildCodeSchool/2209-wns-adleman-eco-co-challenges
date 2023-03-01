@@ -2,5 +2,8 @@ query GetProfile {
   profile {
     id
     nickName
+    friends {
+      id
+    }
   }
 }

@@ -1,9 +1,7 @@
 import "./App.css";
-
-import { Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CustomBootstrap.scss";
-
+import { Route, Routes } from "react-router-dom";
 import Authentification from "./pages/Authentification";
 import Friends from "./pages/Friends_list";
 import User from "./pages/User";
@@ -18,9 +16,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Authentification />} />
-          <Route path="/friend" element={<Friends />} />
+          <Route path="/friends" element={<Friends />} />
           <Route path="/friend/:id" element={<User />} />
-          <Route path="/friend/add" element={<Friends_add />} />
+          <Route path="/friends/add" element={<Friends_add />} />
           <Route path="/home/:nickName" element={<Dashboard />} />
         </Routes>
       </main>
