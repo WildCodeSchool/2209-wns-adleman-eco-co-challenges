@@ -20,7 +20,20 @@ export class UserResolver {
     const users = await DataSource.getRepository(User).find({
       relations: { friends: true, eventOfUser: true },
     });
+    return users;
+  }
 
+  @Authorized()
+  @Query(() => User)
+  async profile(@Ctx() ctx: ContextType): Promise<User> {
+    return getSafeAttributes(ctx.currentUser as User);
+  }
+
+  @Query(() => [User])
+  async friends(): Promise<User[]> {
+    const users = await DataSource.getRepository(User).find({
+      relations: { friends: true, eventOfUser: true },
+    });
     return users;
   }
 
@@ -102,11 +115,5 @@ export class UserResolver {
   async logout(@Ctx() ctx: ContextType): Promise<string> {
     ctx.res.clearCookie("token");
     return "Déconnection réussie";
-  }
-
-  @Authorized()
-  @Query(() => User)
-  async profile(@Ctx() ctx: ContextType): Promise<User> {
-    return getSafeAttributes(ctx.currentUser as User);
   }
 }

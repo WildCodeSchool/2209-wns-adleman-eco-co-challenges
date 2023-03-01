@@ -1,6 +1,20 @@
 import UserList from "../UserList/UserList";
+import { useNavigate } from "react-router-dom";
+import {
+  useCreateUserMutation,
+  useGetProfileQuery,
+  useLoginMutation,
+  useLogoutMutation,
+} from "../../gql/generated/schema";
 
-const Users = () => {
+const Friends_list = () => {
+  const navigate = useNavigate();
+  const { data: currentUser } = useGetProfileQuery({
+    errorPolicy: "ignore",
+  });
+
+  console.log(currentUser);
+
   return (
     <div>
       {/* Heroe first part */}
@@ -32,13 +46,14 @@ const Users = () => {
         <button
           type="button"
           className="btn btn-custom-yellow btn-lg px-4 gap-3 text-center"
+          onClick={(e) => navigate("/friend/add")}
         >
           Ajouter des amis
         </button>
       </div>
-      <UserList />
+      <UserList users={[]} />
     </div>
   );
 };
 
-export default Users;
+export default Friends_list;

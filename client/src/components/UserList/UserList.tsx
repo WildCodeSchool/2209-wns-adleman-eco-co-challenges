@@ -2,16 +2,6 @@ import { gql, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { User } from "../../gql/generated/schema";
 
-const GET_USERS = gql`
-  query Users {
-    users {
-      id
-      nickName
-      hashedPassword
-    }
-  }
-`;
-
 const randomUser = () => {
   const gender = ["male", "female"];
   const rand = Math.floor(Math.random() * gender.length);
@@ -24,8 +14,13 @@ const randomUser = () => {
   );
 };
 
-const UserList = () => {
+interface Props {
+  users: User[];
+}
+
+const UserList = (props: Props) => {
   const navigate = useNavigate();
+  const { users } = props;
 
   function redirectToUserPage(e: React.MouseEvent<HTMLElement>, user: User) {
     e.preventDefault();
@@ -33,13 +28,11 @@ const UserList = () => {
     navigate(path);
   }
 
-  const { data } = useQuery(GET_USERS);
-
   return (
     <div className="album py-5 bg-light">
       <div className="container col-xxl-8 px-4 py-5">
         <div className="row row-cols-1 row-cols-sm-3 row-cols-md-5 g-5">
-          {data?.users?.map((user: User) => (
+          {users?.map((user: User) => (
             <div
               onClick={(e) => redirectToUserPage(e, user)}
               className="col pe-auto"
@@ -58,6 +51,13 @@ const UserList = () => {
           ))}
         </div>
       </div>
+      <button
+        type="button"
+        className="btn btn-custom-yellow btn-lg px-4 gap-3 text-center"
+        onClick={() => console.log("coucou")}
+      >
+        osef
+      </button>
     </div>
   );
 };
