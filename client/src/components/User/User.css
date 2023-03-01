@@ -1,0 +1,56 @@
+* {
+  box-sizing: border-box;
+}
+
+
+
+.UserBody {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+    font-family: "Oswald", sans-serif;
+    background-image: url("../../assets/BG_crevette.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    font-size: 26px;
+  }
+
+  .profilPicture{
+  border-radius: 50%;
+  border: 2px solid black;
+  }
+
+
+  #containerLvl{
+    width: 10%;
+    top: calc(50vh - 8px - 0.5em);
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  #containerLvl span{
+    color: #000000;
+    font-family: sans-serif;
+    font-size: 1em;
+  }
+  #bar{
+    width: 150%;
+    height: 16px;
+    background: #FF0000;
+    border-radius:8px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+  }
+  #fill{
+    margin:0;
+    padding:0;
+    background: #A8FF52;
+    height: 100%;
+    width: 0;
+    position: absolute;
+    left:0;
+    transition: width 0.5s;
+  }
