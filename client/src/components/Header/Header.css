@@ -1,7 +1,7 @@
 
 .navbar{
+    color:#546863;
     display: flex;
-
     justify-content: space-between;
     position: fixed;
     width: 100%;
@@ -12,8 +12,8 @@
     color: #546863;
     font-family:'Caveat', cursive;
     font-size: 32px;
-    /* z-index: 5;   */
     top: 0;
+    border-bottom: solid 2px #546863;
 }
      
 ul {
@@ -22,31 +22,35 @@ ul {
     justify-content: flex-end;   
 }
 
-.logo{
+li {
+    text-decoration: none;
+    color: #546863;
+}
+
+.navbar__logo{
     max-height: 100%;
+    margin-top: -15px;
 }
        
 .navbar__links{
     display: flex;
 }
+
+.navbar__item{
+    margin: 14px;
+   }
       
 .navbar__item:hover{
     color: #27c7d4;
 }
     
 .navbar__burger{
-    
     width: 40px; 
     height: 40px;   
     background: transparent;   
     border:none;   
     color: inherit;    
-    }
-    
-.navbar__item{
-     margin: 14px;
-     text-decoration: none;
-    }
+}
     
 @media 
 screen and (max-width:767px){
