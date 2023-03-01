@@ -1,51 +1,70 @@
 import { Link } from "react-router-dom";
 import logo from "../assets/logo300-1.png";
-import bananaRight from "../assets/bananar.png";
-import bananaLeft from "../assets/bananal.png";
+import team from "../assets/landing-pic.png";
+import bananaRight from "../assets/bananas-l.png";
+import bananaLeft from "../assets/bananas-r.png";
+import Footer from "../components/Footer/Footer";
 
 export default function Landing() {
-  const citation = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
-  const citationAvecBananes = citation.replace(/"/g, bananaLeft);
-  // Utilisation de l'expression régulière /"/g pour remplacer toutes les guillemets
-  // par des bananes (🍌)
-
   return (
-    <div className="landing cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-      <div className="landing__logo">
-        <img src={logo} alt="Eco-co Challenge" />
-      </div>
-      <p className="landing__line"></p><hr
-   style={{
-   background: "#6F38C5",
-   height: "5px",
-   border: "none",
-   zIndex: 9,
-   }}
-/>
-
-      <div className="landing__container">
-        <h4 className="landing__title">Welcome sur les éco-co Challenges</h4>
-        <p>
-          <img src={bananaRight} alt="guillemets bananes" />
-          <p className="landing__text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
-            egestas commodo lorem varius rutrum. Duis accumsan sapien nisl, et
-            finibus nunc viverra et. Pellentesque commodo accumsan erat,
-            vehicula tempor arcu cursus et. Phasellus in molestie sapien, nec
-            aliquam dui. Ut pretium nulla imperdiet ligula vehicula posuere.
-            Morbi pharetra diam sit amet tempor eleifend. Curabitur interdum
-            risus a imperdiet tempus. Nam aliquam ante ex, efficitur bibendum
-            diam gravida eget. Ut sed iaculis urna. Aenean eu mi nec elit
-            vestibulum congue. Duis non lacus vitae nisi lobortis semper vel
-            mattis ligula.
+    <>
+      <div className="landing cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <div className="landing__logo">
+          <img src={logo} alt="Eco-co Challenge" />
+        </div>
+        <p className="landing__line"></p>
+        <div className="landing__container">
+          <p className="landing__paragraph">
+            <img src={bananaRight} alt="guillemets bananes" />
           </p>
-          <div>{citationAvecBananes}</div>
-        </p>
-        <img src={bananaLeft} alt="guillemets bananes" />
+          <p className="landing__text landing__paragraph">
+            Nulla facilisis magna quis porftitor tincidunt. Sed gravida, turpis
+            nec pharetra bibendum, massa dui placerat lectus, sed elementum
+            nulla arcu vel elit. Integer leo mauris.Vivamus eget malesuada felis. Nullam vel mi nec ex maximus
+            condimentum a at dui. Pellentesque commodo sollicitudin faucibus.
+            <p className="landing__paragraph">
+              <img src={bananaLeft} alt="guillemets bananes" />
+            </p>
+          </p>
+        </div>
+        <Link to="/login">
+          <button className="landing__button"> Let's go Coco !</button>
+        </Link>
+        <div className="landing__content container">
+          <div className="landing__content__article">
+           <h3 className="landing__content__title"> <u>Lorem ipsum</u> dolor sit amet !</h3>
+            <p className="landing__content__text">
+            Phasellus maximus volutpat lacus vel pharetra. Mauris ut mi et leo
+            commodo scelerisque. Nunc eget gravida leo, vel dignissim lectus.
+            Vivamus eget malesuada felis. Nullam vel mi nec ex maximus
+            condimentum a at dui. Pellentesque commodo sollicitudin faucibus.
+           </p>
+           <Link to="/login">
+              <button className="landing__content__button"> Let's go Coco !</button>
+            </Link>
+          </div>
+           <img src={team} alt="équipe Eco-co challenges" className="landing__content__image"/>
+        </div>
+
+        <div className="landing__content__right container">
+          <img src={team} alt="équipe Eco-co challenges" className="landing__content__image"/>
+
+          <div className="landing__content__article__right">
+           <h3 className="landing__content__title__right"> <u>Lorem ipsum</u> dolor sit amet !</h3>
+            <p className="landing__content__text__right">
+            Phasellus maximus volutpat lacus vel pharetra. Mauris ut mi et leo
+            commodo scelerisque. Nunc eget gravida leo, vel dignissim lectus.
+            Vivamus eget malesuada felis. Nullam vel mi nec ex maximus
+            condimentum a at dui. Pellentesque commodo sollicitudin faucibus.
+           </p>
+           <Link to="/login">
+              <button className="landing__content__button__right"> Let's go Coco !</button>
+            </Link>
+          </div>
+        </div>
       </div>
-      <Link to="/login">
-        <button className="landing__button"> Let's go Coco !</button>
-      </Link>
-    </div>
+
+      <Footer />
+    </>
   );
 }
