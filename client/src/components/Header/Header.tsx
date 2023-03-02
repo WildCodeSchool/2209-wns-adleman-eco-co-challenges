@@ -25,7 +25,7 @@ export default function Header() {
 
           <ul className="navbar__links">
             <li className="navbar__item slideInDown-1">
-              <Link to="/home/:nickName">Home</Link>
+              <Link to="/home/:id">Home</Link>
             </li>
 
             <li className="navbar__item slideInDown-2">

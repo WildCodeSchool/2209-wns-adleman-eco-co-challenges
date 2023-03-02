@@ -4,6 +4,7 @@ query GetUsers {
     role
     nickName
     image
+    description
     id
     friends {
       nickName

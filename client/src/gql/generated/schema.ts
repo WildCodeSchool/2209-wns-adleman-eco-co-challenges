@@ -1,6 +1,5 @@
-import * as Apollo from '@apollo/client';
-
 import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -93,7 +92,7 @@ export type User = {
 };
 
 export type UserInput = {
-  description?: Scalars['String'];
+  description?: InputMaybe<Scalars['String']>;
   eventOfUser?: InputMaybe<Array<Scalars['Float']>>;
   friendsId?: InputMaybe<Array<Scalars['Float']>>;
   image?: InputMaybe<Scalars['String']>;
@@ -118,7 +117,7 @@ export type GetProfileQuery = { __typename?: 'Query', profile: { __typename?: 'U
 export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetUsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', xp?: number | null, role?: string | null, nickName: string, image?: string | null, id: number, friends: Array<{ __typename?: 'User', nickName: string, image?: string | null }>, eventOfUser: Array<{ __typename?: 'Event', image?: string | null, name?: string | null, startDate?: any | null, endDate?: any | null }> }> };
+export type GetUsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', xp?: number | null, role?: string | null, nickName: string, image?: string | null, description: string, id: number, friends: Array<{ __typename?: 'User', nickName: string, image?: string | null }>, eventOfUser: Array<{ __typename?: 'Event', image?: string | null, name?: string | null, startDate?: any | null, endDate?: any | null }> }> };
 
 export type LoginMutationVariables = Exact<{
   data: UserInput;
@@ -208,6 +207,7 @@ export const GetUsersDocument = gql`
     role
     nickName
     image
+    description
     id
     friends {
       nickName
