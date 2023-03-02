@@ -1,17 +1,18 @@
 import UserList from "../UserList/UserList";
 import { useNavigate } from "react-router-dom";
-import {
-  useCreateUserMutation,
-  useGetProfileQuery,
-  useLoginMutation,
-  useLogoutMutation,
-} from "../../gql/generated/schema";
+import { useGetProfileQuery } from "../../gql/generated/schema";
+import { User } from "../../gql/generated/schema";
 
 const Friends_list = () => {
   const navigate = useNavigate();
   const { data: currentUser } = useGetProfileQuery({
     errorPolicy: "ignore",
   });
+
+  function redirectToUserPage(u: Partial<User>) {
+    const path = "/friend/" + u.id;
+    navigate(path);
+  }
 
   console.log("curent user", currentUser);
 
@@ -51,7 +52,11 @@ const Friends_list = () => {
           Ajouter des amis
         </button>
       </div>
-      <UserList users={[]} />
+      <UserList
+        users={currentUser?.profile.friends ?? []}
+        onUserClick={redirectToUserPage}
+        onUpdateUsersState={[]}
+      />
     </div>
   );
 };

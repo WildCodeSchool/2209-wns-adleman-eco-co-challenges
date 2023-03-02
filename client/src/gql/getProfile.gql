@@ -4,6 +4,9 @@ query GetProfile {
     nickName
     friends {
       id
+      nickName
     }
+    xp
+    description
   }
 }

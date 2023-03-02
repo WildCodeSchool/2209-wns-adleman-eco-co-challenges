@@ -1,7 +1,7 @@
-import { gql, useQuery } from "@apollo/client";
-import { useNavigate } from "react-router-dom";
 import { User } from "../../gql/generated/schema";
+import { useGetProfileQuery } from "../../gql/generated/schema";
 
+// Function to generate a random user url
 const randomUser = () => {
   const gender = ["male", "female"];
   const rand = Math.floor(Math.random() * gender.length);
@@ -13,28 +13,45 @@ const randomUser = () => {
     ".jpg"
   );
 };
-
+// type the props
 interface Props {
-  users: User[];
+  users: Array<Partial<User>>;
+  onUserClick: (...params: any) => any;
+  onUpdateUsersState: any;
 }
-
+// the function to render
 const UserList = (props: Props) => {
-  const navigate = useNavigate();
-  const { users } = props;
-
-  function redirectToUserPage(e: React.MouseEvent<HTMLElement>, user: User) {
-    e.preventDefault();
-    const path = "/friend/" + user.id;
-    navigate(path);
-  }
-
+  // get the props
+  const { users, onUserClick } = props;
+  // get current user
+  const { data: currentUser } = useGetProfileQuery({
+    errorPolicy: "ignore",
+  });
+  // function that handle user Click and use the parent function and delete the user we add from the state displayed
+  const handleUserClick = async (
+    userId: number | undefined,
+    currentUserId: number | undefined
+  ) => {
+    if (typeof userId !== "undefined" && typeof currentUser !== "undefined") {
+      const isSuccess = await onUserClick(userId, currentUserId);
+      if (isSuccess) {
+        const newUsers = users.filter((user) => user.id !== userId);
+        props.onUpdateUsersState([...newUsers]);
+      }
+    }
+  };
+  // The render
   return (
     <div className="album py-5 bg-light">
       <div className="container col-xxl-8 px-4 py-5">
         <div className="row row-cols-1 row-cols-sm-3 row-cols-md-5 g-5">
-          {users?.map((user: User) => (
+          {/* render the state to modify the display on click */}
+          {users?.map((user: Partial<User>) => (
             <div
-              onClick={(e) => redirectToUserPage(e, user)}
+              onClick={(e) => {
+                e.preventDefault();
+                handleUserClick(user.id, currentUser?.profile?.id);
+              }}
               className="col pe-auto"
               style={{ width: "200px" }}
               role="button"
@@ -51,13 +68,6 @@ const UserList = (props: Props) => {
           ))}
         </div>
       </div>
-      <button
-        type="button"
-        className="btn btn-custom-yellow btn-lg px-4 gap-3 text-center"
-        onClick={() => console.log("coucou")}
-      >
-        osef
-      </button>
     </div>
   );
 };

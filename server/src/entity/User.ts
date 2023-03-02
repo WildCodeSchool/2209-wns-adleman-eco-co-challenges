@@ -31,6 +31,10 @@ class User {
   @Column({ length: 100, type: "varchar", unique: true })
   nickName?: string;
 
+  @Field({ nullable: true })
+  @Column({ nullable: true, type: "varchar" })
+  description?: string;
+
   @Field()
   @Column({ length: 100, type: "varchar" })
   hashedPassword?: string;
@@ -50,7 +54,7 @@ class User {
   @Field(() => [User])
   @ManyToMany(() => User, (user) => user.friends)
   @JoinTable({ joinColumn: { name: "users_id_1" } })
-  friends?: User[];
+  friends: User[];
 
   @Field(() => [Event])
   @ManyToMany(() => Event, (event) => event.participants, { cascade: true })
@@ -101,12 +105,18 @@ export class UserInput {
 
   @Field(() => [Number], { nullable: true })
   eventOfUser?: number[];
+
+  @Field({ nullable: true })
+  description?: string;
 }
 
 @InputType()
 export class UserUpdateInput {
   @Field(() => [Number], { nullable: true })
   friendsId?: number[];
+
+  @Field({ nullable: true })
+  xp?: number;
 }
 
 export default User;

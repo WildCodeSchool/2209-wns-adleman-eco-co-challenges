@@ -80,6 +80,7 @@ export type Query = {
 
 export type User = {
   __typename?: 'User';
+  description?: Maybe<Scalars['String']>;
   eventOfUser: Array<Event>;
   friends: Array<User>;
   hashedPassword: Scalars['String'];
@@ -91,6 +92,7 @@ export type User = {
 };
 
 export type UserInput = {
+  description?: InputMaybe<Scalars['String']>;
   eventOfUser?: InputMaybe<Array<Scalars['Float']>>;
   friendsId?: InputMaybe<Array<Scalars['Float']>>;
   image?: InputMaybe<Scalars['String']>;
@@ -102,6 +104,7 @@ export type UserInput = {
 
 export type UserUpdateInput = {
   friendsId?: InputMaybe<Array<Scalars['Float']>>;
+  xp?: InputMaybe<Scalars['Float']>;
 };
 
 export type CreateUserMutationVariables = Exact<{
@@ -114,7 +117,7 @@ export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __type
 export type GetProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetProfileQuery = { __typename?: 'Query', profile: { __typename?: 'User', id: number, nickName: string, friends: Array<{ __typename?: 'User', id: number }> } };
+export type GetProfileQuery = { __typename?: 'Query', profile: { __typename?: 'User', id: number, nickName: string, xp?: number | null, description?: string | null, friends: Array<{ __typename?: 'User', id: number, nickName: string }> } };
 
 export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -132,6 +135,14 @@ export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
 
 export type LogoutMutation = { __typename?: 'Mutation', logout: string };
+
+export type UpdateUserMutationVariables = Exact<{
+  userId: Scalars['Float'];
+  data: UserUpdateInput;
+}>;
+
+
+export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', friends: Array<{ __typename?: 'User', id: number }> } };
 
 
 export const CreateUserDocument = gql`
@@ -174,7 +185,10 @@ export const GetProfileDocument = gql`
     nickName
     friends {
       id
+      nickName
     }
+    xp
+    description
   }
 }
     `;
@@ -314,3 +328,39 @@ export function useLogoutMutation(baseOptions?: Apollo.MutationHookOptions<Logou
 export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
 export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
+export const UpdateUserDocument = gql`
+    mutation UpdateUser($userId: Float!, $data: UserUpdateInput!) {
+  updateUser(userId: $userId, data: $data) {
+    friends {
+      id
+    }
+  }
+}
+    `;
+export type UpdateUserMutationFn = Apollo.MutationFunction<UpdateUserMutation, UpdateUserMutationVariables>;
+
+/**
+ * __useUpdateUserMutation__
+ *
+ * To run a mutation, you first call `useUpdateUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateUserMutation, { data, loading, error }] = useUpdateUserMutation({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useUpdateUserMutation(baseOptions?: Apollo.MutationHookOptions<UpdateUserMutation, UpdateUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(UpdateUserDocument, options);
+      }
+export type UpdateUserMutationHookResult = ReturnType<typeof useUpdateUserMutation>;
+export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>;
+export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>;

@@ -58,7 +58,10 @@ const start = async (): Promise<void> => {
       if (context.jwtPayload != null)
         user = await datasource
           .getRepository(User)
-          .findOne({ where: { id: context.jwtPayload.userId } });
+          .findOne({
+            where: { id: context.jwtPayload.userId },
+            relations: { friends: true, eventOfUser: true },
+          });
 
       if (user !== null) context.currentUser = user;
 

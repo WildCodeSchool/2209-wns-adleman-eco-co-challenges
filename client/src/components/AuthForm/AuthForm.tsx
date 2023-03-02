@@ -1,5 +1,4 @@
 import "./AuthForm.css";
-import Logo from "../Logo/Logo";
 
 import {
   useCreateUserMutation,
@@ -8,6 +7,7 @@ import {
   useLogoutMutation,
 } from "../../gql/generated/schema";
 
+import Logo from "../Logo/Logo";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
