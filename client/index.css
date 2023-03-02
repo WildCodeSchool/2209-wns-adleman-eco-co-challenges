@@ -53,16 +53,16 @@
 	text-transform: uppercase;
 	transition: transform 80ms ease-in;
 }
-
-.landing__button:hover {
-	border: 1px solid #fcdc12;
-	background-color: #FFFFFF;
-	color: #fcdc12;
+.landing__content{
+	margin-top: 10% ;
+	display: flex;
 }
-
+.landing__content__article{
+	align-items: center;
+}
 .landing__content__title{
 	font-family: 'Caveat', cursive;
-	font-size: large;
+	font-size: xx-large;
 	color:#545863;
 }
 
@@ -85,13 +85,15 @@
 	transition: transform 80ms ease-in;
 	margin-left: 20%;
 }
-
-.landing__content__button:hover {
-	border: 1px solid #fcdc12;
-	background-color: #FFFFFF;
-	color: #fcdc12;
-}
-
 .landing__content__image{
+	width: 400px;
 	border-radius: 20px;
 }
+/* @media (max-width:1020px){
+	background-image: url("assets/landing-bg-md.png");
+}
+
+@media (max-width:650px){
+	background-image: url("assets/landing-bg-sm.png");
+
+} */
