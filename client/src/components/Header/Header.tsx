@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import logo from "../../assets/logo150.png";
+import logo from "../../assets/logo150-1.png";
 import "./Header.css";
 import { useState } from "react";
 
@@ -25,7 +25,7 @@ export default function Header() {
 
           <ul className="navbar__links">
             <li className="navbar__item slideInDown-1">
-              <Link to="/home/:nickName">Home</Link>
+              <Link to="/home/:id">Home</Link>
             </li>
 
             <li className="navbar__item slideInDown-2">

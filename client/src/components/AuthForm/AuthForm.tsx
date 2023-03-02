@@ -32,6 +32,7 @@ const AuthForm = () => {
   const { data: currentUser, client } = useGetProfileQuery({
     errorPolicy: "ignore",
   });
+  const currentUserId = currentUser?.profile.id;
 
   signUpButton?.addEventListener("click", () => {
     container?.classList.add("right-panel-active");
@@ -125,8 +126,8 @@ const AuthForm = () => {
                   e.preventDefault();
                   login({ variables: { data: credentials } })
                     .then(client.resetStore)
-                    .then(() => navigate(`/home/${credentials.nickName}`))
-                    .catch(() => toast.error("Invalid credentials"));
+                    .then(() => navigate(`/home`))
+                    .catch(() => toast.error("Invalid credentials"))
                 }}
               >
                 <h1>Sign in</h1>
