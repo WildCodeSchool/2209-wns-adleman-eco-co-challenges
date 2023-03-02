@@ -19,7 +19,7 @@ function App() {
           <Route path="/login" element={<Authentification />} />
           <Route path="/friend" element={<Users />} />
           <Route path="/friend/:id" element={<User />} />
-          <Route path="/home/:nickName" element={<Dashboard />} />
+          <Route path="/home" element={<Dashboard />} />
         </Routes>
       </main>
     </div>
