@@ -48,7 +48,7 @@ const User = () => {
             </div>
             <div className="feature col">
               <div id="containerLvl">
-                <span>Niveau: {lvl}</span>
+                <span>Niveau : {lvl}</span>
                 <div
                   className="progress"
                   role="progressbar"
