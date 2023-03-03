@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/logo150-1.png";
 import "./Header.css";
 import { useState } from "react";
+import { useGetProfileQuery } from "../../gql/generated/schema";
 
 export default function Header() {
   const [showLinks, setShowLinks] = useState(false);
@@ -9,6 +10,10 @@ export default function Header() {
   const handleShowLinks = () => {
     setShowLinks(!showLinks);
   };
+  const { data: currentUser} = useGetProfileQuery({
+    errorPolicy: "ignore",
+  });
+  const currentUserId = currentUser?.profile.id;
 
   return (
     <>
@@ -25,7 +30,7 @@ export default function Header() {
 
           <ul className="navbar__links">
             <li className="navbar__item slideInDown-1">
-              <Link to="/home">Home</Link>
+              <Link to={`/home/${currentUserId}`}>Home</Link>
             </li>
 
             <li className="navbar__item slideInDown-2">

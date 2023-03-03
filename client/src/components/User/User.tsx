@@ -1,12 +1,20 @@
 import "./User.css";
 
 import { useGetUsersQuery } from "../../gql/generated/schema";
-
-import Header from "../Header/Header";
+import { User as UserSchema } from "../../gql/generated/schema";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
+// TODO rajouter des props pour afficher le user Connecté + utiliser le composant User dans une page friend ou on affiche le profil de chaque friend
+// interface Props {
+//   userConnected: UserSchema;
+
+// }
+
+
+
 const User = () => {
+  // const { userConnected } = props;
   const { id } = useParams();
 
   const selectedUser = useGetUsersQuery().data?.users?.find(
@@ -27,9 +35,6 @@ const User = () => {
 
   return (
     <>
-      <div className="header">
-        <Header />
-      </div>
 
       {/* // ON CHANGE LE STYLE DE LA PAGE */}
 
@@ -71,6 +76,7 @@ const User = () => {
           <p className="lead mb-4">{selectedUser?.description}</p>
         </div>
       </div>
+
     </>
   );
 };

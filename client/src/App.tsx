@@ -6,8 +6,8 @@ import Authentification from "./pages/Authentification";
 import Friends from "./pages/Friends_list";
 import User from "./pages/User";
 import Friends_add from "./pages/Friends_add";
-import Dashboard from "./pages/Dashboard";
 import Landing from "./pages/Landing";
+import UserDashboard from "./pages/User";
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
           <Route path="/friends" element={<Friends />} />
           <Route path="/friend/:id" element={<User />} />
           <Route path="/friends/add" element={<Friends_add />} />
-          <Route path="/home" element={<Dashboard />} />
+          <Route path="/home/:id" element={<UserDashboard />} />
         </Routes>
       </main>
     </div>

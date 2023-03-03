@@ -1,5 +1,6 @@
 import { User } from "../../gql/generated/schema";
 import { useGetProfileQuery } from "../../gql/generated/schema";
+import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 
 // Function to generate a random user url
@@ -78,6 +79,9 @@ const UserList = (props: Props) => {
             ))}
           </div>
         </div>
+      </div>
+      <div className="footer">
+        <Footer />
       </div>
     </>
   );
