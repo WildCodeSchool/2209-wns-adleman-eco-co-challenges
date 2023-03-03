@@ -92,7 +92,7 @@ export class UserResolver {
 
           friendToUpdate.friends = uniqueFriends;
 
-          return DataSource.manager.save(friendToUpdate);
+          return await DataSource.manager.save(friendToUpdate);
         })
       );
     }

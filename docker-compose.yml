@@ -22,6 +22,7 @@ services:
     volumes:
       - ./server/src:/app/src
     environment:
+      DB_HOST: "db"
       CHOKIDAR_USEPOLLING: "true"
   # client:
   #    build: './client'
