@@ -25,15 +25,15 @@ export default function Header() {
 
           <ul className="navbar__links">
             <li className="navbar__item slideInDown-1">
-              <Link to="/home/:id">Home</Link>
+              <Link to="/home">Home</Link>
             </li>
 
             <li className="navbar__item slideInDown-2">
-              <Link to="/users">Mes Amis</Link>
+              <Link to="/friends">Mes Amis</Link>
             </li>
 
             <li className="navbar__item slideInDown-3">
-              <Link to="/">Logout</Link>
+              <Link to="/login">Logout</Link>
             </li>
           </ul>
 

@@ -10,11 +10,9 @@ const Friends_list = () => {
   });
 
   function redirectToUserPage(u: Partial<User>) {
-    const path = "/friend/" + u.id;
-    navigate(path);
+    navigate(`/friend/${u}`);
   }
 
-  console.log("curent user", currentUser);
 
   return (
     <div>
