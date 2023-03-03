@@ -31,8 +31,8 @@ class User {
   @Column({ length: 100, type: "varchar", unique: true })
   nickName?: string;
 
-  @Field()
-  @Column({type: "varchar"})
+  @Field({ nullable: true })
+  @Column({ nullable: true, type: "varchar" })
   description?: string;
 
   @Field()
@@ -54,7 +54,7 @@ class User {
   @Field(() => [User])
   @ManyToMany(() => User, (user) => user.friends)
   @JoinTable({ joinColumn: { name: "users_id_1" } })
-  friends?: User[];
+  friends: User[];
 
   @Field(() => [Event])
   @ManyToMany(() => Event, (event) => event.participants, { cascade: true })
@@ -74,15 +74,12 @@ export const hashPassword = async (plainPassword: string): Promise<string> =>
 export const verifyPassword = async (
   plainPassword: string,
   hashedPassword: string
-): Promise<boolean> =>
-  verify(hashedPassword, plainPassword, hashingOptions);
+): Promise<boolean> => verify(hashedPassword, plainPassword, hashingOptions);
 
 export const getSafeAttributes = (user: User): User => ({
   ...user,
   hashedPassword: undefined,
 });
-
-
 
 @InputType()
 export class UserInput {
@@ -111,6 +108,15 @@ export class UserInput {
 
   @Field({ nullable: true })
   description?: string;
+}
+
+@InputType()
+export class UserUpdateInput {
+  @Field(() => [Number], { nullable: true })
+  friendsId?: number[];
+
+  @Field({ nullable: true })
+  xp?: number;
 }
 
 export default User;

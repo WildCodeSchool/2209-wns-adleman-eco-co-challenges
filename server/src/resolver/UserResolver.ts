@@ -3,6 +3,7 @@ import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from "type-graphql";
 import User, {
   getSafeAttributes,
   UserInput,
+  UserUpdateInput,
   verifyPassword,
   hashPassword,
 } from "../entity/User";
@@ -19,8 +20,13 @@ export class UserResolver {
     const users = await DataSource.getRepository(User).find({
       relations: { friends: true, eventOfUser: true },
     });
-
     return users;
+  }
+
+  @Authorized()
+  @Query(() => User)
+  async profile(@Ctx() ctx: ContextType): Promise<User> {
+    return getSafeAttributes(ctx.currentUser as User);
   }
 
   @Mutation(() => User)
@@ -39,12 +45,13 @@ export class UserResolver {
 
   @Mutation(() => User)
   async updateUser(
-    @Arg("data") data: UserInput,
+    @Arg("data") data: UserUpdateInput,
     @Arg("userId") userId: number
   ): Promise<User> {
-    const { friendsId } = data;
+    const { friendsId, xp } = data;
     const userUpdated = await DataSource.getRepository(User).findOneOrFail({
       where: { id: userId },
+      relations: ["friends"],
     });
 
     if (typeof friendsId !== "undefined") {
@@ -53,22 +60,44 @@ export class UserResolver {
           async (id) =>
             await DataSource.getRepository(User).findOneOrFail({
               where: { id },
+              relations: { friends: true },
             })
         )
       );
-      userUpdated.friends = friends;
-      await Promise.all(
-        friends.map(async (friend) => {
-          friend.friends = [userUpdated];
 
-          return await DataSource.manager.save(friend);
+      const newFriendsList = userUpdated.friends.concat(friends);
+
+      const uniqueFriends = newFriendsList.filter(
+        (friend, index, self) =>
+          index === self.findIndex((f) => f.id === friend.id)
+      );
+
+      userUpdated.friends = uniqueFriends;
+      userUpdated.xp = xp;
+
+      await Promise.all(
+        uniqueFriends.map(async (uniqueFriend) => {
+          const friendToUpdate = await DataSource.getRepository(
+            User
+          ).findOneOrFail({
+            where: { id: uniqueFriend.id },
+            relations: { friends: true },
+          });
+          const newFriendsList = friendToUpdate.friends.concat([userUpdated]);
+
+          const uniqueFriends = newFriendsList.filter(
+            (friend, index, self) =>
+              index === self.findIndex((f) => f.id === friend.id)
+          );
+
+          friendToUpdate.friends = uniqueFriends;
+
+          return DataSource.manager.save(friendToUpdate);
         })
       );
     }
 
-    await DataSource.manager.save(userUpdated);
-
-    return userUpdated;
+    return await DataSource.manager.save(userUpdated);
   }
 
   @Mutation(() => String)
@@ -88,7 +117,7 @@ export class UserResolver {
       throw new ApolloError("invalid credentials");
 
     const token = jwt.sign({ userId: user.id }, env.JWT_PRIVATE_KEY);
-    
+
     ctx.res.cookie("token", token, {
       secure: env.NODE_ENV === "production",
       httpOnly: true,
@@ -101,11 +130,5 @@ export class UserResolver {
   async logout(@Ctx() ctx: ContextType): Promise<string> {
     ctx.res.clearCookie("token");
     return "Déconnection réussie";
-  }
-
-  @Authorized()
-  @Query(() => User)
-  async profile(@Ctx() ctx: ContextType): Promise<User> {
-    return getSafeAttributes(ctx.currentUser as User);
   }
 }

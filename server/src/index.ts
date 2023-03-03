@@ -1,5 +1,4 @@
 import "reflect-metadata";
-
 import { ApolloServer } from "apollo-server-express";
 import { ApolloServerPluginLandingPageLocalDefault } from "apollo-server-core";
 import { EventResolver } from "./resolver/EventResolver";
@@ -20,7 +19,6 @@ export interface ContextType {
   jwtPayload?: jwt.JwtPayload;
 }
 
-
 const start = async (): Promise<void> => {
   await datasource.initialize();
   const app = express();
@@ -28,36 +26,42 @@ const start = async (): Promise<void> => {
 
   const allowedOrigins = env.CORS_ALLOWED_ORIGINS.split(",");
 
-
   app.use(
     cors({
       credentials: true,
       origin: (origin, callback) => {
-        if (typeof origin === "undefined" || (Boolean(allowedOrigins.includes(origin))))
+        if (
+          typeof origin === "undefined" ||
+          Boolean(allowedOrigins.includes(origin))
+        )
           return callback(null, true);
         callback(new Error("Not allowed by CORS"));
       },
     })
   );
   app.use(cookieParser());
-  
+
   const schema = await buildSchema({
     resolvers: [UserResolver, EventResolver],
     authChecker: async ({ context }: { context: ContextType }, roles) => {
       const tokenInHeaders = context.req.headers.authorization?.split(" ")[1];
       const tokenInCookie = context.req.cookies?.token;
-      const token = (tokenInHeaders) ?? tokenInCookie;
+      const token = tokenInHeaders ?? tokenInCookie;
       try {
         let decoded;
-        if (typeof token === "string") decoded = jwt.verify(token, env.JWT_PRIVATE_KEY);
+        if (typeof token === "string")
+          decoded = jwt.verify(token, env.JWT_PRIVATE_KEY);
         if (typeof decoded === "object") context.jwtPayload = decoded;
       } catch (err) {}
 
       let user;
       if (context.jwtPayload != null)
         user = await datasource
-        .getRepository(User)
-        .findOne({ where: { id: context.jwtPayload.userId } });
+          .getRepository(User)
+          .findOne({
+            where: { id: context.jwtPayload.userId },
+            relations: { friends: true, eventOfUser: true },
+          });
 
       if (user !== null) context.currentUser = user;
 
@@ -76,7 +80,6 @@ const start = async (): Promise<void> => {
       return { req, res };
     },
   });
-
 
   await server.start();
   server.applyMiddleware({ app, cors: false, path: "/" });
