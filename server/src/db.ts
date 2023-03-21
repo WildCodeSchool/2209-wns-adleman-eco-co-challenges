@@ -4,7 +4,9 @@ import User from "./entity/User";
 
 export default new DataSource({
   type: "postgres",
-  host: "db",
+  host: typeof process.env.DB_HOST === "undefined"
+  ? "localhost"
+  : process.env.DB_HOST,
   port: 5432,
   username: "postgres",
   password: "postgres",
