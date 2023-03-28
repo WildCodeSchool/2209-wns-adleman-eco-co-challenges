@@ -1,6 +1,9 @@
-import db from "./db";
+
 import User, { hashPassword } from "./entity/User";
+
 import Event from "./entity/Event";
+import db from "./db";
+
 
 async function seed(): Promise<void> {
   await db.initialize();
@@ -9,14 +12,14 @@ async function seed(): Promise<void> {
 
   const user1 = {
     nickName: "Charlie",
-    hashedPassword: await hashPassword("password1"),
-    xp: 30,
+    hashedPassword: await hashPassword("Password1"),
+    xp: 3530,
     description: "Description for user 1",
   };
 
   const user2 = {
     nickName: "Alice",
-    hashedPassword: await hashPassword("password2"),
+    hashedPassword: await hashPassword("Password2"),
     xp: 0,
     description: "Description for user 2",
     friends: [user1],
@@ -24,21 +27,21 @@ async function seed(): Promise<void> {
 
   const user3 = {
     nickName: "Bob",
-    hashedPassword: await hashPassword("password3"),
+    hashedPassword: await hashPassword("Password3"),
     xp: 10,
     description: "Description for user 3",
   };
 
   const user4 = {
     nickName: "Eve",
-    hashedPassword: await hashPassword("password4"),
+    hashedPassword: await hashPassword("Password4"),
     xp: 20,
     description: "Description for user 4",
   };
 
   const user5 = {
     nickName: "Mallory",
-    hashedPassword: await hashPassword("password5"),
+    hashedPassword: await hashPassword("Password5"),
     xp: 5,
     description: "Description for user 5",
     friends: [user3],
@@ -46,7 +49,7 @@ async function seed(): Promise<void> {
 
   const user6 = {
     nickName: "Oscar",
-    hashedPassword: await hashPassword("password6"),
+    hashedPassword: await hashPassword("Password6"),
     xp: 15,
     description: "Description for user 6",
     friends: [user1, user5],

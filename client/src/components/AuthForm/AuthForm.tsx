@@ -2,6 +2,7 @@ import "./AuthForm.css";
 
 import {
   useCreateUserMutation,
+  useGetProfileLazyQuery,
   useGetProfileQuery,
   useLoginMutation,
   useLogoutMutation,
@@ -32,7 +33,9 @@ const AuthForm = () => {
   const { data: currentUser, client } = useGetProfileQuery({
     errorPolicy: "ignore",
   });
-  const currentUserId = currentUser?.profile.id;
+  const [ getProfile ] = useGetProfileLazyQuery({
+    errorPolicy: "ignore",
+  });
 
   signUpButton?.addEventListener("click", () => {
     container?.classList.add("right-panel-active");
@@ -126,7 +129,10 @@ const AuthForm = () => {
                   e.preventDefault();
                   login({ variables: { data: credentials } })
                     .then(client.resetStore)
-                    .then(() => navigate(`/home`))
+                    .then(() => {
+                      getProfile().then((res) => {
+                          navigate(`/home/${res?.data?.profile.id}`);
+                })})
                     .catch(() => toast.error("Invalid credentials"))
                 }}
               >

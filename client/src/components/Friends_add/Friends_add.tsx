@@ -1,11 +1,12 @@
-import { gql, useQuery } from "@apollo/client";
-import UserList from "../UserList/UserList";
 import {
+  User,
   useGetProfileQuery,
   useUpdateUserMutation,
-  User,
 } from "../../gql/generated/schema";
-import { useState, useEffect, useMemo } from "react";
+import { gql, useQuery } from "@apollo/client";
+import { useEffect, useMemo, useState } from "react";
+
+import UserList from "../UserList/UserList";
 
 // Write the query to get all users
 const GET_USERS = gql`
