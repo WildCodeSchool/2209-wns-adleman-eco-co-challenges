@@ -13,6 +13,7 @@
   background-image: url("../../assets/BG_crevette.png");
   background-size: cover;
   background-repeat: no-repeat;
+  min-height: 100vh;
 }
 #containerLvl span {
   color: #000000;

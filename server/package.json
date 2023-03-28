@@ -37,6 +37,7 @@
   "devDependencies": {
     "@graphql-codegen/cli": "^2.16.5",
     "@types/cookie-parser": "^1.4.3",
+    "@types/jsonwebtoken": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "eslint": "^8.23.0",
     "eslint-config-prettier": "^8.5.0",

@@ -1,17 +1,19 @@
 import "reflect-metadata";
+
 import { ApolloServer } from "apollo-server-express";
 import { ApolloServerPluginLandingPageLocalDefault } from "apollo-server-core";
 import { EventResolver } from "./resolver/EventResolver";
 import User from "./entity/User";
 import { UserResolver } from "./resolver/UserResolver";
 import { buildSchema } from "type-graphql";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import datasource from "./db";
 import { env } from "./environment";
 import express from "express";
 import http from "http";
 import jwt from "jsonwebtoken";
-import cookieParser from "cookie-parser";
+
 export interface ContextType {
   req: express.Request;
   res: express.Response;

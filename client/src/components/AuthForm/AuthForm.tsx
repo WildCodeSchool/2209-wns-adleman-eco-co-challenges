@@ -36,8 +36,6 @@ const AuthForm = () => {
   const [ getProfile ] = useGetProfileLazyQuery({
     errorPolicy: "ignore",
   });
-  const currentUserId = currentUser?.profile.id;
-  console.log("🚀 ~ file: AuthForm.tsx:36 ~ AuthForm ~ currentUserId:", currentUserId)
 
   signUpButton?.addEventListener("click", () => {
     container?.classList.add("right-panel-active");
