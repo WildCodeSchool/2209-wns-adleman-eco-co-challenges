@@ -1,26 +1,18 @@
 import "./User.css";
 
+import { useEffect } from "react";
 import {
-  useGetProfileQuery,
   useGetUsersQuery,
 } from "../../gql/generated/schema";
-
-import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-
-// TODO rajouter des props pour afficher le user Connecté + utiliser le composant User dans une page friend ou on affiche le profil de chaque friend
-// interface Props {
-//   userConnected: UserSchema;
-
-// }
 
 const User = () => {
   const { id } = useParams();
 
 
-  const { data: currentUser } = useGetProfileQuery({
-    errorPolicy: "ignore",
-  });
+  // const { data: currentUser } = useGetProfileQuery({
+  //   errorPolicy: "ignore",
+  // });
 
   const { data } = useGetUsersQuery({
     errorPolicy: "ignore",
@@ -28,13 +20,14 @@ const User = () => {
   
   const selectedUser = data?.users?.find((user) => user.id === Number(id));
 
-  const isCurrentUser: boolean = currentUser?.profile?.id === selectedUser?.id
+  // const isCurrentUser: boolean = currentUser?.profile?.id === selectedUser?.id
 
 
 
 
-  let barXp = isCurrentUser ? (currentUser?.profile?.xp ?? 0) % 100 : (selectedUser?.xp ?? 0) % 100
+  let barXp = (selectedUser?.xp ?? 0) % 100
   let barWidth = barXp + "%";
+  let lvl = Math.floor((selectedUser?.xp?? 0) / 100);
 
   useEffect(() => {
     const fillElement = document.getElementById("fill");
@@ -43,7 +36,6 @@ const User = () => {
     }
   }, [barWidth]);
 
-  let lvl = isCurrentUser ? Math.floor((currentUser?.profile?.xp ?? 0) / 100) : Math.floor((selectedUser?.xp?? 0) / 100);
 
   return (
     <>
@@ -54,13 +46,13 @@ const User = () => {
             <div className="container px-4 py-5" id="featured-3">
               <div className="align-items-center row g-4 py-5 row-cols-1 row-cols-lg-3">
                 <div className="feature col">
-                  <h3 className="fs-2">{isCurrentUser ? currentUser?.profile?.nickName : selectedUser?.nickName}</h3>
+                  <h3 className="fs-2">{selectedUser?.nickName}</h3>
                 </div>
                 <div className="feature col">
                   <img
                     alt="profilePicture"
                     className="profilPicture"
-                    src={isCurrentUser ? currentUser?.profile?.image ?? "" : selectedUser?.image ?? ""}
+                    src={selectedUser?.image ?? ""}
                   />
                 </div>
                 <div className="feature col">
@@ -85,7 +77,7 @@ const User = () => {
             </div>
             <h1 className="display-5 fw-bold">Description</h1>
             <div className="col-lg-6 mx-auto">
-              <p className="lead mb-4">{isCurrentUser ? currentUser?.profile?.description : selectedUser?.description}</p>
+              <p className="lead mb-4">{selectedUser?.description}</p>
             </div>
           </div>
         </>
