@@ -1,16 +1,16 @@
+import Footer from "../components/Footer/Footer";
 import { Link } from "react-router-dom";
+import bananaLeft from "../assets/bananas-r.png";
+import bananaRight from "../assets/bananas-l.png";
 import logo from "../assets/logo300-1.png";
 import team from "../assets/landing-pic.png";
-import bananaRight from "../assets/bananas-l.png";
-import bananaLeft from "../assets/bananas-r.png";
-import Footer from "../components/Footer/Footer";
 
 export default function Landing() {
   return (
     <>
       <div className="landing cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <div className="landing__logo">
-          <img src={logo} alt="Eco-co Challenge" />
+          BIIIIIAAAAAAAATTTTTTCCCCCHHHHHH
         </div>
         <p className="landing__line"></p>
         <div className="landing__container fs-5 col-md-6">
