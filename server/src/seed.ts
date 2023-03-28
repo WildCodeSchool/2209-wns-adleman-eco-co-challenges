@@ -1,7 +1,9 @@
+
 import User, { hashPassword } from "./entity/User";
 
 import Event from "./entity/Event";
 import db from "./db";
+
 
 async function seed(): Promise<void> {
   await db.initialize();

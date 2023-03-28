@@ -69,12 +69,12 @@ const hashingOptions = {
 };
 
 export const hashPassword = async (plainPassword: string): Promise<string> =>
-  hash(plainPassword, hashingOptions);
+  await hash(plainPassword, hashingOptions);
 
 export const verifyPassword = async (
   plainPassword: string,
   hashedPassword: string
-): Promise<boolean> => verify(hashedPassword, plainPassword, hashingOptions);
+): Promise<boolean> => await verify(hashedPassword, plainPassword, hashingOptions);
 
 export const getSafeAttributes = (user: User): User => ({
   ...user,
