@@ -10,7 +10,7 @@ export default function Landing() {
     <>
       <div className="landing cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <div className="landing__logo">
-          BIIIIIAAAAAAAATTTTTTCCCCCHHHHHH
+          <img src={logo} alt="Eco-co Challenge" />
         </div>
         <p className="landing__line"></p>
         <div className="landing__container fs-5 col-md-6">
