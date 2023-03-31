@@ -31,7 +31,7 @@ const start = async (): Promise<void> => {
   app.use(
     cors({
       credentials: true,
-      origin: (origin, callback) => {
+      origin: (origin : string|undefined, callback: any) => {
         if (
           typeof origin === "undefined" ||
           Boolean(allowedOrigins.includes(origin))

@@ -18,8 +18,6 @@ services:
       db:
         condition: service_healthy
     build: "./server"
-    ports:
-      - 4000:4000
     volumes:
       - ./server/src:/app/src
     environment:

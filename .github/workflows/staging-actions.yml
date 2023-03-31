@@ -23,7 +23,7 @@ jobs:
           context: ./client
           file: ./client/Dockerfile
           push: true
-          tags: ecocochallenge/ecocochallenge-client:latest
+          tags: ecocochallenge/ecocochallenge-client:staging
 
   server-build:
     runs-on: ubuntu-latest
@@ -42,4 +42,4 @@ jobs:
           context: ./server
           file: ./server/Dockerfile
           push: true
-          tags: ecocochallenge/ecocochallenge-server:latest
+          tags: ecocochallenge/ecocochallenge-server:staging
