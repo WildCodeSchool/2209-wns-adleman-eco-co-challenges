@@ -23,7 +23,8 @@ services:
     environment:
       DB_HOST: "db"
       CHOKIDAR_USEPOLLING: "true"
-
+    ports:
+      - 4000:4000
   client:
      build: './client'
      ports:
