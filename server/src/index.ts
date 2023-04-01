@@ -27,7 +27,7 @@ const start = async (): Promise<void> => {
   const app = express();
   const httpServer = http.createServer(app);
 
-  // const allowedOrigins = env.CORS_ALLOWED_ORIGINS.split(",");
+  const allowedOrigins = env.CORS_ALLOWED_ORIGINS.split(",");
 
   app.use(
     cors({
