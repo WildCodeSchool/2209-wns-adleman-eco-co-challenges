@@ -1,13 +1,13 @@
 {
   "name": "ecoco challenge",
   "version": "1.0.0",
-  "deecocochallengetion": "",
-  "ecocochallengets": {
+  "description": "",
+  "scripts": {
     "integration-tests": "docker compose -f docker-compose.integration-tests.yml up --build --exit-code-from testrunner",
     "integration-tests:backend-only": "docker compose -f docker-compose.integration-tests.yml up testDB backend",
     "e2e-tests": "docker compose -f docker-compose.e2e-tests.yml up --build --exit-code-from testrunner",
     "start": "docker compose -f docker-compose.yml up --build",
-    "start:prod": "docker compose -f docker-compose.staging.yml pull && docker compose -f docker-compose.production.yml up",
+    "start:prod": "docker compose -f docker-compose.production.yml pull && docker compose -f docker-compose.production.yml up",
     "start:staging": "docker compose -f docker-compose.staging.yml pull && docker compose -f docker-compose.staging.yml up",
     "publish:server": "cd server && docker build -f Dockerfile.production . -t ecocochallenge/ecocochallenge-server && docker push ecocochallenge/ecocochallenge-server && cd ..",
     "publish:client": "cd client && docker build -f Dockerfile.production -t ecocochallenge/ecocochallenge-client . && docker push ecocochallenge/ecocochallenge-client && cd ..",
