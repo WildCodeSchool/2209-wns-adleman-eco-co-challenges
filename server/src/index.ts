@@ -32,15 +32,15 @@ const start = async (): Promise<void> => {
   app.use(
     cors({
       credentials: true,
-      // origin: (origin: string|undefined, callback: any) => {
-      //   if (
-      //     typeof origin === "undefined" ||
-      //     Boolean(allowedOrigins.includes(origin))
-      //   )
-      //     return callback(null, true);
-      //   callback(new Error("Not allowed by CORS"));
-      // },
-      origin: '*',
+      origin: (origin: string|undefined, callback: any) => {
+        if (
+          typeof origin === "undefined" ||
+          Boolean(allowedOrigins.includes(origin))
+        )
+          return callback(null, true);
+        callback(new Error("Not allowed by CORS"));
+      },
+      // origin: '*',
     })
   );
 
