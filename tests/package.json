@@ -4,7 +4,7 @@
   "description": "",
   "main": "jest.config.js",
   "scripts": {
-    "test_watch": "jest --watchAll"
+    "test_watch": "jest --watchAll",
     "test": "jest"
   },
   "author": "",
