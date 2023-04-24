@@ -9,9 +9,9 @@ async function clearDB() {
   );
 }
 
-// TODO: init db before all tests
-// TODO: clear db before each tests
-// TODO: close db connection after all tests
+// TODO: init db before all integration_tests
+// TODO: clear db before each integration_tests
+// TODO: close db connection after all integration_tests
 
 beforeAll(async () => {
   await db.initialize();

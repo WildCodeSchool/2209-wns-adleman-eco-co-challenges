@@ -22,12 +22,12 @@ COPY ./server/tsconfig.json ./tsconfig.json
 RUN mkdir /app
 WORKDIR /app
 
-COPY tests/package*.json ./
+COPY integration_tests/package*.json ./
 RUN npm i
-COPY tests/jest.config.js ./
-COPY tests/setupTests.ts ./
+COPY integration_tests/jest.config.js ./
+COPY integration_tests/setupTests.ts ./
 
-COPY tests/tsconfig.json ./
-COPY tests/src ./src
+COPY integration_tests/tsconfig.json ./
+COPY integration_tests/src ./src
 
 CMD npm run test

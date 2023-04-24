@@ -30,7 +30,7 @@ services:
 
   testrunner:
     build:
-      dockerfile: tests/Dockerfile
+      dockerfile: integration_tests/Dockerfile
       # Permet de définir l'endroit depuis lequel le script de build doit être exécuté
       context: ./
     depends_on:
@@ -40,4 +40,4 @@ services:
       DB_HOST: testDB
     volumes:
       - ./server/src/entity:/server/src/entity
-      - ./tests/src:/app/src
+      - ./integration_tests/src:/app/src

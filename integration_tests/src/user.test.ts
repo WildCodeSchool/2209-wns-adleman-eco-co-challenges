@@ -21,7 +21,7 @@ const createUserMutation = gql`
 }
 `;
 
-//TODO: add real CRUD tests for each entities
+//TODO: add real CRUD integration_tests for each entities
 describe("user resolver", () => {
   describe("create user", () => {
     it("should create user given valid attributes", async () => {

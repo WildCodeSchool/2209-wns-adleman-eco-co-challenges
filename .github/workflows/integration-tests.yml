@@ -1,4 +1,4 @@
-name: integration-tests
+name: integration-integration_tests
 
 on: pull_request
 
@@ -20,4 +20,4 @@ jobs:
           directory: server
           file_name: .env
       - name: Run integration test
-        run: npm run integration-tests
+        run: npm run integration-integration_tests
