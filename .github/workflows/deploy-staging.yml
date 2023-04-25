@@ -12,6 +12,7 @@ on:
 
 jobs:
   build-and-push-server-staging:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Set up QEMU
