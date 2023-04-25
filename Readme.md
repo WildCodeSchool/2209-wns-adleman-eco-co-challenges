@@ -76,3 +76,6 @@ Une différence également est de ne pas simplement pull les images serveur et c
         image: nom/de-l-image:production
         image: nom/de-l-image:staging
 
+
+
+test
