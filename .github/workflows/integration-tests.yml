@@ -25,4 +25,4 @@ jobs:
           directory: server
           file_name: .env
       - name: Run integration test
-        run: npm run integration_tests
+        run: npm run integration-tests
