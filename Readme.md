@@ -75,7 +75,3 @@ docker-compose.production à la différence que les services s'appellent staging
 Une différence également est de ne pas simplement pull les images serveur et client mais de pull des tags spécifiques
         image: nom/de-l-image:production
         image: nom/de-l-image:staging
-
-
-
-test
