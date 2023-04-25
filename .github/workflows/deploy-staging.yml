@@ -1,8 +1,13 @@
 name: Compile and push client and server to staging
 
 on:
-  push:
-    branches: ["develop"]
+  workflow_run:
+    workflows:
+      - integration-tests
+    branches:
+      - staging
+    types:
+      - completed
   workflow_dispatch:
 
 jobs:
