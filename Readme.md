@@ -41,4 +41,38 @@ On a créé un fichier .github/workflows/integration-test.yml qui contient la co
             - test : permet d'exécuter les tests d'intégration à l'aide de docker-compose
 Lorsqu'une pull request est créée ou mise à jour, cette action GitHub s'exécute pour vérifier que les tests d'intégration
 passent, ce qui aide à garantir la qualité du code avant de fusionner les modifications dans la branche principale.
+
 # CD
+
+La première étape consiste à créer une version de production de notre application.
+
+Client
+
+On créé un dockerfile.production, qui ressemble à celui du dockerfile de développement, 
+mais qui va build l'application au lieu de la lancer en mode dev.
+
+serveur
+
+C'est un peu la même démarche, on va faire tourner le compilateur typescript pour créer un dossier build en full js qui
+pourra s'exécuter sur n'importe quel environnement plus rapidement.
+
+docker-compose.production.yml à la racine
+
+On a une base de donnée postgresql avec un volume défini explicitement pour la persistance des données.
+On est censé avoir un réseau particulier à chaque docker compose (pk je ne l'ai pas mis en place ?)
+
+Pour le client et le serveur on utilise des images dockerhub, qui sont des build de nos dockerfile.production.
+
+On rajoute un nginx qui va servir le client et le serveur, il se trouve devant le serveur et le client et va dispatcher
+les requêtes en fonction de l'url.
+
+Coté serveur vps, on install webhook qui va avoir 2 hook qui sont sensiblement les mêmes : 
+- un pour la version staging, qui va déclancher un script de déploiement staging
+- un pour la version prod, qui va déclancher un script de déploiement dédié à la prod 
+
+On créé un nouveau docker-compose.staging pour la partie staging, qui est sensiblement le même que le 
+docker-compose.production à la différence que les services s'appellent staging et non prod.
+Une différence également est de ne pas simplement pull les images serveur et client mais de pull des tags spécifiques
+        image: nom/de-l-image:production
+        image: nom/de-l-image:staging
+

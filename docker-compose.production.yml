@@ -16,6 +16,7 @@ services:
       - prodDB:/var/lib/postgresql/data
 
   server:
+    image: ecocochallenge/ecocochallenge-server:latest
     depends_on:
       prodDB:
         condition: service_healthy
@@ -26,7 +27,6 @@ services:
       - SERVER_PORT=${SERVER_PORT:-4000}
       - JWT_PRIVATE_KEY=${JWT_PRIVATE_KEY:-ecochallenge}
       - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS:-http://localhost:8000}
-    image: ecocochallenge/ecocochallenge-server:latest
     healthcheck:
       test: 'curl --fail --request GET -H ''content-type:application/json'' --url ''http://localhost:4000/graphql?query=%7B__typename%7D'''
       interval: 5s
