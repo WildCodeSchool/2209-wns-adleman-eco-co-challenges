@@ -14,6 +14,7 @@ import express from "express";
 import http from "http";
 import jwt from "jsonwebtoken";
 
+
 export interface ContextType {
   req: express.Request;
   res: express.Response;
@@ -26,21 +27,15 @@ const start = async (): Promise<void> => {
   const app = express();
   const httpServer = http.createServer(app);
 
-  const allowedOrigins = env.CORS_ALLOWED_ORIGINS.split(",");
-
   app.use(
-    cors({
-      credentials: true,
-      origin: (origin, callback) => {
-        if (
-          typeof origin === "undefined" ||
-          Boolean(allowedOrigins.includes(origin))
-        )
-          return callback(null, true);
-        callback(new Error("Not allowed by CORS"));
-      },
-    })
+      ["/", "/graphql"],
+      cors<cors.CorsRequest>({
+        origin: env.CORS_ALLOWED_ORIGINS.split(","),
+        credentials: true,
+      }),
+      express.json(),
   );
+
   app.use(cookieParser());
 
   const schema = await buildSchema({

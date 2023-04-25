@@ -15,6 +15,8 @@ import { env } from "../environment";
 
 @Resolver(User)
 export class UserResolver {
+
+  // Get all users
   @Query(() => [User])
   async users(): Promise<User[]> {
     const users = await DataSource.getRepository(User).find({
@@ -23,12 +25,14 @@ export class UserResolver {
     return users;
   }
 
+// Get user connected
   @Authorized()
   @Query(() => User)
   async profile(@Ctx() ctx: ContextType): Promise<User> {
     return getSafeAttributes(ctx.currentUser as User);
   }
 
+  // create new user
   @Mutation(() => User)
   async createUser(@Arg("data") data: UserInput): Promise<User> {
     const exisitingUser = await DataSource.getRepository(User).findOne({
@@ -43,6 +47,7 @@ export class UserResolver {
     return await DataSource.getRepository(User).save(user);
   }
 
+  // Update user
   @Mutation(() => User)
   async updateUser(
     @Arg("data") data: UserUpdateInput,
@@ -100,6 +105,7 @@ export class UserResolver {
     return await DataSource.manager.save(userUpdated);
   }
 
+  // Login
   @Mutation(() => String)
   async login(
     @Arg("data") { nickName, password }: UserInput,
@@ -126,6 +132,7 @@ export class UserResolver {
     return token;
   }
 
+  // Logout
   @Mutation(() => String)
   async logout(@Ctx() ctx: ContextType): Promise<string> {
     ctx.res.clearCookie("token");
