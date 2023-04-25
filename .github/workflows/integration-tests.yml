@@ -1,6 +1,11 @@
 name: integration-integration_tests
 
-on: pull_request
+on:
+  pull_request:
+    branches:
+      - develop
+      - staging
+      - main
 
 jobs:
   integration-tests:
@@ -20,4 +25,4 @@ jobs:
           directory: server
           file_name: .env
       - name: Run integration test
-        run: npm run integration-integration_tests
+        run: npm run integration-tests
