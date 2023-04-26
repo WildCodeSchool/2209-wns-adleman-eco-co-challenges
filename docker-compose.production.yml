@@ -2,9 +2,9 @@ services:
   prodDB:
     image: postgres:15-alpine
     environment:
-      - POSTGRES_PASSWORD=${DB_PASS:-postgres}
-      - POSTGRES_USER=${DB_USER:-postgres}
-      - POSTGRES_DB=${DB_NAME:-postgres}
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_DB=${DB_NAME}
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -d postgres -U postgres"]
       interval: 10s
@@ -14,19 +14,26 @@ services:
       - 5432:5432
     volumes:
       - prodDB:/var/lib/postgresql/data
-
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+    restart: always
+    ports:
+      - "5050:80"
   server:
-    image: ecocochallenge/ecocochallenge-server:latest
+    image: ecocochallenge/ecocochallenge-server:production
     depends_on:
       prodDB:
         condition: service_healthy
     environment:
-      - NODE_ENV=${NODE_ENV:-production}
-      - DB_HOST=${DB_HOST:-prodDB}
-      - SERVER_HOST=${SERVER_HOST:-localhost}
-      - SERVER_PORT=${SERVER_PORT:-4000}
-      - JWT_PRIVATE_KEY=${JWT_PRIVATE_KEY:-ecochallenge}
-      - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS:-http://localhost:8000}
+      - NODE_ENV=${NODE_ENV}
+      - DB_HOST=${DB_HOST}
+      - SERVER_HOST=${SERVER_HOST}
+      - SERVER_PORT=${SERVER_PORT}
+      - JWT_PRIVATE_KEY=${JWT_PRIVATE_KEY}
+      - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS}
     healthcheck:
       test: 'curl --fail --request GET -H ''content-type:application/json'' --url ''http://localhost:4000/graphql?query=%7B__typename%7D'''
       interval: 5s
@@ -34,7 +41,7 @@ services:
       retries: 10
 
   client:
-    image: ecocochallenge/ecocochallenge-client:latest
+    image: ecocochallenge/ecocochallenge-client:production
 
   nginx:
     image: nginx:1.21.3
