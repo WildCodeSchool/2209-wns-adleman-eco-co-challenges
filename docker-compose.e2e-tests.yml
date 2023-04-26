@@ -21,10 +21,12 @@ services:
       - ./server/src:/app/src
     environment:
       DB_HOST: host.docker.internal
-      CORS_ALLOWED_ORIGINS: http://host.docker.internal:3000
+      CORS_ALLOWED_ORIGINS: http://client:3000
       SERVER_HOST: backend
+      JWT_PRIVATE_KEY: secret
+      NODE_ENV: development
     healthcheck:
-      test: 'curl --fail --request GET -H ''content-type:application/json'' --url ''http://localhost:4000/graphql?query=%7B__typename%7D'''
+      test: 'curl --fail --request GET -H ''content-type:application/json'' --url ''http://backend:4000/graphql?query=%7B__typename%7D'''
       interval: 5s
       timeout: 5s
       retries: 10
@@ -41,9 +43,9 @@ services:
     volumes:
       - ./client/src:/app/src
     environment:
-      REACT_APP_GRAPHQL_API_URL: 'http://host.docker.internal:4000'
+      REACT_APP_GRAPHQL_API_URL: 'http://backend:4000'
     healthcheck:
-      test: "curl --fail --request GET --url http://host.docker.internal:3000"
+      test: "curl --fail --request GET --url http://client:3000"
       interval: 5s
       timeout: 5s
       retries: 30
@@ -56,7 +58,7 @@ services:
       context: ./
     environment:
       DB_HOST: testDB
-      BASE_URL: http://host.docker.internal:3000
+      BASE_URL: http://client:3000
     volumes:
       - ./server/src/:/server/src/
       - ./e2e-tests/playwright-report:/e2e-tests/playwright-report
