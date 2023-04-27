@@ -1,3 +1,10 @@
+<div style="width: 100%;">
+  <a href="https://github.com/nikolalsvk/nikolalsvk/blame/main/welcome.svg">
+    <img src="wiki/assets/hello.svg" style="width: 100%;" alt="Click to see the source">
+  </a>
+<p> Pro tips : les couleurs changent en fonction du thème de votre ordinateur !</p>
+</div>
+
 # Readme - 🇫🇷 version
 English version : [🇬🇧](wiki/Index/en.md)
 
