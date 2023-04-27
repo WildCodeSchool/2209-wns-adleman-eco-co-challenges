@@ -25,6 +25,29 @@ jobs:
       - name: Run integration test
         run: npm run integration-tests
 
+  e2e-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1.3
+        with:
+          envkey_JWT_PRIVATE_KEY: secret
+          envkey_NODE_ENV: "development"
+          envkey_CORS_ALLOWED_ORIGINS: "http://client:3000"
+          envkey_SERVER_HOST: "backend"
+          envkey_SERVER_PORT: "4000"
+          envkey_DB_HOST: testDB
+          envkey_POSTGRES_PASSWORD: postgres
+          envkey_REACT_APP_GRAPHQL_API_URL: 'http://backend:4000'
+          envkey_BASE_URL: http://client:3000
+          envkey_CI: true
+          directory: ./
+          file_name: .env.e2etests
+      - name: Run e2e tests
+        run: npm run e2e-tests
+
   build-and-push-server-staging:
     needs:
       - integration-tests
@@ -48,7 +71,7 @@ jobs:
           tags: ecocochallenge/ecocochallenge-server:staging
   build-and-push-client-staging:
     needs:
-      - integration-tests
+      - e2e-tests
     runs-on: ubuntu-latest
     steps:
       - name: Set up QEMU
