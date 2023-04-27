@@ -16,7 +16,7 @@ jobs:
           envkey_CORS_ALLOWED_ORIGINS: "http://client:3000"
           envkey_SERVER_HOST: "backend"
           envkey_SERVER_PORT: "4000"
-          envkey_DB_HOST: host.docker.internal
+          envkey_DB_HOST: testDB
           envkey_POSTGRES_PASSWORD: postgres
           envkey_REACT_APP_GRAPHQL_API_URL: 'http://backend:4000'
           directory: ./
