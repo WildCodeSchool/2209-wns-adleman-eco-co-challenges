@@ -51,6 +51,7 @@ const AuthForm = () => {
         <div className="logoForm">
           <Logo />
         </div>
+        
         {/* VOICI LE FORMULAIRE DE CREATION USER */}
 
         <div className="container" id="container">
@@ -131,7 +132,7 @@ const AuthForm = () => {
                     .then(client.resetStore)
                     .then(() => {
                       getProfile().then((res) => {
-                          navigate(`/home/${res?.data?.profile.id}`);
+                          navigate(`/user/${res?.data?.profile.id}`);
                 })})
                     .catch(() => toast.error("Invalid credentials"))
                 }}
