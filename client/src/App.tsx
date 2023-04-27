@@ -49,7 +49,6 @@ function App() {
               path="/home/:id"
               element={
                 <ProtectedRoute>
-                  {" "}
                   <UserDashboard />
                 </ProtectedRoute>
               }

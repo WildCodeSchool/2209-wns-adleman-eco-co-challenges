@@ -23,7 +23,7 @@ export default function UserContextProvider ({children}: AuthContextProps ) {
   const [user, setUser] = useState<any>();
   const [loading, setLoading] = useState(true);
 
-  // On va chercher le profil de l'utiliateur courant
+  // On va chercher le profil de l'utilisateur courant
   // au chargement du composant
   useEffect(() => {
     const load = async () => {

@@ -6,7 +6,7 @@ export default function ProtectedRoute({ children }: { children: React.ReactNode
 
   const { user } = useContext(UserContext);
   if (!user) {
-    return <Navigate to="/" />;
+    return <Navigate to="/login" />;
   }
 
   return <>{children}</>;
