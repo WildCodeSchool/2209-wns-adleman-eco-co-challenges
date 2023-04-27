@@ -1,10 +1,17 @@
+import LoadingSpinner from "../loader/loader";
 import { Navigate } from "react-router-dom";
-import { UserContext } from "../AuthContext/AuthContext";
-import { useContext } from "react";
+import { useGetProfileQuery } from "../../gql/generated/schema";
 
 export default function ProtectedRoute({ children }: { children: React.ReactNode }) {
 
-  const { user } = useContext(UserContext);
+  const { data: user, loading: loader} = useGetProfileQuery({
+    errorPolicy: "ignore",
+  });
+
+if(loader){
+  return <LoadingSpinner/>
+}
+
   if (!user) {
     return <Navigate to="/login" />;
   }

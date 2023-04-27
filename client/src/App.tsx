@@ -10,12 +10,10 @@ import Friends from "./pages/Friends_list";
 import Friends_add from "./pages/Friends_add";
 import Landing from "./pages/Landing";
 import ProtectedRoute from "./components/ProtectedRoutes/ProtectedRoute";
-import UserContextProvider from "./components/AuthContext/AuthContext";
 import UserDashboard from "./pages/User";
 
 function App() {
   return (
-    <UserContextProvider>
       <div>
         <main>
           <Routes>
@@ -46,7 +44,7 @@ function App() {
               }
             />
             <Route
-              path="/home/:id"
+              path="/user/:id"
               element={
                 <ProtectedRoute>
                   <UserDashboard />
@@ -56,7 +54,6 @@ function App() {
           </Routes>
         </main>
       </div>
-    </UserContextProvider>
   );
 }
 
