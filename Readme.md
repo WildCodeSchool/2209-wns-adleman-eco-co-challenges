@@ -1,5 +1,5 @@
 # Readme - 🇫🇷 version
-English version : [🇬🇧](wiki/Index/en/Readme.md)
+English version : [🇬🇧](wiki/Index/en.md)
 
 ⚠️ README EN CONSTRUCTION ⚠️
 
