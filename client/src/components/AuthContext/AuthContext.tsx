@@ -27,7 +27,7 @@ export default function UserContextProvider ({children}: AuthContextProps ) {
   // au chargement du composant
   useEffect(() => {
     const load = async () => {
-      setUser(await currentUser?.profile?.id);
+      setUser(await currentUser);
       setLoading(false);
     };
 
