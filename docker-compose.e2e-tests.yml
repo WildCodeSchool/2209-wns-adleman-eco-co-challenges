@@ -59,6 +59,7 @@ services:
     environment:
       DB_HOST: ${DB_HOST}
       BASE_URL: ${BASE_URL}
+      CI: ${CI:-}
     volumes:
       - ./server/src/:/server/src/
       - ./e2e-tests/playwright-report:/e2e-tests/playwright-report
