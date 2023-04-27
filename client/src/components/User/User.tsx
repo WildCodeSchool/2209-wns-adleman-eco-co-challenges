@@ -52,7 +52,7 @@ const User = () => {
                   <img
                     alt="profilePicture"
                     className="profilPicture"
-                    src={selectedUser?.image ?? ""}
+                    src={selectedUser?.image ?? require("../../assets/cartonRouge.png")}
                   />
                 </div>
                 <div className="feature col">
