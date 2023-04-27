@@ -1,6 +1,6 @@
 <div style="width: 100%;">
   <a href="https://github.com/nikolalsvk/nikolalsvk/blame/main/welcome.svg">
-    <img src="wiki/assets/hello.svg" style="width: 100%;" alt="Click to see the source">
+    <img src="wiki/assets/welcome-fr.svg" style="width: 100%;" alt="Click to see the source">
   </a>
 </div>
 
