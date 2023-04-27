@@ -18,6 +18,6 @@ jobs:
           envkey_SERVER_PORT: "4000"
           envkey_DB_HOST: localhost
           directory: server
-          file_name: .env
+          file_name: .env.e2etests
       - name: Run e2e tests
         run: npm run e2e-tests
