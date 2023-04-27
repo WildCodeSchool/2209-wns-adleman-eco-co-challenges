@@ -1,8 +1,6 @@
 name: e2e-tests
 
 on: pull_request
-env:
-  CI: true
 
 jobs:
   e2e-tests:
@@ -21,6 +19,8 @@ jobs:
           envkey_DB_HOST: testDB
           envkey_POSTGRES_PASSWORD: postgres
           envkey_REACT_APP_GRAPHQL_API_URL: 'http://backend:4000'
+          envkey_BASE_URL: http://client:3000
+          envkey_CI: true
           directory: ./
           file_name: .env.e2etests
       - name: Run e2e tests
