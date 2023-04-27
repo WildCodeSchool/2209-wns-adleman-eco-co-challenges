@@ -1,6 +1,8 @@
 name: e2e-tests
 
 on: pull_request
+env:
+  CI: true
 
 jobs:
   e2e-tests:
@@ -24,5 +26,3 @@ jobs:
           file_name: .env.e2etests
       - name: Run e2e tests
         run: npm run e2e-tests
-    environment:
-      - CI: true
