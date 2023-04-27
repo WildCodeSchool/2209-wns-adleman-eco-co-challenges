@@ -12,16 +12,12 @@ jobs:
         uses: SpicyPizza/create-envfile@v1.3
         with:
           envkey_JWT_PRIVATE_KEY: zeyfgzeigfyzegfyuzegf
-          envkey_POSTGRES_PASSWORD: "postgres"
-          envkey_DB_HOST: "host.docker.internal"
-          envkey_CORS_ALLOWED_ORIGINS: "http://client:3000"
-          envkey_SERVER_HOST: "backend"
-          envkey_JWT_PRIVATE_KEY: "secret"
           envkey_NODE_ENV: "development"
-          envkey_REACT_APP_GRAPHQL_API_URL: "http://backend:4000"
-          envkey_DB_HOST: "testDB"
-          envkey_BASE_URL: "http://client:3000"
-          directory: "server"
-          file_name: ".env.e2etests"
+          envkey_CORS_ALLOWED_ORIGINS: "http://localhost:3000,http://localhost:4000,http://192.168.1.7:4000"
+          envkey_SERVER_HOST: "localhost"
+          envkey_SERVER_PORT: "4000"
+          envkey_DB_HOST: localhost
+          directory: server
+          file_name: .env
       - name: Run e2e tests
         run: npm run e2e-tests
