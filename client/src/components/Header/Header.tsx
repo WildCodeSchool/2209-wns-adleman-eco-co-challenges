@@ -1,8 +1,9 @@
+import "./Header.css";
+
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo150-1.png";
-import "./Header.css";
-import { useState } from "react";
 import { useGetProfileQuery } from "../../gql/generated/schema";
+import { useState } from "react";
 
 export default function Header() {
   const [showLinks, setShowLinks] = useState(false);
@@ -30,7 +31,7 @@ export default function Header() {
 
           <ul className="navbar__links">
             <li className="navbar__item slideInDown-1">
-              <Link to={`/home/${currentUserId}`}>Home</Link>
+              <Link to={`/user/${currentUserId}`}>Home</Link>
             </li>
 
             <li className="navbar__item slideInDown-2">

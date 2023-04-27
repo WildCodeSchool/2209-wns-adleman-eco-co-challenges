@@ -1,11 +1,11 @@
 {
-  "name": "ecoco challenge",
+  "name": "ecoco-challenge",
   "version": "1.0.0",
   "description": "",
   "scripts": {
     "integration-tests": "docker compose -f docker-compose.integration-tests.yml up --build --exit-code-from testrunner",
     "integration-tests:backend-only": "docker compose -f docker-compose.integration-tests.yml up testDB backend",
-    "e2e-tests": "docker compose -f docker-compose.e2e-tests.yml up --build --exit-code-from testrunner",
+    "e2e-tests": "docker compose -f docker-compose.e2e-tests.yml --env-file .env.e2etests up --build --exit-code-from testrunner",
     "start": "docker compose -f docker-compose.yml up --build",
     "start:prod": "docker compose -f docker-compose.production.yml pull && docker compose -f docker-compose.production.yml --env-file .env.production up",
     "start:staging": "docker compose -f docker-compose.staging.yml pull && docker compose -f docker-compose.staging.yml --env-file .env.staging up",
@@ -23,5 +23,8 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/WildCodeSchool/2209-wns-adleman-eco-co-challenges/issues"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.32.3"
   }
 }
