@@ -1,5 +1,5 @@
 {
-  "name": "ecoco challenge",
+  "name": "ecoco-challenge",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -23,5 +23,8 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/WildCodeSchool/2209-wns-adleman-eco-co-challenges/issues"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.32.3"
   }
 }

@@ -139,6 +139,7 @@ const AuthForm = () => {
                 <h1>Sign in</h1>
                 <span>or use your account</span>
                 <input
+                  data-testid="login-login"
                   type="text"
                   value={credentials.nickName}
                   onChange={(e) =>
@@ -146,6 +147,7 @@ const AuthForm = () => {
                   }
                 />
                 <input
+                  data-testid="login-password"
                   type="password"
                   placeholder="Password"
                   value={credentials.password}
@@ -153,7 +155,7 @@ const AuthForm = () => {
                     setCredentials({ ...credentials, password: e.target.value })
                   }
                 />
-                <button type="submit">Sign In</button>
+                <button type="submit">Login</button>
               </form>
             )}
 
