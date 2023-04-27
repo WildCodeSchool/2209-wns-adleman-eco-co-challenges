@@ -108,51 +108,50 @@ export default function ProtectedRoute({
 
 une fois le composant ProtectedRoute créé nous pouvons l'utiliser pour protéger une route en englobant le composant de la route dans le composant ProtectedRoute comme par exemple ici :
 
-        ```javascript
-
+```javascript
 <UserContextProvider>
-      <div>
-        <main>
-          <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/login" element={<Authentification />} />
-            <Route
-              path="/friends"
-              element={
-                <ProtectedRoute>
-                  <Friends />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/friend/:id"
-              element={
-                <ProtectedRoute>
-                  <FriendDashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/friends/add"
-              element={
-                <ProtectedRoute>
-                  <Friends_add />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/home/:id"
-              element={
-                <ProtectedRoute>
-                  <UserDashboard />
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
-        </main>
-      </div>
-    </UserContextProvider>
-        ```
+  <div>
+    <main>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<Authentification />} />
+        <Route
+          path="/friends"
+          element={
+            <ProtectedRoute>
+              <Friends />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/friend/:id"
+          element={
+            <ProtectedRoute>
+              <FriendDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/friends/add"
+          element={
+            <ProtectedRoute>
+              <Friends_add />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/home/:id"
+          element={
+            <ProtectedRoute>
+              <UserDashboard />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </main>
+  </div>
+</UserContextProvider>
+```
 
         Comme on peut le voir dans l'exemple ci dessus notre UserContextProvider englobe la totalité de notre application ce qui permet d'acceder aux information de notre user dans tous les composants. Nous avons donc utilisé le composant ProtectedRoute sur certaines route afin de les protéger si le currentUser n'existe pas (si personne n'est connecté). Pour rappel le composant protectedRoute verifie qu'un user existe si c'est le cas il renvoie le children (le composant englobé) sinon il renvoie vers la page de login.
 
