@@ -20,7 +20,6 @@ jobs:
           envkey_POSTGRES_PASSWORD: postgres
           envkey_REACT_APP_GRAPHQL_API_URL: 'http://backend:4000'
           envkey_DB_HOST: testDB
-          envkey_BASE_URL: http://client:3000
           directory: ./
           file_name: .env.e2etests
       - name: Run e2e tests
