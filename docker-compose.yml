@@ -1,10 +1,10 @@
 services:
   db:
     image: postgres:15-alpine
-    container_name: ecochallenge_db
     environment:
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=ecochallenge
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -d postgres -U postgres"]
       interval: 10s
@@ -12,20 +12,26 @@ services:
       retries: 5
     ports:
       - 5432:5432
-
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+    ports:
+      - "5050:80"
+    restart: always
   server:
     depends_on:
       db:
         condition: service_healthy
     build: "./server"
+    environment:
+      DB_HOST: ${DB_HOST}
+      CHOKIDAR_USEPOLLING: ${CHOKIDAR_USEPOLLING}
     ports:
       - 4000:4000
     volumes:
       - ./server/src:/app/src
-    environment:
-      DB_HOST: "db"
-      CHOKIDAR_USEPOLLING: "true"
-
   client:
      build: './client'
      ports:
