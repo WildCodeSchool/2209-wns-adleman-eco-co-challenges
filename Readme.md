@@ -153,6 +153,6 @@ une fois le composant ProtectedRoute créé nous pouvons l'utiliser pour protég
 </UserContextProvider>
 ```
 
-        Comme on peut le voir dans l'exemple ci dessus notre UserContextProvider englobe la totalité de notre application ce qui permet d'acceder aux information de notre user dans tous les composants. Nous avons donc utilisé le composant ProtectedRoute sur certaines route afin de les protéger si le currentUser n'existe pas (si personne n'est connecté). Pour rappel le composant protectedRoute verifie qu'un user existe si c'est le cas il renvoie le children (le composant englobé) sinon il renvoie vers la page de login.
+Comme on peut le voir dans l'exemple ci dessus notre UserContextProvider englobe la totalité de notre application ce qui permet d'acceder auxinformation de notre user dans tous les composants. Nous avons donc utilisé le composant ProtectedRoute sur certaines route afin de les protéger sile currentUser n'existe pas (si personne n'est connecté). Pour rappel le composant protectedRoute verifie qu'un user existe si c'est le cas ilrenvoie le children (le composant englobé) sinon il renvoie vers la page de login.
 
-        ## TODO utiliser ce context partout au lieu fetch les données dans les composants
+## TODO utiliser ce context partout au lieu fetch les données dans les composants
