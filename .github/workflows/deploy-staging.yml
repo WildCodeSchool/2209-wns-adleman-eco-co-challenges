@@ -24,7 +24,6 @@ jobs:
           file_name: .env
       - name: Run integration test
         run: npm run integration-tests
-
   build-and-push-server-staging:
     needs:
       - integration-tests
