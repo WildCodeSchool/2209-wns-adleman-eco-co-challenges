@@ -1,35 +1,7 @@
 [🇫🇷 Retour au sommaire](../../Readme.md) - [🇬🇧 Back to summary](../Index/en.md)
 
 # CI
-
-## integration test
-
-### Dockerisation des tests
-
-Les tests d'intégration se trouvent dans le dossier integration-test.
-Pour exécuter les test d'intégration des scripts sont présents dans le package.json.
-L'ensemble de ces scripts exécutent les tests d'intégration avec docker-compose.
-pour les test d'intégration un docker-compose.integration.yml est utilisé.
-Il contient 3 services :
-
-- une base de données postgresql buildé depuis une image alpine
-- un serveur backend nodejs buildé depuis le dossier server du repos (donc iso à ce qu'on veut tester)
-- un testrunner buildé depuis le dossier testrunner du repos. A noter qu'on a donné un contexte au test runner pour que le build se lance depuis la racine du projet.
-
-Il y a un healthcheck sur la base de données pour que le backend puisse attendre que la base de données soit prête avant de se lancer.
-On a rajouté un healthcheck sur le serveur backend pour que le testrunner puisse attendre que le serveur soit prêt avant de lancer les tests.
-
-    Le build du testrunner :
-        On part d'une image node:lts-alpine et on installe ce dont on va avoir besoin pour tout installer.
-        On créé un dossier server et on copi dedans tout ce qui est nescessaire depuis le dossier server du repos (package.json,
-        dossier src, config, etc...).
-        On installe les dépendances du serveur.
-        On créé un dossier app pour les tests d'intégration et on copie dedans les fichiers necessaires a l'exécution des
-        tests d'intégration (package.json, config, src etc...).
-        On installe les dépendances du testrunner.
-        On lance les test à l'aide d'un script qui va exécuter les tests à l'aide de Jest.
-
-### Github actions
+### Test d'intégrations
 
 Pour intégrer les test d'intégrations à la CI de github, on utilise les github actions.
 On a créé un fichier .github/workflows/integration-test.yml qui contient la configuration de la CI à exécuter par github.
@@ -38,43 +10,85 @@ On a créé un fichier .github/workflows/integration-test.yml qui contient la co
         Ce fichier ne contient qu'un seul job "integration-tests" qui tourne sur ubuntu-latest.
         Ce job à 3 étapes :
             - checkout : permet de récupérer le code du repos
-            - make envfile : permet de créer un fichier .env à la racine du projet avec les variables d'environnemen
+            - make envfile : permet de créer un fichier .env à la racine du containeur avec les variables d'environnements
             - test : permet d'exécuter les tests d'intégration à l'aide de docker-compose
 
 Lorsqu'une pull request est créée ou mise à jour, cette action GitHub s'exécute pour vérifier que les tests d'intégration
 passent, ce qui aide à garantir la qualité du code avant de fusionner les modifications dans la branche principale.
 
+### Tests end to end
+
+Pour intégrer les tests e2e à la CI de github, on utilise les github actions.
+On a créé un fichier .github/workflows/e2e-tests.yml qui contient la configuration de la CI à exécuter par github.
+Ce fichier ne contient qu'un seul job "e2e-tests" qui tourne sur ubuntu-latest.
+
+Lorsqu'une pull request est créée ou mise à jour, cette action GitHub s'exécute pour vérifier que les tests e2e
+passent, ce qui aide à garantir la qualité du code avant de fusionner les modifications dans la branche principale.
+
 # CD
 
+### Deploiement continu staging
+- **Introduction**
+
+Le but de la branche staging est de simuler la version production de notre application. Toutes les fonctionnalités et modifications
+sont ajoutés sur la branche develop, une fois que cette branche à une version qui nous convient, on la merge sur la
+branche staging qui va déclencher les mêmes automatisations que la branche main (production) dans les mêmes conditions. 
+Ainsi on peut vérifier que tous le protocole de déploiement est fonctionnelle et tester l'application en ligne dans les
+mêmes conditions que la production.
+
+- **Mise en place**
+
+Le merge de la branche develop sur la branche staging va déclencher le workflow Github Actions deploy-staging.yml 
+qui contient plusieurs jobs.
+
+    integration-tests : 
+Permet de vérifier que les tests d'intégration passent
+
+
+    build-and-push-client-staging
 La première étape consiste à créer une version de production de notre application.
-
-Client
-
-On créé un dockerfile.production, qui ressemble à celui du dockerfile de développement,
-mais qui va build l'application au lieu de la lancer en mode dev.
-
-serveur
+On créé un dockerfile.production, qui ressemble à celui du dockerfile de développement, mais qui va build l'application 
+au lieu de la lancer en mode dev afin de créer une image docker.
+On push ensuite cette image docker sur docker Hub avec le tag staging
+        
+    - build-and-push-server-staging : 
 
 C'est un peu la même démarche, on va faire tourner le compilateur typescript pour créer un dossier build en full js qui
-pourra s'exécuter sur n'importe quel environnement plus rapidement.
+pourra s'exécuter sur n'importe quel environnement plus rapidement. Une fois l'image docker build on la push sur le 
+docker hub avec le tag staging
 
-docker-compose.production.yml à la racine
+    - notify :
 
-On a une base de donnée postgresql avec un volume défini explicitement pour la persistance des données.
-On est censé avoir un réseau particulier à chaque docker compose (pk je ne l'ai pas mis en place ?)
+Cette étape permet de notifier un service webhook sur notre vps qui va exécuter des scripts de déploiement en fonction
+de l'url appelé. Ici on va notifier le webhook update-staging qui va déclancher le script de déploiement staging.
 
-Pour le client et le serveur on utilise des images dockerhub, qui sont des build de nos dockerfile.production.
+    - Script de déploiement :
 
-On rajoute un nginx qui va servir le client et le serveur, il se trouve devant le serveur et le client et va dispatcher
+[deploy-staging.yml](../../.github/workflows/deploy-staging.yml)
+
+Le script deploy-staging.yml exécute plusieurs actions :
+- il se place à la racine du projet
+- il récupère la dernière version de la branche staging
+- il supprime les fichiers qui ne sont pas dans la branche staging (les .env vont restés car ils sont dans le gitignore)
+- il stop les containers docker de la branche staging
+- il pull les images docker qui ont le tag "staging"
+- il exécute le docker-compose.staging.yml avec le fichier .env.staging 
+
+
+    Le docker-compose.staging.yml 
+[deploy-staging.yml](../../docker-compose.staging.yml)
+- On a une base de donnée postgresql avec un volume défini explicitement pour la persistance des données.
+
+- Un pgadmin qui va nous permettre de visualiser la base de donnée (interface graphique)
+
+- Pour le client et le serveur on utilise des images dockerhub, qui sont des build de nos dockerfile.production.
+
+- On rajoute un nginx qui va servir le client et le serveur, il se trouve devant le serveur et le client et va dispatcher
 les requêtes en fonction de l'url.
 
-Coté serveur vps, on install webhook qui va avoir 2 hook qui sont sensiblement les mêmes :
+### Deploiement continu staging
 
-- un pour la version staging, qui va déclancher un script de déploiement staging
-- un pour la version prod, qui va déclancher un script de déploiement dédié à la prod
-
-On créé un nouveau docker-compose.staging pour la partie staging, qui est sensiblement le même que le
-docker-compose.production à la différence que les services s'appellent staging et non prod.
-Une différence également est de ne pas simplement pull les images serveur et client mais de pull des tags spécifiques
-image: nom/de-l-image:production
-image: nom/de-l-image:staging
+Le fonctionnement est exactement le même que pour le déploiement staging pour éviter les mauvaises surprises lors du déploiement
+en production.
+Les fichiers appellés ne sont pas les mêmes mais ils exécutent les mêmes fonctionnalités avec production à la place de 
+staging (deploy-production.yml, docker-compose.production.yml, .env.production etc...)

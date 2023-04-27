@@ -24,7 +24,6 @@ jobs:
           file_name: .env
       - name: Run integration test
         run: npm run integration-tests
-
   e2e-tests:
     runs-on: ubuntu-latest
     steps:
@@ -47,7 +46,6 @@ jobs:
           file_name: .env.e2etests
       - name: Run e2e tests
         run: npm run e2e-tests
-
   build-and-push-server-staging:
     needs:
       - integration-tests
