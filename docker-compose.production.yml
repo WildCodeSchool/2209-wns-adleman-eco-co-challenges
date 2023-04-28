@@ -15,6 +15,7 @@ services:
     volumes:
       - prodDB:/var/lib/postgresql/data
   pgadmin:
+
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
@@ -28,6 +29,7 @@ services:
       prodDB:
         condition: service_healthy
     environment:
+
       - NODE_ENV=${NODE_ENV}
       - DB_HOST=${DB_HOST}
       - SERVER_HOST=${SERVER_HOST}
