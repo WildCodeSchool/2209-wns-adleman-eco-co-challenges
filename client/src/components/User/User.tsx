@@ -19,9 +19,9 @@ const User = () => {
       fillElement.style.width = barWidth;
     }
   }, [barWidth]);
-console.log("../../assets/" + Math.floor((lvl?? 0) / 10) + ".png");
+const ooo = Math.floor((lvl ?? 0) / 10).toString();
 
-
+  console.log(ooo);
   return (
     <>
       <>
@@ -31,6 +31,7 @@ console.log("../../assets/" + Math.floor((lvl?? 0) / 10) + ".png");
             className="userBody px-4 py-5 my-5 text-center"
             style={{
                     backgroundImage: `url(${require("../../assets/" + Math.floor((lvl ?? 0) / 10).toString() + ".png")})`,
+                    // backgroundImage: `url(${require("../../assets/" + ooo + ".png")})`,
                 }}
     >
           <div className="container px-4 py-5" id="featured-3">
