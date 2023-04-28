@@ -19,9 +19,13 @@ const User = () => {
       fillElement.style.width = barWidth;
     }
   }, [barWidth]);
-const ooo = Math.floor((lvl ?? 0) / 10).toString();
+  const backgroundImageLvlGenerator = (lvl: number) => {
+    const lvlExpression = Math.floor((lvl ?? 0) / 10);
+    return Math.min(lvlExpression, 10).toString();
+  };
+  const backgroundImageLvl = backgroundImageLvlGenerator(lvl);
 
-  console.log(ooo);
+  console.log(backgroundImageLvl);
   return (
     <>
       <>
@@ -30,8 +34,7 @@ const ooo = Math.floor((lvl ?? 0) / 10).toString();
         <div
             className="userBody px-4 py-5 my-5 text-center"
             style={{
-                    backgroundImage: `url(${require("../../assets/" + Math.floor((lvl ?? 0) / 10).toString() + ".png")})`,
-                    // backgroundImage: `url(${require("../../assets/" + ooo + ".png")})`,
+                    backgroundImage: `url(${require("../../assets/" + backgroundImageLvl + ".png")})`,
                 }}
     >
           <div className="container px-4 py-5" id="featured-3">
