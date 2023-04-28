@@ -70,7 +70,9 @@ const AuthForm = () => {
                   .then(async () => {
                     await login({ variables: { data: userInfos } });
                     await client.resetStore();
-                  })
+                    getProfile().then((res) => {
+                      navigate(`/user/${res?.data?.profile.id}`);
+            })})
                   .catch((err: { message: string }) => {
                     if (err.message === "EMAIL_ALREADY_EXISTS")
                       toast.error("This email is already taken");
