@@ -212,3 +212,41 @@ if(loader){
 ```
 
 Nous avons ajouter un loader pour que l'utilisateur ne voit pas la page se charger avant d'être redirigé vers la page de login et que la protection des routes ne s'active pas par inadvertance si le cache n'est pas encore chargé.
+
+
+# Codegen
+
+Codegen est un outil qui permet de générer du code à partir d'une représentation intermédiaire (IR) définie dans un langage de programmation particulier. Il peut être utilisé dans un projet React pour générer automatiquement du code. 
+
+Etapes à suivre : 
+  - Installer Codegen en tant que dépendance de développement du projet
+      npm install --save-dev @graphql-codegen/cli
+
+  - Créer un fichier codegen.yml pour configurer Codegen à la racine du projet. Ce fichier contient les informations nécessaires pour générer le code, telles que le chemin vers le schéma GraphQL et les modèles à utiliser pour la génération de code. 
+
+  - Afin de générer automatiquement des fonction qui réalisent des requêtes graphQL de CRUD, on crée ces requêtes via l'interface graphique d'Appolo server, avant de les coller dans un fichier au ein du dosser gql. Exemple du fichier createEvent.gql:
+
+  ```
+mutation CreateEvent($data: EventInput!) {
+  createEvent(data: $data) {
+    id
+    name
+    image
+    participants {
+      nickName
+    }
+    startDate
+    endDate
+  }
+}
+  ```
+
+  - Exécuter Codegen à partir du terminal en utilisant la commande suivante : 
+      npx graphql-codegen ou dans notre cas npm run codegen (cf. package.json)
+
+  - Le code généré peut ainsi être utilisé.
+  Dans l'exemple précédent, on utilisera, après l'avoir importée du fichier schema.ts la fonction suivante :
+```
+const [createEvent] = useCreateEventMutation();
+```
+  
