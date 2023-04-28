@@ -1,7 +1,7 @@
-import { User } from "../../gql/generated/schema";
-import { useGetProfileQuery } from "../../gql/generated/schema";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
+import { User } from "../../gql/generated/schema";
+import { useGetProfileQuery } from "../../gql/generated/schema";
 
 // Function to generate a random user url
 const randomUser = () => {
@@ -55,6 +55,7 @@ const UserList = (props: Props) => {
             {/* render the state to modify the display on click */}
             {users?.map((user: Partial<User>) => (
               <div
+              key={user.id}
                 onClick={(e) => {
                   e.preventDefault();
                   handleUserClick(user.id, currentUser?.profile?.id);
@@ -65,7 +66,7 @@ const UserList = (props: Props) => {
               >
                 <div className="card shadow-sm">
                   <img
-                    src={user.image ?? "" ? user.image ?? "" : randomUser()}
+                    src={user.image ?? randomUser()}
                     alt=""
                     loading="lazy"
                   />

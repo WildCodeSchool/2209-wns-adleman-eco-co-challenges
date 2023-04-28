@@ -22,7 +22,7 @@ services:
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
     restart: always
     ports:
-      - "5051:80"
+      - "5052:80"
   server:
     image: ecocochallenge/ecocochallenge-server:production
     depends_on:
