@@ -25,6 +25,7 @@ const FriendsAdd = () => {
   const { data } = useQuery(GET_USERS);
   // get current user
   const { data: currentUser } = useGetProfileQuery({
+    fetchPolicy: "no-cache",
     errorPolicy: "ignore",
   });
   // add a filter to users to get only users who are no friends

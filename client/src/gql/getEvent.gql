@@ -1,0 +1,12 @@
+query GetEvents {
+  events {
+    image
+    name
+    startDate
+    participants {
+      nickName
+    }
+    endDate
+    id
+  }
+}

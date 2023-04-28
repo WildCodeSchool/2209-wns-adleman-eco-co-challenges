@@ -12,11 +12,20 @@
 .userBody{
   background-size: cover;
   background-repeat: no-repeat;
-  min-height: 100vh;
 }
 #containerLvl span {
   color: #000000;
   font-family: sans-serif;
   font-size: 1em;
 }
+
+.description-container {
+  background-color: rgb(175, 209, 224);
+  border-radius: 10%
+}
+
+
+
+
+
 
