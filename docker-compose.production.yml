@@ -22,7 +22,7 @@ services:
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
     restart: always
     ports:
-      - "5050:80"
+      - "5051:80"
   server:
     image: ecocochallenge/ecocochallenge-server:production
     depends_on:
@@ -58,6 +58,14 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ./logs:/var/log/nginx
-
+  discord-notifier:
+    image: scrip/discord-notifier
+    depends_on:
+      nginx:
+        condition: service_started
+    environment:
+      - BOT_TOKEN=${BOT_TOKEN}
+      - CHANNEL_ID=${CHANNEL_ID}
+    command: "npm run send-message 'Production env has been updated : https://github.com/WildCodeSchool/2209-wns-adleman-eco-co-challenges. Un grand merci à toi @[Lyon]Pierre#7444'"
 volumes:
   prodDB:
