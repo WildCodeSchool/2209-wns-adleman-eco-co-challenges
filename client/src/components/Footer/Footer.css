@@ -1,20 +1,68 @@
-footer {
-    background-image: url("../../assets/footer-img.png");
-    background-size: 100%;
-    width: 100vw;
-    margin-top: 5%;
-    font-family: "Roboto";
+.footer {
+  position: relative;
+  width: 100%;
+  margin-top: 5%;
+  background: #fff ;
+  min-height: 100px;
+  padding: 20px 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-.footer__column{
-    display: flex;
-    justify-content: space-around;
-    margin-right: 10%;
-    margin-left: 10%;
-    margin-bottom: 20px;
+.menu {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+  flex-wrap: wrap;
+  color: #545863;
+
 }
 
-.footer__end{
-    text-align: center;
-    bottom: 0;
+.menu__item {
+  list-style: none;
+  color: #545863;
+
 }
+
+.menu__link {
+
+  color: #545863;
+  display: inline-block;
+  transition: 0.5s;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #27C7D4;
+}
+
+a {
+  text-decoration: none;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.5rem;
+  color: #545863;
+  font-weight: bold;
+  margin: 0 10px;
+}
+
+.footer p {
+  font-family: 'Caveat', cursive;
+  color: #27C7D4;
+  margin: 15px 0 10px 0;
+  font-size: 1.5rem;
+}
+
+.wave {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: url("../../assets/wave.png");
+  background-size: 2000px 100px;
+}
+
