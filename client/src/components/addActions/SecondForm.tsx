@@ -1,17 +1,16 @@
 import { useNavigate, useParams } from "react-router-dom";
 
-const FirstForm = () => {
+const SecondForm = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     function saveAndNavigate(u: Partial<Event>) {
-        // TODO: save event in database, get the id and navigate to the next page
-        navigate(`/actions/add/${id}`);
+        // TODO: save actions in database, navigate to the event page
+        navigate(`/event/${id}`);
     }
 
     return (
         <>
-            <h1> Création d'un event</h1>
-
+            <h1> Ajout des actions</h1>
             <form className="" data-dashlane-rid="ba67f2aec74f9c4b" data-form-type="register">
                 <div className="form-floating mb-3">
                     <input type="email" className="form-control rounded-3" id="floatingInput" placeholder="name@example.com"
@@ -39,4 +38,4 @@ const FirstForm = () => {
     )
 }
 
-export default FirstForm;
+export default SecondForm;

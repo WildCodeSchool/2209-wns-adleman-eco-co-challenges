@@ -1,15 +1,12 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CustomBootstrap.scss";
-
 import { Route, Routes } from "react-router-dom";
-
 import AddActionsToEvent from "./pages/AddActionstoEvent";
 import Authentification from "./pages/Authentification";
 import CreateEvent from "./pages/CreateEvent";
 import Event from "./pages/Event";
 import Events from "./pages/Events";
-import FriendDashboard from "./pages/Dashboard";
 import Friends from "./pages/FriendsList";
 import FriendsAdd from "./pages/FriendsAdd";
 import Landing from "./pages/Landing";
@@ -31,14 +28,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-          {/*<Route*/}
-          {/*  path="/friend/:id"*/}
-          {/*  element={*/}
-          {/*    <ProtectedRoute>*/}
-          {/*      <FriendDashboard />*/}
-          {/*    </ProtectedRoute>*/}
-          {/*  }*/}
-          {/*/>*/}
           <Route
             path="/friends/add"
             element={
