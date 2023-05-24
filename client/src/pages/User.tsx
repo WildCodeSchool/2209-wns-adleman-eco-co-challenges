@@ -1,6 +1,5 @@
 import { useGetProfileQuery, useGetUserEventsQuery } from "../gql/generated/schema";
 import { useNavigate, useParams } from "react-router-dom";
-
 import DashboardUserList from "../components/DashboardUserList/DashboardUserList";
 import EventList from "../components/EventList/EventList";
 import Footer from "../components/Footer/Footer";
@@ -30,6 +29,13 @@ export default function UserDashboard() {
   function navigateToEvent(u: Partial<Event>) {
     navigate(`/user/${currentUser?.profile.id}`);
   }
+  function navigateToCreateEvent(u: Partial<Event>) {
+    navigate(`/event/create`);
+  }
+  function navigateToEvents(u: Partial<Event>) {
+    navigate(`/events`);
+  }
+
   return (
     <div>
       <div className="header">
@@ -39,17 +45,30 @@ export default function UserDashboard() {
         <User />
       </div>
       {isUserConnected && (
-        <div>
-          <div>
-            <EventList events={events} onUserClick={navigateToEvent} />
-          </div>
-          <div>
-            <DashboardUserList
-              users={currentUser?.profile.friends ?? []}
-              onUserClick={redirectToUserPage}
-            />
-          </div>
-        </div>
+          <>
+              <div className="d-flex align-content-center justify-content-center gap-5 ">
+                <button className="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill bg-primary text-white"
+                        type="button"
+                        onClick={navigateToCreateEvent}>
+                  Créer un événement
+                </button>
+                <button className="btn btn-outline-secondary btn-lg px-4 rounded-pill bg-primary text-white"
+                        type="button"
+                        onClick={navigateToEvents}>
+                  Voir tous les événements
+                </button>
+              </div>
+            <div>
+              <div>
+                <EventList events={events} onUserClick={navigateToEvent}/>
+              </div>
+              <div>
+                <DashboardUserList
+                    users={currentUser?.profile.friends ?? []}
+                    onUserClick={redirectToUserPage}/>
+              </div>
+            </div>
+          </>
       )}
       <div className="footer">
         <Footer />

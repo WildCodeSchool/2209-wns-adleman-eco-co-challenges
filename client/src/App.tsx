@@ -31,14 +31,14 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/friend/:id"
-            element={
-              <ProtectedRoute>
-                <FriendDashboard />
-              </ProtectedRoute>
-            }
-          />
+          {/*<Route*/}
+          {/*  path="/friend/:id"*/}
+          {/*  element={*/}
+          {/*    <ProtectedRoute>*/}
+          {/*      <FriendDashboard />*/}
+          {/*    </ProtectedRoute>*/}
+          {/*  }*/}
+          {/*/>*/}
           <Route
             path="/friends/add"
             element={
