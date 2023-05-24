@@ -3,13 +3,21 @@ import Event, { EventInput } from "../entity/Event";
 import User from "../entity/User";
 
 import DataSource from "../db";
+import { LessThan, MoreThan } from "typeorm";
 
 @Resolver(Event)
 export class EventResolver {
+
+  // This method will filter all events with parameters isOver to get all events that are over or not
   @Query(() => [Event])
-  async events(): Promise<Event[]> {
+  async events(@Arg("isOver") isOver: boolean): Promise<Event[]> {
+    const overOrNot = isOver
+      ? { endDate: LessThan(new Date()) }
+      : { endDate: MoreThan(new Date()) };
     const events = await DataSource.getRepository(Event).find({
       relations: { participants: true },
+      where: overOrNot,
+      order: { startDate: "ASC" },
     });
     return events;
   }
@@ -17,6 +25,7 @@ export class EventResolver {
   @Mutation(() => Event)
   async createEvent(@Arg("data") data: EventInput): Promise<Event> {
     const { name, startDate, endDate, image } = data;
+    // format de date à utiliser 2024-01-01
     return await DataSource.getRepository(Event).save({
       name,
       startDate,

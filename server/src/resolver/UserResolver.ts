@@ -15,7 +15,6 @@ import { env } from "../environment";
 
 @Resolver(User)
 export class UserResolver {
-
   // Get all users
   @Query(() => [User])
   async users(): Promise<User[]> {
@@ -25,7 +24,7 @@ export class UserResolver {
     return users;
   }
 
-// Get user connected
+  // Get user connected
   @Authorized()
   @Query(() => User)
   async profile(@Ctx() ctx: ContextType): Promise<User> {
@@ -53,7 +52,7 @@ export class UserResolver {
     @Arg("data") data: UserUpdateInput,
     @Arg("userId") userId: number
   ): Promise<User> {
-    const { friendsId, xp } = data;
+    const { friendsId, xp, description, image, password } = data;
     const userUpdated = await DataSource.getRepository(User).findOneOrFail({
       where: { id: userId },
       relations: ["friends"],
@@ -78,7 +77,6 @@ export class UserResolver {
       );
 
       userUpdated.friends = uniqueFriends;
-      userUpdated.xp = xp;
 
       await Promise.all(
         uniqueFriends.map(async (uniqueFriend) => {
@@ -100,6 +98,49 @@ export class UserResolver {
           return await DataSource.manager.save(friendToUpdate);
         })
       );
+    }
+
+    if (typeof xp !== "undefined") userUpdated.xp = xp;
+    if (typeof description !== "undefined")
+      userUpdated.description = description;
+    if (typeof image !== "undefined") userUpdated.image = image;
+    if (typeof password !== "undefined")
+      userUpdated.hashedPassword = await hashPassword(password);
+
+    return await DataSource.manager.save(userUpdated);
+  }
+
+  // Remove Friend
+  @Mutation(() => User)
+  async removeFriendUser(
+    @Arg("userId") userId: number,
+    @Arg("friendToRemoveId") friendToRemoveId: number
+  ): Promise<User> {
+
+    // user that will be updated
+    const userUpdated = await DataSource.getRepository(User).findOneOrFail({
+      where: { id: userId },
+      relations: ["friends"],
+    });
+    // friend to remove from our list of friends
+
+    const friendToRemove = await DataSource.getRepository(User).findOneOrFail({
+      where: { id: friendToRemoveId},
+      relations: ["friends"],
+    });
+  
+    // condition to remove friend from our list of friends
+    if (typeof friendToRemove !== "undefined") {
+      // we filter our existing Friends list to remove the friend we want to remove
+      userUpdated.friends = userUpdated.friends.filter(
+        (friend) => friend.id !== friendToRemoveId
+      );
+      // we filter the list of friends of the friend we want to remove to remove from our friend list
+      friendToRemove.friends = friendToRemove.friends.filter(
+        (friend) => friend.id !== userUpdated.id
+      );
+      // we save the friend list of the friend we want to remove
+      await DataSource.manager.save(friendToRemove);
     }
 
     return await DataSource.manager.save(userUpdated);
