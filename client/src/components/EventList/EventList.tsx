@@ -25,7 +25,7 @@ const EventList = (props: Props) => {
     const randomImageNumber = Math.floor(Math.random() * 100) + 1;
     return `https://picsum.photos/500/500?random=${randomImageNumber}&bgcolor=red`;
   };
-  const { events, onUserClick } = props;
+  const { events } = props;
 
   if (!events) {
     return <div>Loading events...</div>;
@@ -36,7 +36,7 @@ const EventList = (props: Props) => {
       <p className="fs-2 mb-5 fw-bold text-center">Evènements</p>
       <div className="eventList-container">
         <div className={`row mx-auto ${isMobile ? "row-cols-1" : "row-cols-4"}`}>
-          {events.events.map((event: any) => (
+          {events.getEvents?.map((event: any) => (
             <div className="col mb-3" key={event.id}>
               <div className="card  shadow-sm">
                 <img

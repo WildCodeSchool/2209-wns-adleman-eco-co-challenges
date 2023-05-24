@@ -62,6 +62,7 @@ export type Mutation = {
   login: Scalars['String'];
   logout: Scalars['String'];
   removeFriendUser: User;
+  subscribeToEvent: User;
   updateEvent: Event;
   updateUser: User;
 };
@@ -94,6 +95,12 @@ export type MutationLoginArgs = {
 
 export type MutationRemoveFriendUserArgs = {
   friendToRemoveId: Scalars['Float'];
+  userId: Scalars['Float'];
+};
+
+
+export type MutationSubscribeToEventArgs = {
+  eventId: Scalars['Float'];
   userId: Scalars['Float'];
 };
 

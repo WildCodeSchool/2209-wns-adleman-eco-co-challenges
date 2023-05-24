@@ -1,4 +1,4 @@
-import { useGetEventsQuery, useGetProfileQuery } from "../gql/generated/schema";
+import { useGetProfileQuery, useGetUserEventsQuery } from "../gql/generated/schema";
 import { useNavigate, useParams } from "react-router-dom";
 
 import DashboardUserList from "../components/DashboardUserList/DashboardUserList";
@@ -15,8 +15,12 @@ export default function UserDashboard() {
     errorPolicy: "ignore",
   });
 
-  const isUserConnected = currentUser?.profile.id === id;
-  const { data: events } = useGetEventsQuery({
+  const isUserConnected = Number(currentUser?.profile.id) === Number(id);
+  const { data: events } = useGetUserEventsQuery({
+    variables: { 
+      isOver: true,
+      userId: Number(currentUser?.profile.id), 
+    },
     errorPolicy: "ignore",
   });
 
@@ -34,7 +38,7 @@ export default function UserDashboard() {
       <div>
         <User />
       </div>
-      {!isUserConnected && (
+      {isUserConnected && (
         <div>
           <div>
             <EventList events={events} onUserClick={navigateToEvent} />
