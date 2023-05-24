@@ -1,9 +1,8 @@
 import UserList from "../UserList/UserList";
 import { useNavigate } from "react-router-dom";
-import { useGetProfileQuery } from "../../gql/generated/schema";
-import { User } from "../../gql/generated/schema";
+import { useGetProfileQuery, User } from "../../gql/generated/schema";
 
-const Friends_list = () => {
+const FriendsList = () => {
   const navigate = useNavigate();
   const { data: currentUser } = useGetProfileQuery({
     errorPolicy: "ignore",
@@ -59,4 +58,4 @@ const Friends_list = () => {
   );
 };
 
-export default Friends_list;
+export default FriendsList;
