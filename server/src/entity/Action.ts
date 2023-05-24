@@ -55,7 +55,7 @@ export class ActionInput {
   @Field({ nullable: true })
   points: number;
 
-  @Field(() => [Number], { nullable: true })
-  eventsId?: number[];
+  @Field({ nullable: true })
+  eventId?: number;
 }
 export default Action;

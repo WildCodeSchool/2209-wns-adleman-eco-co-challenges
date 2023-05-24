@@ -27,7 +27,7 @@ export type Action = {
 
 export type ActionInput = {
   description?: InputMaybe<Scalars['String']>;
-  eventsId?: InputMaybe<Array<Scalars['Float']>>;
+  eventId?: InputMaybe<Scalars['Float']>;
   points?: InputMaybe<Scalars['Float']>;
   title?: InputMaybe<Scalars['String']>;
 };
@@ -45,6 +45,7 @@ export type Event = {
 
 export type EventInput = {
   actionsId?: InputMaybe<Array<Scalars['Float']>>;
+  description?: InputMaybe<Scalars['String']>;
   endDate?: InputMaybe<Scalars['DateTime']>;
   image?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
@@ -111,9 +112,15 @@ export type MutationUpdateUserArgs = {
 export type Query = {
   __typename?: 'Query';
   actions: Array<Action>;
-  events: Array<Event>;
+  getEvents: Array<Event>;
   profile: User;
   users: Array<User>;
+};
+
+
+export type QueryGetEventsArgs = {
+  isOver: Scalars['Boolean'];
+  userId?: InputMaybe<Scalars['Float']>;
 };
 
 export type User = {
@@ -155,15 +162,25 @@ export type CreateUserMutationVariables = Exact<{
 
 export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', id: number } };
 
-export type GetEventsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetEventsQueryVariables = Exact<{
+  isOver: Scalars['Boolean'];
+}>;
 
 
-export type GetEventsQuery = { __typename?: 'Query', events: Array<{ __typename?: 'Event', image?: string | null, name?: string | null, startDate?: any | null, endDate?: any | null, id: string, participants?: Array<{ __typename?: 'User', nickName: string }> | null }> };
+export type GetEventsQuery = { __typename?: 'Query', getEvents: Array<{ __typename?: 'Event', name?: string | null, image?: string | null, endDate?: any | null, startDate?: any | null, participants?: Array<{ __typename?: 'User', id: number }> | null, actions?: Array<{ __typename?: 'Action', title?: string | null, points?: number | null, description?: string | null }> | null }> };
 
 export type GetProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetProfileQuery = { __typename?: 'Query', profile: { __typename?: 'User', id: number, nickName: string, xp?: number | null, description?: string | null, image?: string | null, friends: Array<{ __typename?: 'User', id: number, nickName: string }> } };
+
+export type GetUserEventsQueryVariables = Exact<{
+  userId: Scalars['Float'];
+  isOver: Scalars['Boolean'];
+}>;
+
+
+export type GetUserEventsQuery = { __typename?: 'Query', getEvents: Array<{ __typename?: 'Event', name?: string | null, image?: string | null, endDate?: any | null, startDate?: any | null, participants?: Array<{ __typename?: 'User', id: number }> | null, actions?: Array<{ __typename?: 'Action', title?: string | null, points?: number | null, description?: string | null }> | null }> };
 
 export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -233,16 +250,20 @@ export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutati
 export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
 export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
 export const GetEventsDocument = gql`
-    query GetEvents {
-  events {
-    image
+    query GetEvents($isOver: Boolean!) {
+  getEvents(isOver: $isOver) {
     name
-    startDate
     participants {
-      nickName
+      id
+    }
+    image
+    actions {
+      title
+      points
+      description
     }
     endDate
-    id
+    startDate
   }
 }
     `;
@@ -259,10 +280,11 @@ export const GetEventsDocument = gql`
  * @example
  * const { data, loading, error } = useGetEventsQuery({
  *   variables: {
+ *      isOver: // value for 'isOver'
  *   },
  * });
  */
-export function useGetEventsQuery(baseOptions?: Apollo.QueryHookOptions<GetEventsQuery, GetEventsQueryVariables>) {
+export function useGetEventsQuery(baseOptions: Apollo.QueryHookOptions<GetEventsQuery, GetEventsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<GetEventsQuery, GetEventsQueryVariables>(GetEventsDocument, options);
       }
@@ -315,6 +337,53 @@ export function useGetProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type GetProfileQueryHookResult = ReturnType<typeof useGetProfileQuery>;
 export type GetProfileLazyQueryHookResult = ReturnType<typeof useGetProfileLazyQuery>;
 export type GetProfileQueryResult = Apollo.QueryResult<GetProfileQuery, GetProfileQueryVariables>;
+export const GetUserEventsDocument = gql`
+    query GetUserEvents($userId: Float!, $isOver: Boolean!) {
+  getEvents(userId: $userId, isOver: $isOver) {
+    name
+    participants {
+      id
+    }
+    image
+    actions {
+      title
+      points
+      description
+    }
+    endDate
+    startDate
+  }
+}
+    `;
+
+/**
+ * __useGetUserEventsQuery__
+ *
+ * To run a query within a React component, call `useGetUserEventsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserEventsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserEventsQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *      isOver: // value for 'isOver'
+ *   },
+ * });
+ */
+export function useGetUserEventsQuery(baseOptions: Apollo.QueryHookOptions<GetUserEventsQuery, GetUserEventsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetUserEventsQuery, GetUserEventsQueryVariables>(GetUserEventsDocument, options);
+      }
+export function useGetUserEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserEventsQuery, GetUserEventsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetUserEventsQuery, GetUserEventsQueryVariables>(GetUserEventsDocument, options);
+        }
+export type GetUserEventsQueryHookResult = ReturnType<typeof useGetUserEventsQuery>;
+export type GetUserEventsLazyQueryHookResult = ReturnType<typeof useGetUserEventsLazyQuery>;
+export type GetUserEventsQueryResult = Apollo.QueryResult<GetUserEventsQuery, GetUserEventsQueryVariables>;
 export const GetUsersDocument = gql`
     query GetUsers {
   users {

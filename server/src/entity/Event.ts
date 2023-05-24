@@ -36,11 +36,11 @@ class Event {
   // @Column({ nullable: true })
   @Field(() => [User], { nullable: true })
   @ManyToMany(() => User, (user) => user.eventOfUser)
-  participants: User[];
+  participants?: User[];
 
   @Field(() => [Action], { nullable: true })
   @ManyToMany(() => Action, (action) => action.events)
-  actions: Action[];
+  actions?: Action[];
 }
 
 @InputType()
@@ -55,7 +55,10 @@ export class EventInput {
   endDate?: Date;
 
   @Field({ nullable: true })
-  image: string;
+  image?: string;
+
+  @Field({ nullable: true })
+  description?: string;
 
   @Field(() => [Number], { nullable: true })
   participantsId?: number[];

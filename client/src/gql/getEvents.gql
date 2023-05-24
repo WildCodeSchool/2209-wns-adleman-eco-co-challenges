@@ -1,0 +1,16 @@
+query GetEvents($isOver: Boolean!) {
+  getEvents(isOver: $isOver) {
+    name
+    participants {
+      id
+    }
+    image
+    actions {
+      title
+      points
+      description
+    }
+    endDate
+    startDate
+  }
+}

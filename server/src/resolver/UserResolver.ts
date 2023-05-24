@@ -9,6 +9,7 @@ import User, {
 } from "../entity/User";
 import { ContextType } from "../index";
 import { ApolloError } from "apollo-server-errors";
+import Event from "../entity/Event";
 
 import DataSource from "../db";
 import { env } from "../environment";
@@ -95,12 +96,13 @@ export class UserResolver {
 
           friendToUpdate.friends = uniqueFriends;
 
+
           return await DataSource.manager.save(friendToUpdate);
         })
       );
     }
 
-    if (typeof xp !== "undefined") userUpdated.xp = xp;
+    if (typeof xp !== "undefined") userUpdated.xp = Number(xp) + Number(userUpdated.xp);
     if (typeof description !== "undefined")
       userUpdated.description = description;
     if (typeof image !== "undefined") userUpdated.image = image;
@@ -110,13 +112,34 @@ export class UserResolver {
     return await DataSource.manager.save(userUpdated);
   }
 
+  // Subscribe to an Event
+  @Mutation(() => User)
+  async subscribeToEvent(
+    @Arg("userId") userId: number,
+   @Arg("eventId") eventId: number
+  ): Promise<User> {
+   const user = await DataSource.getRepository(User).findOneOrFail({
+     where: { id: userId },
+      relations: { eventOfUser: true },
+    });
+    const event = await DataSource.getRepository(Event).findOneOrFail({
+      where: { id: eventId },
+    });
+    user.eventOfUser?.push(event);
+    event.participants?.push(user);
+
+    await DataSource.getRepository(User).save(user);
+    await DataSource.getRepository(Event).save(event);
+
+   return user;
+  }
+
   // Remove Friend
   @Mutation(() => User)
   async removeFriendUser(
     @Arg("userId") userId: number,
     @Arg("friendToRemoveId") friendToRemoveId: number
   ): Promise<User> {
-
     // user that will be updated
     const userUpdated = await DataSource.getRepository(User).findOneOrFail({
       where: { id: userId },
@@ -125,10 +148,10 @@ export class UserResolver {
     // friend to remove from our list of friends
 
     const friendToRemove = await DataSource.getRepository(User).findOneOrFail({
-      where: { id: friendToRemoveId},
+      where: { id: friendToRemoveId },
       relations: ["friends"],
     });
-  
+
     // condition to remove friend from our list of friends
     if (typeof friendToRemove !== "undefined") {
       // we filter our existing Friends list to remove the friend we want to remove

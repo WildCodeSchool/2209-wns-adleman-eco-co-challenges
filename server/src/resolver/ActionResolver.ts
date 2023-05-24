@@ -16,18 +16,26 @@ export class ActionResolver {
 
   @Mutation(() => Action)
   async createAction(@Arg("data") data: ActionInput): Promise<Action> {
-    const { title, description, points, eventsId = [] } = data;
-   const { id } = await DataSource.getRepository(Action).save({
+    const { title, description, points, eventId} = data;
+   const action = await DataSource.getRepository(Action).save({
       title,
       description,
-      points,
-      events: await Promise.all(eventsId?.map(async (id) => await (DataSource.getRepository(Event).findOneOrFail({ where: { id } })))),
+      points, 
+      eventId,
     });
 
-    return await DataSource.getRepository(Action).findOneOrFail({ 
-      where: { id },
-      relations: ["events"],
-    })
+    if(typeof eventId !== "undefined") {
+      const event = await DataSource.getRepository(Event).findOneOrFail({
+        where: { id: eventId },
+        relations: { actions: true },
+      });
+      event.actions?.push(action);
+      await DataSource.getRepository(Event).save(event);
+    }
+    return await DataSource.getRepository(Action).findOneOrFail({
+      where: { id: action.id },
+      relations: { events: true },
+    });
   } 
 
   @Mutation(() => Action)
