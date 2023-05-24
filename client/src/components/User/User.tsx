@@ -1,4 +1,5 @@
 import "./User.css";
+
 import { useEffect } from "react";
 import { useGetUsersQuery } from "../../gql/generated/schema";
 import { useParams } from "react-router-dom";
@@ -25,7 +26,6 @@ const User = () => {
   };
   const backgroundImageLvl = backgroundImageLvlGenerator(lvl);
 
-  console.log(backgroundImageLvl);
   return (
     <>
       <>

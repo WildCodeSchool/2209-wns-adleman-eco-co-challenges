@@ -1,3 +1,4 @@
+import Action from "./entity/Action";
 import { DataSource } from "typeorm";
 import Event from "./entity/Event";
 import User from "./entity/User";
@@ -12,6 +13,6 @@ export default new DataSource({
   password: "postgres",
   database: "postgres",
   synchronize: true,
-  entities: [User, Event],
+  entities: [User, Event, Action],
   logging: ["query", "error"],
 });
