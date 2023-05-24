@@ -6,11 +6,11 @@ import { Route, Routes } from "react-router-dom";
 
 import Authentification from "./pages/Authentification";
 import FriendDashboard from "./pages/Dashboard";
-import Friends from "./pages/Friends_list";
-import Friends_add from "./pages/Friends_add";
+import Friends from "./pages/FriendsList";
 import Landing from "./pages/Landing";
 import ProtectedRoute from "./components/ProtectedRoutes/ProtectedRoute";
 import UserDashboard from "./pages/User";
+import FriendsAdd from "./pages/FriendsAdd";
 
 function App() {
   return (
@@ -39,7 +39,7 @@ function App() {
               path="/friends/add"
               element={
                 <ProtectedRoute>
-                  <Friends_add />
+                  <FriendsAdd />
                 </ProtectedRoute>
               }
             />
