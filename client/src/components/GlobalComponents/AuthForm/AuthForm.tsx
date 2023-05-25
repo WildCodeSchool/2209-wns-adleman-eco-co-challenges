@@ -33,7 +33,7 @@ const AuthForm = () => {
   const { data: currentUser, client } = useGetProfileQuery({
     errorPolicy: "ignore",
   });
-  const [ getProfile ] = useGetProfileLazyQuery({
+  const [getProfile] = useGetProfileLazyQuery({
     errorPolicy: "ignore",
   });
 
@@ -45,40 +45,55 @@ const AuthForm = () => {
     container?.classList.remove("right-panel-active");
   });
 
+  const handleSignUp = async (e: any) => {
+    e.preventDefault();
+    if (!userInfos.password.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)) {
+      return setPasswordError(true);
+    }
+
+    try {
+      await createUser({ variables: { data: userInfos } });
+      await login({ variables: { data: userInfos } });
+      await client.resetStore();
+      const res = await getProfile();
+      navigate(`/user/${res?.data?.profile.id}`);
+    } catch (err: any) {
+      if (err.message === "EMAIL_ALREADY_EXISTS") {
+        toast.error("This email is already taken");
+      }
+    }
+  };
+
+  const handleSignIn = async (e: any) => {
+    e.preventDefault();
+
+    try {
+      await login({ variables: { data: credentials } });
+      await client.resetStore();
+      const res = await getProfile();
+      navigate(`/user/${res?.data?.profile.id}`);
+    } catch (err) {
+      toast.error("Invalid credentials");
+    }
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    await client.resetStore();
+  };
+
   return (
     <div className="AuthForm">
       <div className="body">
         <div className="logoForm">
           <Logo />
         </div>
-        
+
         {/* VOICI LE FORMULAIRE DE CREATION USER */}
 
         <div className="container" id="container">
           <div className="form-container sign-up-container">
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                if (
-                  !userInfos.password.match(
-                    /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/
-                  )
-                )
-                  return setPasswordError(true);
-
-                createUser({ variables: { data: userInfos } })
-                  .then(async () => {
-                    await login({ variables: { data: userInfos } });
-                    await client.resetStore();
-                    getProfile().then((res) => {
-                      navigate(`/user/${res?.data?.profile.id}`);
-            })})
-                  .catch((err: { message: string }) => {
-                    if (err.message === "EMAIL_ALREADY_EXISTS")
-                      toast.error("This email is already taken");
-                  });
-              }}
-            >
+            <form onSubmit={handleSignUp}>
               <h1>Create Account</h1>
               <input
                 type="text"
@@ -116,29 +131,12 @@ const AuthForm = () => {
                   Logged in as {currentUser.profile.nickName}
                 </div>
 
-                <button
-                  onClick={async () => {
-                    await logout();
-                    await client.resetStore();
-                  }}
-                  className="mt-4"
-                >
+                <button onClick={handleLogout} className="mt-4">
                   Log out
                 </button>
               </div>
             ) : (
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  login({ variables: { data: credentials } })
-                    .then(client.resetStore)
-                    .then(() => {
-                      getProfile().then((res) => {
-                          navigate(`/user/${res?.data?.profile.id}`);
-                })})
-                    .catch(() => toast.error("Invalid credentials"))
-                }}
-              >
+              <form onSubmit={handleSignIn}>
                 <h1>Sign in</h1>
                 <span>or use your account</span>
                 <input
