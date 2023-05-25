@@ -30,25 +30,29 @@ export class EventResolver {
     return events;
   }
 
+  // format de date à utiliser 2024-01-01
   @Mutation(() => Event)
   async createEvent(@Arg("data") data: EventInput): Promise<Event> {
-    const { name, startDate, endDate, image, description} = data;
-    // // format de date à utiliser 2024-01-01
-    // let formattedStartDate;
-    // let formattedEndDate;
-    // if (typeof startDate !== "undefined" && typeof endDate !== "undefined") {
-    //   const startDateObj = new Date(startDate);
-    //   const endDateObj = new Date(endDate);
-    //   formattedStartDate = startDateObj.toISOString().split('T')[0];
-    //   formattedEndDate = endDateObj.toISOString().split('T')[0];
-    // }
-    //
+    let startDateObj , endDateObj;
+    const {
+      name,
+      startDate,
+      endDate,
+      image,
+      description,
+    } = data;
+    if (typeof startDate !== "undefined" && typeof endDate !== "undefined") {
+      startDateObj = new Date(startDate);
+      endDateObj = new Date(endDate);
+      if (startDateObj > endDateObj) throw new Error("Start date must be before end date");
+    }
+
     console.log(startDate, endDate, "🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀")
 
     return await DataSource.getRepository(Event).save({
       name,
-      startDate,
-      endDate,
+      startDate: startDateObj,
+      endDate: endDateObj,
       image,
       description,
     });
