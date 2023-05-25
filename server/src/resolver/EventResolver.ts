@@ -1,7 +1,7 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import Event, { EventInput } from "../entity/Event";
 import User from "../entity/User";
-
+import { format } from 'date-fns';
 import DataSource from "../db";
 import { LessThan, MoreThan } from "typeorm";
 
@@ -33,7 +33,18 @@ export class EventResolver {
   @Mutation(() => Event)
   async createEvent(@Arg("data") data: EventInput): Promise<Event> {
     const { name, startDate, endDate, image, description} = data;
-    // format de date à utiliser 2024-01-01
+    // // format de date à utiliser 2024-01-01
+    // let formattedStartDate;
+    // let formattedEndDate;
+    // if (typeof startDate !== "undefined" && typeof endDate !== "undefined") {
+    //   const startDateObj = new Date(startDate);
+    //   const endDateObj = new Date(endDate);
+    //   formattedStartDate = startDateObj.toISOString().split('T')[0];
+    //   formattedEndDate = endDateObj.toISOString().split('T')[0];
+    // }
+    //
+    console.log(startDate, endDate, "🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀")
+
     return await DataSource.getRepository(Event).save({
       name,
       startDate,
