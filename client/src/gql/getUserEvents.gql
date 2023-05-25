@@ -1,0 +1,16 @@
+query GetUserEvents($userId: Float!, $isOver: Boolean!) {
+  getEvents(userId: $userId, isOver: $isOver) {
+    name
+    participants {
+      id
+    }
+    image
+    actions {
+      title
+      points
+      description
+    }
+    endDate
+    startDate
+  }
+}
