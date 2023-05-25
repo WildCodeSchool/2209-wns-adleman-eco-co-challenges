@@ -1,9 +1,10 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {useCreateEventMutation} from "../../../gql/generated/schema";
 import {useState} from "react";
 
+
+
 const FirstForm = () => {
-    const { id } = useParams();
     const navigate = useNavigate();
     const [createEvent] = useCreateEventMutation();
     const [eventInfos, setEventInfos] = useState({
@@ -17,8 +18,11 @@ const FirstForm = () => {
     console.log(eventInfos);
     function saveAndNavigate() {
         createEvent({variables: {data: eventInfos}})
-            .then( async () =>
-                await navigate(`/actions/add/${id}`))
+            .then( async (resp) =>{
+                const id = resp.data?.createEvent?.id;
+                await navigate(`/actions/add/${id}`);
+                }
+            )
     }
 
     return (

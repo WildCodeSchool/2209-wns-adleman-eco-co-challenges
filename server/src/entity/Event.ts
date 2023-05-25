@@ -50,6 +50,9 @@ class Event {
 @InputType()
 export class EventInput {
   @Field({ nullable: true })
+  id: number;
+
+  @Field({ nullable: true })
   name: string;
 
   @Field({ nullable: true })

@@ -48,6 +48,7 @@ export type EventInput = {
   actionsId?: InputMaybe<Array<Scalars['Float']>>;
   description?: InputMaybe<Scalars['String']>;
   endDate?: InputMaybe<Scalars['DateTime']>;
+  id?: InputMaybe<Scalars['Float']>;
   image?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
   participantsId?: InputMaybe<Array<Scalars['Float']>>;
@@ -168,7 +169,7 @@ export type CreateEventMutationVariables = Exact<{
 }>;
 
 
-export type CreateEventMutation = { __typename?: 'Mutation', createEvent: { __typename?: 'Event', name?: string | null, description?: string | null, startDate?: any | null, endDate?: any | null, image?: string | null } };
+export type CreateEventMutation = { __typename?: 'Mutation', createEvent: { __typename?: 'Event', id: string, name?: string | null, description?: string | null, startDate?: any | null, endDate?: any | null, image?: string | null } };
 
 export type GetEventsQueryVariables = Exact<{
   isOver: Scalars['Boolean'];
@@ -234,6 +235,7 @@ export type LogoutMutation = { __typename?: 'Mutation', logout: string };
 export const CreateEventDocument = gql`
     mutation CreateEvent($data: EventInput!) {
   createEvent(data: $data) {
+    id
     name
     description
     startDate
