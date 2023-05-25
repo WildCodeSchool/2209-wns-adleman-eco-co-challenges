@@ -13,82 +13,100 @@ import Landing from "./pages/Landing";
 import ProtectedRoute from "./components/GlobalComponents/ProtectedRoutes/ProtectedRoute";
 import UserDashboard from "./pages/User";
 import UserFriendsAdd from "./pages/UserFriendsAdd";
+import UserUpdate from "./pages/UserUpdate";
 
 function App() {
   return (
-      <>
-          <div>
-              <main>
-                  <Routes>
-                      <Route path="/" element={<Landing/>}/>
-                      <Route path="/login" element={<Authentification/>}/>
-                      <Route
-                          path="/friends"
-                          element={<ProtectedRoute>
-                              <UserFriendsList/>
-                          </ProtectedRoute>}/>
-                      <Route
-                          path="/friend/:id"
-                          element={<ProtectedRoute>
-                              <FriendDashboard/>
-                          </ProtectedRoute>}/>
-                      <Route
-                          path="/friends/add"
-                          element={<ProtectedRoute>
-                              <UserFriendsAdd/>
-                          </ProtectedRoute>}/>
-                      <Route
-                          path="/user/:id"
-                          element={<ProtectedRoute>
-                              <UserDashboard/>
-                          </ProtectedRoute>}/>
-                  </Routes>
-              </main>
-          </div>
-          <div>
-              <main>
-                  <Routes>
-                      <Route path="/" element={<Landing/>}/>
-                      <Route path="/login" element={<Authentification/>}/>
-                      <Route
-                          path="/friends"
-                          element={<ProtectedRoute>
-                              <UserFriendsList/>
-                          </ProtectedRoute>}/>
-                      <Route
-                          path="/friends/add"
-                          element={<ProtectedRoute>
-                              <UserFriendsAdd/>
-                          </ProtectedRoute>}/>
-                      <Route
-                          path="/user/:id"
-                          element={<ProtectedRoute>
-                              <UserDashboard/>
-                          </ProtectedRoute>}/>
-                      <Route
-                          path="/event/create"
-                          element={<ProtectedRoute>
-                              <EventCreate/>
-                          </ProtectedRoute>}/>
-                      <Route
-                          path="/event/:id"
-                          element={<ProtectedRoute>
-                              <Event/>
-                          </ProtectedRoute>}/>
-                      <Route
-                          path="/events"
-                          element={<ProtectedRoute>
-                              <Events/>
-                          </ProtectedRoute>}/>
-                      <Route
-                          path="/actions/add/:id"
-                          element={<ProtectedRoute>
-                              <EventAddActions/>
-                          </ProtectedRoute>}/>
-                  </Routes>
-              </main>
-          </div>
-      </>
+    <>
+      <div>
+        <main>
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/login" element={<Authentification />} />
+            <Route
+              path="/friends"
+              element={
+                <ProtectedRoute>
+                  <UserFriendsList />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/friend/:id"
+              element={
+                <ProtectedRoute>
+                  <FriendDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/friends/add"
+              element={
+                <ProtectedRoute>
+                  <UserFriendsAdd />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/friends/add"
+              element={
+                <ProtectedRoute>
+                  <UserFriendsAdd />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/user/:id"
+              element={
+                <ProtectedRoute>
+                  <UserDashboard />
+                </ProtectedRoute>
+              }
+            />
+                        <Route
+              path="/user/:id/update"
+              element={
+                <ProtectedRoute>
+                  <UserUpdate />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/event/create"
+              element={
+                <ProtectedRoute>
+                  <EventCreate />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/event/:id"
+              element={
+                <ProtectedRoute>
+                  <Event />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/events"
+              element={
+                <ProtectedRoute>
+                  <Events />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/actions/add/:id"
+              element={
+                <ProtectedRoute>
+                  <EventAddActions />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </main>
+      </div>
+    </>
   );
 }
 
