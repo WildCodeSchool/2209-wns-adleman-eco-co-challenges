@@ -1,4 +1,4 @@
-import EventList from "../components/EventList/EventList";
+import EventList from "../components/EventComponents/EventList/EventList";
 import {useGetProfileQuery, useGetUserEventsQuery} from "../gql/generated/schema";
 import {useNavigate} from "react-router-dom";
 

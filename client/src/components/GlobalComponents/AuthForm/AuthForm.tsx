@@ -6,7 +6,7 @@ import {
   useGetProfileQuery,
   useLoginMutation,
   useLogoutMutation,
-} from "../../gql/generated/schema";
+} from "../../../gql/generated/schema";
 
 import Logo from "../Logo/Logo";
 import toast from "react-hot-toast";

@@ -227,7 +227,7 @@ Etapes à suivre :
   - Afin de générer automatiquement des fonction qui réalisent des requêtes graphQL de CRUD, on crée ces requêtes via l'interface graphique d'Appolo server, avant de les coller dans un fichier au ein du dosser gql. Exemple du fichier createEvent.gql:
 
   ```
-mutation CreateEvent($data: EventInput!) {
+mutation EventCreate($data: EventInput!) {
   createEvent(data: $data) {
     id
     name

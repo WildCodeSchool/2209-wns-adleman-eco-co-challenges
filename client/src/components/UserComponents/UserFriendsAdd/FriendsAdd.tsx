@@ -2,7 +2,7 @@ import {
   User,
   useGetProfileQuery,
   useUpdateUserMutation,
-} from "../../gql/generated/schema";
+} from "../../../gql/generated/schema";
 import { gql, useQuery } from "@apollo/client";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";

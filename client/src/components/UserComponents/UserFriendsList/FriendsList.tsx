@@ -1,6 +1,6 @@
 import UserList from "../UserList/UserList";
 import { useNavigate } from "react-router-dom";
-import { useGetProfileQuery, User } from "../../gql/generated/schema";
+import { useGetProfileQuery, User } from "../../../gql/generated/schema";
 
 const FriendsList = () => {
   const navigate = useNavigate();

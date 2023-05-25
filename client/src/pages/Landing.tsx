@@ -1,4 +1,4 @@
-import Footer from "../components/Footer/Footer";
+import Footer from "../components/GlobalComponents/Footer/Footer";
 import { Link } from "react-router-dom";
 import bananaLeft from "../assets/bananas-r.png";
 import bananaRight from "../assets/bananas-l.png";
