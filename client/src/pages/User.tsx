@@ -1,10 +1,10 @@
 import { useGetProfileQuery, useGetUserEventsQuery } from "../gql/generated/schema";
 import { useNavigate, useParams } from "react-router-dom";
-import DashboardUserList from "../components/DashboardUserList/DashboardUserList";
-import EventList from "../components/EventList/EventList";
-import Footer from "../components/Footer/Footer";
-import Header from "../components/Header/Header";
-import User from "../components/User/User";
+import UserListDashboard from "../components/UserComponents/UserListDashboard/UserListDashboard";
+import EventList from "../components/EventComponents/EventList/EventList";
+import Footer from "../components/GlobalComponents/Footer/Footer";
+import Header from "../components/GlobalComponents/Header/Header";
+import User from "../components/UserComponents/User/User";
 import { User as UserInterface } from "../gql/generated/schema";
 
 export default function UserDashboard() {
@@ -63,7 +63,7 @@ export default function UserDashboard() {
                 <EventList events={events} onUserClick={navigateToEvent}/>
               </div>
               <div>
-                <DashboardUserList
+                <UserListDashboard
                     users={currentUser?.profile.friends ?? []}
                     onUserClick={redirectToUserPage}/>
               </div>

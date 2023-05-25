@@ -1,6 +1,6 @@
 import LoadingSpinner from "../loader/loader";
 import { Navigate } from "react-router-dom";
-import { useGetProfileQuery } from "../../gql/generated/schema";
+import { useGetProfileQuery } from "../../../gql/generated/schema";
 
 export default function ProtectedRoute({ children }: { children: React.ReactNode }) {
 

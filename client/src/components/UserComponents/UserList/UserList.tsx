@@ -1,7 +1,7 @@
-import Footer from "../Footer/Footer";
-import Header from "../Header/Header";
-import { User } from "../../gql/generated/schema";
-import { useGetProfileQuery } from "../../gql/generated/schema";
+import Footer from "../../GlobalComponents/Footer/Footer";
+import Header from "../../GlobalComponents/Header/Header";
+import { User } from "../../../gql/generated/schema";
+import { useGetProfileQuery } from "../../../gql/generated/schema";
 
 // Function to generate a random user url
 const randomUser = () => {

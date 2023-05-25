@@ -1,7 +1,7 @@
 import "./User.css";
 
 import { useEffect } from "react";
-import { useGetUsersQuery } from "../../gql/generated/schema";
+import { useGetUsersQuery } from "../../../gql/generated/schema";
 import { useParams } from "react-router-dom";
 
 const User = () => {
@@ -34,7 +34,7 @@ const User = () => {
         <div
             className="userBody px-4 py-5 my-5 text-center"
             style={{
-                    backgroundImage: `url(${require("../../assets/" + backgroundImageLvl + ".png")})`,
+                    backgroundImage: `url(${require("../../../assets/" + backgroundImageLvl + ".png")})`,
                 }}
     >
           <div className="container px-4 py-5" id="featured-3">
@@ -48,7 +48,7 @@ const User = () => {
                   className="profilPicture"
                   src={
                     selectedUser?.image ??
-                    require("../../assets/cartonRouge.png")
+                    require("../../../assets/cartonRouge.png")
                   }
                 />
               </div>

@@ -1,8 +1,8 @@
 import "./Header.css";
 
 import { Link } from "react-router-dom";
-import logo from "../../assets/logo150-1.png";
-import { useGetProfileQuery } from "../../gql/generated/schema";
+import logo from "../../../assets/logo150-1.png";
+import { useGetProfileQuery } from "../../../gql/generated/schema";
 import { useState } from "react";
 
 export default function Header() {

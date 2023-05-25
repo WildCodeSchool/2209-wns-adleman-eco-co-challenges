@@ -3,7 +3,7 @@
 }
 
 .AuthForm{
-  background-image: url("../../assets/BG_banana.png");
+  background-image: url("../../../assets/BG_banana.png");
   background-size: cover;
 }
 .AuthForm .body {

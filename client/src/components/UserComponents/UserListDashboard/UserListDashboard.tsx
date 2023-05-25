@@ -1,5 +1,5 @@
-import { User } from "../../gql/generated/schema";
-import { useGetProfileQuery } from "../../gql/generated/schema";
+import { User } from "../../../gql/generated/schema";
+import { useGetProfileQuery } from "../../../gql/generated/schema";
 
 // Function to generate a random user url
 const randomUser = () => {
@@ -19,7 +19,7 @@ interface Props {
   onUserClick: (...params: any) => any;
 }
 // the function to render
-const DashboardUserList = (props: Props) => {
+const UserListDashboard = (props: Props) => {
   // get the props
   const { users, onUserClick } = props;
   // get current user
@@ -64,4 +64,4 @@ const DashboardUserList = (props: Props) => {
   );
 };
 
-export default DashboardUserList;
+export default UserListDashboard;
