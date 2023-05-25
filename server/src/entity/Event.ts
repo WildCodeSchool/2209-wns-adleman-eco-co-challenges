@@ -20,17 +20,21 @@ class Event {
   @Field({ nullable: true })
   name: string;
 
-  @Column({ type: "date", nullable: true })
+  @Column({ nullable: true })
   @Field({ nullable: true })
   startDate: Date;
 
-  @Column({ type: "date", nullable: true })
+  @Column({ nullable: true })
   @Field({ nullable: true })
   endDate: Date;
 
   @Column({ nullable: true })
   @Field({ nullable: true })
   image: string;
+
+  @Column({ nullable: true })
+  @Field({ nullable: true })
+  description: string;
 
   // ici j'ai rajouté le field, j'ai rajouté "(user) => user.eventOfUser)"  dans @ManyToMany j'ai rajouté la column nullable
   // @Column({ nullable: true })
