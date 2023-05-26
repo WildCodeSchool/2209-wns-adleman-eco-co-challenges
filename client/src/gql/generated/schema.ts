@@ -569,8 +569,7 @@ export type GetUsersLazyQueryHookResult = ReturnType<typeof useGetUsersLazyQuery
 export type GetUsersQueryResult = Apollo.QueryResult<GetUsersQuery, GetUsersQueryVariables>;
 export const GetProfileDocument = gql`
     query GetProfile {
-  profile {
-    id
+  profile  id
     nickName
     friends {
       id
