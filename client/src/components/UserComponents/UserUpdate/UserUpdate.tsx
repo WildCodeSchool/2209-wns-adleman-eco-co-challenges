@@ -2,7 +2,6 @@ import "./UserUpdate.css";
 import { useState, useEffect } from "react";
 import {
   GetUsersDocument,
-  UserInput,
   UserUpdateInput,
   useGetUsersQuery,
   useUpdateUserMutation,
@@ -143,11 +142,11 @@ const UserUpdate = () => {
           <div className="mb-5">
             <form>
               <label htmlFor="label-login" className="form-label text-center">
-                Votre nom
+               <h3>Votre nom</h3>
               </label>
               <br />
               <input
-                className="update-login text-center"
+                className="update-login text-center form-control-lg"
                 placeholder={selectedUser?.nickName}
                 value={loginValue}
                 onChange={(e) => setLoginValue(e.target.value)}
@@ -156,13 +155,13 @@ const UserUpdate = () => {
                 <label
                   htmlFor="update-description"
                   className="form-label text-center"
-                >
-                  Description
+                ><h3>Description</h3>
+                  
                 </label>
                 <br />
                 <textarea
                   className="update-description text-center"
-                  rows={4}
+                  rows={10}
                   cols={60}
                   defaultValue={textareaValue}
                   value={textareaValue}
