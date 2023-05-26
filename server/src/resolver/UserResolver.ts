@@ -53,7 +53,7 @@ export class UserResolver {
     @Arg("data") data: UserUpdateInput,
     @Arg("userId") userId: number
   ): Promise<User> {
-    const { friendsId, xp, description, image, password } = data;
+    const { nickName, friendsId, xp, description, image, password } = data;
     const userUpdated = await DataSource.getRepository(User).findOneOrFail({
       where: { id: userId },
       relations: ["friends"],
@@ -96,15 +96,16 @@ export class UserResolver {
 
           friendToUpdate.friends = uniqueFriends;
 
-
           return await DataSource.manager.save(friendToUpdate);
         })
       );
     }
 
-    if (typeof xp !== "undefined") userUpdated.xp = Number(xp) + Number(userUpdated.xp);
+    if (typeof xp !== "undefined")
+      userUpdated.xp = Number(xp) + Number(userUpdated.xp);
     if (typeof description !== "undefined")
       userUpdated.description = description;
+    if (typeof nickName !== "undefined") userUpdated.nickName = nickName;
     if (typeof image !== "undefined") userUpdated.image = image;
     if (typeof password !== "undefined")
       userUpdated.hashedPassword = await hashPassword(password);
@@ -116,10 +117,10 @@ export class UserResolver {
   @Mutation(() => User)
   async subscribeToEvent(
     @Arg("userId") userId: number,
-   @Arg("eventId") eventId: number
+    @Arg("eventId") eventId: number
   ): Promise<User> {
-   const user = await DataSource.getRepository(User).findOneOrFail({
-     where: { id: userId },
+    const user = await DataSource.getRepository(User).findOneOrFail({
+      where: { id: userId },
       relations: { eventOfUser: true },
     });
     const event = await DataSource.getRepository(Event).findOneOrFail({
@@ -131,7 +132,7 @@ export class UserResolver {
     await DataSource.getRepository(User).save(user);
     await DataSource.getRepository(Event).save(event);
 
-   return user;
+    return user;
   }
 
   // Remove Friend

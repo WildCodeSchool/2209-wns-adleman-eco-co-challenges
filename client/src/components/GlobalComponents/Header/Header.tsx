@@ -11,7 +11,7 @@ export default function Header() {
   const handleShowLinks = () => {
     setShowLinks(!showLinks);
   };
-  const { data: currentUser} = useGetProfileQuery({
+  const { data: currentUser } = useGetProfileQuery({
     errorPolicy: "ignore",
   });
   const currentUserId = currentUser?.profile.id;
@@ -35,10 +35,14 @@ export default function Header() {
             </li>
 
             <li className="navbar__item slideInDown-2">
-              <Link to="/friends">Mes Amis</Link>
+              <Link to={`/user/${currentUserId}/update`}>Mon profil</Link>
             </li>
 
             <li className="navbar__item slideInDown-3">
+              <Link to="/friends">Mes Amis</Link>
+            </li>
+
+            <li className="navbar__item slideInDown-4">
               <Link to="/login">Logout</Link>
             </li>
           </ul>

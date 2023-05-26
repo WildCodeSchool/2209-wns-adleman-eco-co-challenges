@@ -160,6 +160,7 @@ export type UserUpdateInput = {
   description?: InputMaybe<Scalars['String']>;
   friendsId?: InputMaybe<Array<Scalars['Float']>>;
   image?: InputMaybe<Scalars['String']>;
+  nickName?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
   xp?: InputMaybe<Scalars['Float']>;
 };

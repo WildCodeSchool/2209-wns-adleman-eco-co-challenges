@@ -29,7 +29,7 @@ export default function Landing() {
           </p>
         </div>
         <Link to="/login">
-          <button className="landing__button"> Let's go Coco !</button>
+          <button className="ecoco-button"> Let's go Coco !</button>
         </Link>
 
         <div className="container col-xxl-10 px-4 py-5">
