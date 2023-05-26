@@ -112,6 +112,9 @@ export class UserInput {
 
 @InputType()
 export class UserUpdateInput {
+  @Field({ nullable: true })
+  nickName?: string;
+
   @Field(() => [Number], { nullable: true })
   friendsId?: number[];
 
