@@ -39,6 +39,10 @@ export default function Header() {
             </li>
 
             <li className="navbar__item slideInDown-3">
+              <Link to={`/user/${currentUserId}/update`}>Mon profil</Link>
+            </li>
+
+            <li className="navbar__item slideInDown-3">
               <Link to="/login">Logout</Link>
             </li>
           </ul>

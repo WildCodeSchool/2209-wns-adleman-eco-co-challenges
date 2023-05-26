@@ -9,6 +9,9 @@
     height: 30%;
   }
   
+  form {
+    background-color: rgb(255 255 255 / 0.4);
+  }
   .userBody{
     background-size: cover;
     background-repeat: no-repeat;
@@ -20,6 +23,12 @@
     font-size: 1em;
   }
   
+  .update-login{
+    margin-bottom: 1%;
+  }
+  .update-description{
+    margin-bottom: 1%;
+  }
   .ecoco-button {
 	border-radius: 20px;
 	border: 1px solid #fcdc12;

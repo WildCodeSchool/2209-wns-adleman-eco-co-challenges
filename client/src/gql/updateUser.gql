@@ -9,3 +9,15 @@ mutation UpdateUser($userId: Float!, $data: UserUpdateInput!) {
     }
   }
 }
+
+mutation UpdateUser($userId: Float!, $nickName: String, $description: String) {
+  updateUser(userId: $userId, data: { nickName: $nickName, description: $description }) {
+    description
+    image
+    hashedPassword
+    xp
+    friends {
+      id
+    }
+  }
+}

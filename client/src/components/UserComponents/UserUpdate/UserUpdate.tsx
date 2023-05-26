@@ -1,10 +1,12 @@
 import "./UserUpdate.css";
 import { useState, useEffect } from "react";
 import {
+  UserInput,
+  UserUpdateInput,
   useGetUsersQuery,
   useUpdateUserMutation,
 } from "../../../gql/generated/schema";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const UserUpdate = () => {
   const { id } = useParams();
@@ -15,6 +17,10 @@ const UserUpdate = () => {
   let barXp = (selectedUser?.xp ?? 0) % 100;
   let barWidth = barXp + "%";
   let lvl = Math.floor((selectedUser?.xp ?? 0) / 100);
+  const [updateUserMutation] = useUpdateUserMutation();
+  const [loginValue, setLoginValue] = useState("");
+  const userId = selectedUser?.id;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fillElement = document.getElementById("fill");
@@ -34,27 +40,49 @@ const UserUpdate = () => {
     const retrievedValue = selectedUser?.description;
 
     setTextareaValue(retrievedValue || "Votre description");
-  }, []);
+  }, [selectedUser]);
 
-  const [updateUserMutation] = useUpdateUserMutation();
-  const [loginValue, setLoginValue] = useState("");
-  const userId = selectedUser?.id ?? 0;
+  useEffect(() => {
+    setLoginValue(selectedUser?.nickName || "");
+  }, [selectedUser]);
 
   const handleSave = async () => {
-    try {
-    
-      const variables = {
-        userId: userId,
-        data: {
-          nickName: loginValue,
-          description: textareaValue,
-        },
-      };
+    console.log("premier test");
+    if (
+      typeof userId !== "undefined" &&
+      typeof loginValue !== "undefined" &&
+      typeof textareaValue !== "undefined"
+    ) {
+      console.log("deuxième test dans le if");
+      if (!selectedUser) {
+        return;
+      }
 
-      const { data } = await updateUserMutation({ variables });
-      console.log("Données mises à jour :", data);
-    } catch (error) {
-      console.error("Erreur lors de la mise à jour :", error);
+      const updatedData: UserUpdateInput = {};
+
+      if (loginValue !== "") {
+        updatedData.nickName = loginValue;
+      }
+
+      if (textareaValue !== "") {
+        updatedData.description = textareaValue;
+      }
+      try {
+        console.log(
+          "troisième test dans le try",
+          loginValue,
+          textareaValue,
+          userId
+        );
+        await updateUserMutation({
+          variables: {
+            userId: userId,
+            data: updatedData,
+          },
+        }).then(() => navigate(`/user/${id}`));
+      } catch (error) {
+        console.error("Erreur lors de la mise à jour :", error);
+      }
     }
   };
 
@@ -107,10 +135,11 @@ const UserUpdate = () => {
           <div className="mb-5">
             <form>
               <label htmlFor="label-login" className="form-label text-center">
-                Login
+                Votre nom
               </label>
+              <br />
               <input
-                className="update-login"
+                className="update-login text-center"
                 placeholder={selectedUser?.nickName}
                 value={loginValue}
                 onChange={(e) => setLoginValue(e.target.value)}
@@ -122,9 +151,11 @@ const UserUpdate = () => {
                 >
                   Description
                 </label>
+                <br />
                 <textarea
-                  className="update-description"
+                  className="update-description text-center"
                   rows={4}
+                  cols={60}
                   defaultValue={textareaValue}
                   value={textareaValue}
                   onChange={(e) => setTextareaValue(e.target.value)}
