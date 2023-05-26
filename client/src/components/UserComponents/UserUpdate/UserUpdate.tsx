@@ -1,12 +1,14 @@
 import "./UserUpdate.css";
 import { useState, useEffect } from "react";
 import {
+  GetUsersDocument,
   UserInput,
   UserUpdateInput,
   useGetUsersQuery,
   useUpdateUserMutation,
 } from "../../../gql/generated/schema";
 import { useNavigate, useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const UserUpdate = () => {
   const { id } = useParams();
@@ -67,22 +69,28 @@ const UserUpdate = () => {
       if (textareaValue !== "") {
         updatedData.description = textareaValue;
       }
-      try {
-        console.log(
-          "troisième test dans le try",
-          loginValue,
-          textareaValue,
-          userId
-        );
-        await updateUserMutation({
-          variables: {
-            userId: userId,
-            data: updatedData,
-          },
-        }).then(() => navigate(`/user/${id}`));
-      } catch (error) {
-        console.error("Erreur lors de la mise à jour :", error);
-      }
+
+      console.log(
+        "troisième test dans le try",
+        loginValue,
+        textareaValue,
+        userId
+      );
+      updateUserMutation({
+        variables: {
+          userId: userId,
+          data: updatedData,
+        },
+        onCompleted: () => {
+          toast.success("Ton profil a été mis à jour!");
+          navigate(`/user/${id}`);
+        },
+        onError: (err) => {
+          console.error(err);
+          toast.error("error while saving wilder");
+        },
+        refetchQueries: [{ query: GetUsersDocument, variables: { userId } }],
+      });
     }
   };
 
