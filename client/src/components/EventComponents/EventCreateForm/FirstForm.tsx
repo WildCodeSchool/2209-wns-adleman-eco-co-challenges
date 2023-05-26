@@ -15,7 +15,6 @@ const FirstForm = () => {
         image: "",
     });
 
-    console.log(eventInfos);
     function saveAndNavigate() {
         createEvent({variables: {data: eventInfos}})
             .then( async (resp) =>{

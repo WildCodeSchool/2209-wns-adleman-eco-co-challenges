@@ -1,22 +1,26 @@
 import { useNavigate, useParams } from "react-router-dom";
 import {useState} from "react";
+import {useCreateActionMutation} from "../../../gql/generated/schema";
 
 const SecondForm = () => {
     const { id } = useParams();
+    const [createAction] = useCreateActionMutation();
     const navigate = useNavigate();
-
     const [actionObjects, setActionObjects] = useState([
         {
+            eventId: Number(id),
             title: "",
             description: "",
             points: "",
         },
         {
+            eventId: Number(id),
             title: "",
             description: "",
             points: "",
         },
         {
+            eventId: Number(id),
             title: "",
             description: "",
             points: "",
@@ -24,15 +28,20 @@ const SecondForm = () => {
     ]);
 
     function saveAndNavigate() {
-        // TODO: save actions in database, navigate to the event page
-        // Créer 3 objets qui contiennent les infos des 3 actions
-        // Modifier l'event précédemment créé pour lui ajouter les 3 actions
-
-                console.log("coucou");
-        // navigate(`/event/${id}`);
+        if (typeof id !== "undefined") {
+            for (const actionObject of actionObjects ) {
+                createAction({
+                    variables: {
+                        data: {
+                            ...actionObject
+                        }
+                    }
+                })
+            }
+        }
+        navigate(`/event/${id}`)
     }
 
-console.log(actionObjects);
     return (
         <>
             <h1> Ajout des actions</h1>

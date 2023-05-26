@@ -21,14 +21,14 @@ export type Action = {
   description?: Maybe<Scalars['String']>;
   events: Array<Event>;
   id: Scalars['ID'];
-  points?: Maybe<Scalars['Float']>;
+  points?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
 };
 
 export type ActionInput = {
   description?: InputMaybe<Scalars['String']>;
   eventId?: InputMaybe<Scalars['Float']>;
-  points?: InputMaybe<Scalars['Float']>;
+  points?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
 };
 
@@ -165,6 +165,13 @@ export type UserUpdateInput = {
   xp?: InputMaybe<Scalars['Float']>;
 };
 
+export type CreateActionMutationVariables = Exact<{
+  data: ActionInput;
+}>;
+
+
+export type CreateActionMutation = { __typename?: 'Mutation', createAction: { __typename?: 'Action', title?: string | null, points?: string | null, description?: string | null, events: Array<{ __typename?: 'Event', id: string }> } };
+
 export type CreateEventMutationVariables = Exact<{
   data: EventInput;
 }>;
@@ -177,7 +184,7 @@ export type GetEventsQueryVariables = Exact<{
 }>;
 
 
-export type GetEventsQuery = { __typename?: 'Query', getEvents: Array<{ __typename?: 'Event', name?: string | null, image?: string | null, endDate?: any | null, startDate?: any | null, participants?: Array<{ __typename?: 'User', id: number }> | null, actions?: Array<{ __typename?: 'Action', title?: string | null, points?: number | null, description?: string | null }> | null }> };
+export type GetEventsQuery = { __typename?: 'Query', getEvents: Array<{ __typename?: 'Event', name?: string | null, image?: string | null, endDate?: any | null, startDate?: any | null, participants?: Array<{ __typename?: 'User', id: number }> | null, actions?: Array<{ __typename?: 'Action', title?: string | null, points?: string | null, description?: string | null }> | null }> };
 
 export type CreateUserMutationVariables = Exact<{
   data: UserInput;
@@ -192,7 +199,7 @@ export type GetUserEventsQueryVariables = Exact<{
 }>;
 
 
-export type GetUserEventsQuery = { __typename?: 'Query', getEvents: Array<{ __typename?: 'Event', name?: string | null, image?: string | null, endDate?: any | null, startDate?: any | null, participants?: Array<{ __typename?: 'User', id: number }> | null, actions?: Array<{ __typename?: 'Action', title?: string | null, points?: number | null, description?: string | null }> | null }> };
+export type GetUserEventsQuery = { __typename?: 'Query', getEvents: Array<{ __typename?: 'Event', name?: string | null, image?: string | null, endDate?: any | null, startDate?: any | null, participants?: Array<{ __typename?: 'User', id: number }> | null, actions?: Array<{ __typename?: 'Action', title?: string | null, points?: string | null, description?: string | null }> | null }> };
 
 export type RemoveFriendMutationVariables = Exact<{
   userId: Scalars['Float'];
@@ -233,6 +240,44 @@ export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 export type LogoutMutation = { __typename?: 'Mutation', logout: string };
 
 
+export const CreateActionDocument = gql`
+    mutation createAction($data: ActionInput!) {
+  createAction(data: $data) {
+    title
+    points
+    description
+    events {
+      id
+    }
+  }
+}
+    `;
+export type CreateActionMutationFn = Apollo.MutationFunction<CreateActionMutation, CreateActionMutationVariables>;
+
+/**
+ * __useCreateActionMutation__
+ *
+ * To run a mutation, you first call `useCreateActionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateActionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createActionMutation, { data, loading, error }] = useCreateActionMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateActionMutation(baseOptions?: Apollo.MutationHookOptions<CreateActionMutation, CreateActionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateActionMutation, CreateActionMutationVariables>(CreateActionDocument, options);
+      }
+export type CreateActionMutationHookResult = ReturnType<typeof useCreateActionMutation>;
+export type CreateActionMutationResult = Apollo.MutationResult<CreateActionMutation>;
+export type CreateActionMutationOptions = Apollo.BaseMutationOptions<CreateActionMutation, CreateActionMutationVariables>;
 export const CreateEventDocument = gql`
     mutation CreateEvent($data: EventInput!) {
   createEvent(data: $data) {
