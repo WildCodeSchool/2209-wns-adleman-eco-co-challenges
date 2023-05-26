@@ -25,9 +25,13 @@
   
   .update-login{
     margin-bottom: 1%;
+    border-radius: 20px;
+    border: none;
   }
   .update-description{
     margin-bottom: 1%;
+    border-radius: 20px;
+    border: none;
   }
   .ecoco-button {
 	border-radius: 20px;
@@ -40,4 +44,10 @@
 	letter-spacing: 1px;
 	text-transform: uppercase;
 	transition: transform 80ms ease-in;
+}
+
+.ecoco-button:hover {
+	border: 1px solid #fcdc12;
+	background-color: #FFFFFF;
+	color: #fcdc12;
 }
