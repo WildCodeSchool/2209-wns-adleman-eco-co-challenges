@@ -1,0 +1,10 @@
+mutation CreateEvent($data: EventInput!) {
+  createEvent(data: $data) {
+    id
+    name
+    description
+    startDate
+    endDate
+    image
+  }
+}

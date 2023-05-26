@@ -35,7 +35,7 @@ class Action {
 
   @Column({ nullable: true })
   @Field({ nullable: true })
-  points: number;
+  points: string;
 
   @Field(() => [Event])
   @ManyToMany(() => Event, (event) => event.actions, { cascade: true })
@@ -53,7 +53,7 @@ export class ActionInput {
   description?: string;
 
   @Field({ nullable: true })
-  points: number;
+  points: string;
 
   @Field({ nullable: true })
   eventId?: number;

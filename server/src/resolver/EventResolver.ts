@@ -1,7 +1,7 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import Event, { EventInput } from "../entity/Event";
 import User from "../entity/User";
-
+import { format } from 'date-fns';
 import DataSource from "../db";
 import { LessThan, MoreThan } from "typeorm";
 
@@ -30,14 +30,29 @@ export class EventResolver {
     return events;
   }
 
+  // format de date à utiliser 2024-01-01
   @Mutation(() => Event)
   async createEvent(@Arg("data") data: EventInput): Promise<Event> {
-    const { name, startDate, endDate, image, description} = data;
-    // format de date à utiliser 2024-01-01
-    return await DataSource.getRepository(Event).save({
+    let startDateObj , endDateObj;
+    const {
       name,
       startDate,
       endDate,
+      image,
+      description,
+    } = data;
+    if (typeof startDate !== "undefined" && typeof endDate !== "undefined") {
+      startDateObj = new Date(startDate);
+      endDateObj = new Date(endDate);
+      if (startDateObj > endDateObj) throw new Error("Start date must be before end date");
+    }
+
+    console.log(startDate, endDate, "🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀")
+
+    return await DataSource.getRepository(Event).save({
+      name,
+      startDate: startDateObj,
+      endDate: endDateObj,
       image,
       description,
     });
