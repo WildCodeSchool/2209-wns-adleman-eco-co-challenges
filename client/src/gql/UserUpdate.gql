@@ -1,5 +1,5 @@
-mutation UpdateUser($userId: Float!, $nickName: String, $description: String) {
-  updateUser(userId: $userId, data: { nickName: $nickName, description: $description }) {
+mutation UpdateUser($userId: Float!, $data: UserUpdateInput!) {
+  updateUser(userId: $userId, data: $data) {
     description
     image
     hashedPassword
