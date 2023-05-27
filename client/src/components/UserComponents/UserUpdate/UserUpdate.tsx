@@ -48,17 +48,14 @@ const UserUpdate = () => {
   }, [selectedUser]);
 
   const handleSave = async () => {
-    console.log("premier test");
     if (
       typeof userId !== "undefined" &&
       typeof loginValue !== "undefined" &&
       typeof textareaValue !== "undefined"
     ) {
-      console.log("deuxième test dans le if");
       if (!selectedUser) {
         return;
       }
-
       const updatedData: UserUpdateInput = {};
 
       if (loginValue !== "") {
@@ -68,25 +65,18 @@ const UserUpdate = () => {
       if (textareaValue !== "") {
         updatedData.description = textareaValue;
       }
-
-      console.log(
-        "troisième test dans le try",
-        loginValue,
-        textareaValue,
-        userId
-      );
       updateUserMutation({
         variables: {
           userId: userId,
           data: updatedData,
         },
         onCompleted: () => {
-          toast.success("Ton profil a été mis à jour!");
+          toast.success("Ton profil a été mis à jour !");
           navigate(`/user/${id}`);
         },
         onError: (err) => {
           console.error(err);
-          toast.error("error while saving wilder");
+          toast.error("une erreur est survenue");
         },
         refetchQueries: [{ query: GetUsersDocument, variables: { userId } }],
       });
@@ -142,7 +132,7 @@ const UserUpdate = () => {
           <div className="mb-5">
             <form>
               <label htmlFor="label-login" className="form-label text-center">
-               <h3>Votre nom</h3>
+                <h3>Votre nom</h3>
               </label>
               <br />
               <input
@@ -155,8 +145,8 @@ const UserUpdate = () => {
                 <label
                   htmlFor="update-description"
                   className="form-label text-center"
-                ><h3>Description</h3>
-                  
+                >
+                  <h3>Description</h3>
                 </label>
                 <br />
                 <textarea

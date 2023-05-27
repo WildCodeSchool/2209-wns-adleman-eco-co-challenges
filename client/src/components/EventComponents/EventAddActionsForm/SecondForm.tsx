@@ -42,6 +42,7 @@ const SecondForm = () => {
         navigate(`/event/${id}`)
     }
 
+
     return (
         <>
             <h1> Ajout des actions</h1>

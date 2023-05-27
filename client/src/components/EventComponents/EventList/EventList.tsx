@@ -33,7 +33,7 @@ const EventList = (props: Props) => {
 
   return (
     <div className="album">
-      <p className="fs-2 mb-5 fw-bold text-center">Evènements</p>
+      <p className="fs-2 mb-5 fw-bold text-center">Evénements</p>
       <div className="eventList-container">
         <div className={`row mx-auto ${isMobile ? "row-cols-1" : "row-cols-4"}`}>
           {events.getEvents?.map((event: any) => (

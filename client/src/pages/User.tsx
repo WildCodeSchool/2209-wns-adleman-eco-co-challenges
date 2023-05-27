@@ -1,4 +1,5 @@
 import {
+  User as UserInterface,
   useGetProfileQuery,
   useGetUserEventsQuery,
 } from "../gql/generated/schema";
@@ -8,7 +9,6 @@ import EventList from "../components/EventComponents/EventList/EventList";
 import Footer from "../components/GlobalComponents/Footer/Footer";
 import Header from "../components/GlobalComponents/Header/Header";
 import User from "../components/UserComponents/User/User";
-import { User as UserInterface } from "../gql/generated/schema";
 import UserListDashboard from "../components/UserComponents/UserListDashboard/UserListDashboard";
 
 export default function UserDashboard() {
@@ -27,6 +27,7 @@ export default function UserDashboard() {
     errorPolicy: "ignore",
   });
 
+  console.log(events);
   function redirectToUserPage(u: Partial<UserInterface>) {
     navigate(`/friend/${u}`);
   }
@@ -48,21 +49,31 @@ export default function UserDashboard() {
       <div>
         <User />
       </div>
+      <div className=""></div>
       {isUserConnected && (
         <>
           <div>
-            <EventList events={events} onUserClick={navigateToEvent} />
+            {events === undefined ? (
+              <EventList events={events} onUserClick={navigateToEvent} />
+            ) : (
+              <>
+                <p className="fs-2 mb-5 fw-bold text-center">Mes challenges</p>
+                <p className="fs-4 mb-5 text-center">
+                  Aucun événement disponible pour le moment.
+                </p>
+              </>
+            )}
           </div>
           <div className="d-flex align-content-center justify-content-center gap-5 ">
             <button
-              className="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill bg-primary text-white"
+              className="d-inline-flex align-items-center btn btn-lg ecoco-button"
               type="button"
               onClick={navigateToCreateEvent}
             >
               Créer un événement
             </button>
             <button
-              className="btn btn-outline-secondary btn-lg px-4 rounded-pill bg-primary text-white"
+              className="btn  btn-lg px-4 ecoco-button"
               type="button"
               onClick={navigateToEvents}
             >
