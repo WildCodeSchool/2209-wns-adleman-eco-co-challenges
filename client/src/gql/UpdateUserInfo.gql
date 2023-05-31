@@ -1,3 +1,0 @@
-mutation UpdateUserInfo($userId: Float!, $nickName: String, $description: String) {
-  updateUser(userId: $userId, data: { nickName: $nickName, description: $description }) {
-    description

@@ -73,7 +73,7 @@ const User = () => {
             </div>
           </div>
           <div className="description-container">
-            <h1 className="display-5 fw-bold">Description</h1>
+            <h1 className="display-7 fw-bold">Description</h1>
             <div className="col-lg-6 mx-auto">
               <p className="lead mb-4">{selectedUser?.description}</p>
             </div>

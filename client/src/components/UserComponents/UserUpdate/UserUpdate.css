@@ -1,20 +1,15 @@
-* {
-    box-sizing: border-box;
-  }
-  
   .profilPicture {
     border-radius: 50%;
-    border: 2px solid black;
-    width: 30%;
-    height: 30%;
+    background-color: #FFFFFF;
+    border: 0.5px solid #545863;
+    width: 50%;
+    height: 50%;
   }
   
-  form {
-    background-color: rgb(255 255 255 / 0.4);
-  }
   .userBody{
-    background-size: cover;
-    background-repeat: no-repeat;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    background-color: rgb(255 255 255 / 0.8);
+    border-radius: 20px;
   }
 
   #containerLvl span {
@@ -24,29 +19,52 @@
   }
   
   .update-login{
+    color:#c3c4c8;
     margin-bottom: 1%;
-    border-radius: 20px;
+    width: 100%;
     border: none;
-  }
-  .update-description{
-    margin-bottom: 1%;
-    border-radius: 20px;
-    border: none;
-  }
-  .ecoco-button {
-	border-radius: 20px;
-	border: 1px solid #fcdc12;
-	background-color: #fcdc12;
-	color: #FFFFFF;
-	font-size: 12px;
-	font-weight: bold;
-	padding: 12px 45px;
-	letter-spacing: 1px;
-	text-transform: uppercase;
-	transition: transform 80ms ease-in;
-}
+    font-size: xx-large;
+    object-position: 10%;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+    }
 
-.ecoco-button:hover {
+  .update-login:focus {
+    background-color: rgb(255 254 40 / 0.2);
+    color: black;
+    outline: none;
+  }
+
+  .update-description{
+    margin-bottom: 5%;
+    width: 100%;
+    border: none;
+    font-family: 'Roboto', sans-serif;
+    font-size: large;
+    color:#545863;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+    }
+
+  .update-description:focus {
+    background-color: rgb(255 254 40 / 0.2);
+    color: black;
+    outline: none;
+  }
+
+  .form__button {
+    margin-bottom: 5%;
+    width: 100%;
+    border: 1px solid #fffe28;
+    background-color: #fffe28;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;  }
+
+.form__button:hover {
 	border: 1px solid #fcdc12;
 	background-color: #FFFFFF;
 	color: #fcdc12;

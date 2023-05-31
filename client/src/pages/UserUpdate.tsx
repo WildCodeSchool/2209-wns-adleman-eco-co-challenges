@@ -9,10 +9,10 @@ export default function UserDashboard() {
       <div className="header">
         <Header />
       </div>
-      <div>
+      <div className="form__container">
         <UserUpdate />
       </div>
-      <div className="footer">
+      <div className="footer"> 
         <Footer />
       </div>
     </div>

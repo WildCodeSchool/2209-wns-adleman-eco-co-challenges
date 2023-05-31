@@ -30,12 +30,6 @@ const UserUpdate = () => {
     }
   }, [barWidth]);
 
-  const backgroundImageLvlGenerator = (lvl: number) => {
-    const lvlExpression = Math.floor((lvl ?? 0) / 10);
-    return Math.min(lvlExpression, 10).toString();
-  };
-  const backgroundImageLvl = backgroundImageLvlGenerator(lvl);
-
   const [textareaValue, setTextareaValue] = useState("");
   useEffect(() => {
     const retrievedValue = selectedUser?.description;
@@ -65,7 +59,7 @@ const UserUpdate = () => {
       if (textareaValue !== "") {
         updatedData.description = textareaValue;
       }
-      updateUserMutation({
+      await updateUserMutation({
         variables: {
           userId: userId,
           data: updatedData,
@@ -85,15 +79,8 @@ const UserUpdate = () => {
 
   return (
     <>
-      <>
-        <div
-          className="userBody px-4 py-5 my-5 text-center"
-          style={{
-            backgroundImage: `url(${require("../../../assets/" +
-              backgroundImageLvl +
-              ".png")})`,
-          }}
-        >
+      <div className="container col-5">
+        <div className="text-center">
           <div className="container px-4 py-5" id="featured-3">
             <div className="align-items-center row g-4 py-5 row-cols-1 row-cols-lg-3">
               <div className="feature col">
@@ -104,8 +91,7 @@ const UserUpdate = () => {
                   alt="profilePicture"
                   className="profilPicture"
                   src={
-                    selectedUser?.image ??
-                    require("../../../assets/cartonRouge.png")
+                    selectedUser?.image ?? require("../../../assets/avatarToucan.png")
                   }
                 />
               </div>
@@ -129,11 +115,8 @@ const UserUpdate = () => {
               </div>
             </div>
           </div>
-          <div className="mb-5">
+          <div className="mb-5 userBody">
             <form>
-              <label htmlFor="label-login" className="form-label text-center">
-                <h3>Votre nom</h3>
-              </label>
               <br />
               <input
                 className="update-login text-center form-control-lg"
@@ -142,29 +125,24 @@ const UserUpdate = () => {
                 onChange={(e) => setLoginValue(e.target.value)}
               />
               <div className="mt-4 mb-3">
-                <label
-                  htmlFor="update-description"
-                  className="form-label text-center"
-                >
-                  <h3>Description</h3>
-                </label>
+
                 <br />
                 <textarea
-                  className="update-description text-center"
-                  rows={10}
+                  className="update-description text-center form-control-md"
+                  rows={5}
                   cols={60}
                   defaultValue={textareaValue}
                   value={textareaValue}
                   onChange={(e) => setTextareaValue(e.target.value)}
                 />
+                <button className="btn form__button " onClick={handleSave}>
+                  Enregistrer
+                </button>
               </div>
             </form>
-            <button className="btn ecoco-button " onClick={handleSave}>
-              Enregistrer
-            </button>
           </div>
         </div>
-      </>
+      </div>
     </>
   );
 };

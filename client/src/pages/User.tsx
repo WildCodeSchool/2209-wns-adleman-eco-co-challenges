@@ -4,7 +4,7 @@ import {
   useGetUserEventsQuery,
 } from "../gql/generated/schema";
 import { useNavigate, useParams } from "react-router-dom";
-
+import "./pages.css";
 import EventList from "../components/EventComponents/EventList/EventList";
 import Footer from "../components/GlobalComponents/Footer/Footer";
 import Header from "../components/GlobalComponents/Header/Header";
