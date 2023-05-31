@@ -1,4 +1,5 @@
 import {
+  GetUsersDocument,
   User,
   useGetProfileQuery,
   useUpdateUserMutation,
@@ -58,6 +59,7 @@ const FriendsAdd = () => {
             friendsId: [friendId],
           },
         },
+        refetchQueries: [{ query: GetUsersDocument, variables: { currentUserId } }],
       });
       if (result.data?.updateUser) {
         // update the state of users

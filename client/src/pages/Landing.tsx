@@ -9,10 +9,12 @@ export default function Landing() {
   return (
     <>
       <div className="landing cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+     
+        <p className="landing__top">
         <div className="landing__logo">
           <img src={logo} alt="Eco-co Challenge" />
         </div>
-        <p className="landing__line"></p>
+        </p>
         <div className="landing__container fs-5 col-md-6">
           <p className="landing__paragraph">
             <img src={bananaRight} alt="guillemets bananes" />
