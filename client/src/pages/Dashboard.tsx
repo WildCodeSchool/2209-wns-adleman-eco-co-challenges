@@ -10,11 +10,11 @@ export default function FriendDashboard() {
       <div className="header">
         <Header />
       </div>
-      <div>
+      <div className="">
         <User />
-      </div>
-      <div className="footer">
-        <Footer />
+        <div className="footer">
+          <Footer />
+        </div>
       </div>
     </>
   );

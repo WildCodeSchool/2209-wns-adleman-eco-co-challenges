@@ -11,9 +11,10 @@ import Event from "./pages/Event";
 import Events from "./pages/Events";
 import Landing from "./pages/Landing";
 import ProtectedRoute from "./components/GlobalComponents/ProtectedRoutes/ProtectedRoute";
-import UserDashboard from "./pages/User";
+import UserDashboard from "./pages/UserDashboard";
 import UserFriendsAdd from "./pages/UserFriendsAdd";
 import UserUpdate from "./pages/UserUpdate";
+import TemplateForm from "./pages/TemplateForm";
 
 function App() {
   return (
