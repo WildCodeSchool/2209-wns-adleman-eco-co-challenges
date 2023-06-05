@@ -4,7 +4,7 @@ const FormTemplate = () => {
   return (
     <div className="FormTemplate">
       <div className="body">
-        <div className="container" id="container">
+        <div className="container">
           <div className="title-container">
             <h1>Salut l'ami !</h1>
             <br />
@@ -15,10 +15,23 @@ const FormTemplate = () => {
               <div className="overlay-panel overlay-right">
                 <form>
                   <h2>Nom du formulaire</h2>
-                  <input type="text" placeholder="Premier input" />
-                  <input type="text" placeholder="Deuxième input" />
-                  <textarea placeholder="Ici un textarea"></textarea>
+                  <div className="form-floating w-100">
+                    <input
+                      type="text"
+                      placeholder="Premier input"
+                      id="firstInput"
+                    />
+                    <label htmlFor="firstInput">First input </label>
+                  </div>
+                  <div className="form-floating w-100">
+                    <input type="text" placeholder="Deuxième input" id="secondInput"/>
+                    <label htmlFor="secondInput">Second input </label>
+                  </div>
+                  <div className="form-floating w-100">
+                    <textarea placeholder="Ici un textarea" id="firstTextarea"></textarea>
+                    <label htmlFor="firstTextarea">Textarea</label>
 
+                  </div>
                   <button type="submit">Enregistrer</button>
                 </form>
               </div>

@@ -79,9 +79,9 @@ const UserUpdate = () => {
 
   return (
     <>
-      <div className="container col-5">
+      <div className="body">
         <div className="text-center">
-          <div className="container px-4 py-5" id="featured-3">
+          <div className="container px-4 py-5" id="container-header">
             <div className="align-items-center row g-4 py-5 row-cols-1 row-cols-lg-3">
               <div className="feature col">
                 <h3 className="fs-2">{selectedUser?.nickName}</h3>
@@ -91,7 +91,8 @@ const UserUpdate = () => {
                   alt="profilePicture"
                   className="profilPicture"
                   src={
-                    selectedUser?.image ?? require("../../../assets/avatarToucan.png")
+                    selectedUser?.image ??
+                    require("../../../assets/avatarToucan.png")
                   }
                 />
               </div>
@@ -115,31 +116,40 @@ const UserUpdate = () => {
               </div>
             </div>
           </div>
-          <div className="mb-5 userBody">
-            <form>
-              <br />
-              <input
-                className="update-login text-center form-control-lg"
-                placeholder={selectedUser?.nickName}
-                value={loginValue}
-                onChange={(e) => setLoginValue(e.target.value)}
-              />
-              <div className="mt-4 mb-3">
-
-                <br />
-                <textarea
-                  className="update-description text-center form-control-md"
-                  rows={5}
-                  cols={60}
-                  defaultValue={textareaValue}
-                  value={textareaValue}
-                  onChange={(e) => setTextareaValue(e.target.value)}
-                />
-                <button className="btn form__button " onClick={handleSave}>
-                  Enregistrer
-                </button>
+          <div className="UserUpdate">
+            <div className="body">
+              <div className="container" id="container">
+                <div className="title-container">
+                  <h1>Salut l'ami !</h1>
+                  <br />
+                </div>
+                <div className="form-container">
+                  <div className="overlay">
+                    <div className="overlay-panel overlay-right">
+                      <form>
+                        <h2>Ici tu peux changer tes données</h2>
+                        <input
+                          type="text"
+                          className="form-control rounded-3"
+                          value={loginValue}
+                          onChange={(e) => setLoginValue(e.target.value)}
+                        />
+                        <textarea
+                          className="form-control rounded-3"
+                          id="floatingDescription"
+                          rows={5}
+                          cols={60}
+                          defaultValue={textareaValue}
+                          value={textareaValue}
+                          onChange={(e) => setTextareaValue(e.target.value)}
+                        />
+                        <button className="mt-3" onClick={handleSave}>Enregistrer</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
