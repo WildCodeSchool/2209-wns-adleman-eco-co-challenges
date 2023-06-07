@@ -14,7 +14,6 @@ import ProtectedRoute from "./components/GlobalComponents/ProtectedRoutes/Protec
 import UserDashboard from "./pages/UserDashboard";
 import UserFriendsAdd from "./pages/UserFriendsAdd";
 import UserUpdate from "./pages/UserUpdate";
-import TemplateForm from "./pages/TemplateForm";
 
 function App() {
   return (

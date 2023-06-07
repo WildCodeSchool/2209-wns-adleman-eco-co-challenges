@@ -3,11 +3,12 @@
     font-family: 'Roboto', sans-serif;
    }
   
-  .FormTemplate{
+  .SecondForm{
     background-image: url("../../../assets/bg_template.png");
     background-size: cover;
   }
-  .FormTemplate .body {
+  
+  .SecondForm .body {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,17 +17,17 @@
     min-height: 100vh;
   }
   
-  .FormTemplate h1 {
+  .SecondForm h1 {
     font-weight: bold;
     margin-top: 100px;
     text-align: center;
   }
   
-  .FormTemplate h2 {
+  .SecondForm h2 {
     text-align: center;
   }
   
-  .FormTemplate p {
+  .SecondForm p {
     font-size: 14px;
     font-weight: 100;
     line-height: 20px;
@@ -34,18 +35,18 @@
     margin: 20px 0 30px;
   }
   
-  .FormTemplate span {
+  .SecondForm span {
     font-size: 12px;
   }
   
-  .FormTemplate a {
+  .SecondForm a {
     color: #333;
     font-size: 14px;
     text-decoration: none;
     margin: 15px 0;
   }
   
-  .FormTemplate button {
+  .SecondForm button {
     border-radius: 20px;
     border: 1px solid #27c7d4;
     background-color: #27c7d4;
@@ -58,15 +59,15 @@
     transition: transform 80ms ease-in;
   }
   
-  .FormTemplate button:active {
+  .SecondForm button:active {
     transform: scale(0.95);
   }
   
-  .FormTemplate button:focus {
+  .SecondForm button:focus {
     outline: none;
   }
   
-  .FormTemplate form {
+  .SecondForm form {
     color: #545863;
     background-color: #ffffff;
     display: flex;
@@ -78,7 +79,7 @@
     text-align: center;
   }
   
-  .FormTemplate input {
+  .SecondForm input {
     background-color: #eee;
     border: none;
     padding: 12px 15px;
@@ -86,7 +87,7 @@
     width: 100%;
   }
 
-  .FormTemplate textarea {
+  .SecondForm textarea {
     background-color: #eee;
     border: none;
     padding: 12px 15px;
@@ -94,7 +95,7 @@
     width: 100%;
   }
 
-  .FormTemplate .container {
+  .SecondForm .container {
     background: #ffffff;
     border-radius: 10px;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
@@ -105,7 +106,7 @@
     margin-bottom: 20px;
   }
 
-  .FormTemplate .title-container {
+  .SecondForm .title-container {
     background: #27c7d4;
     position: absolute;
     top: 0;
@@ -116,7 +117,7 @@
     color: #ffffff;
   }
   
-  .FormTemplate .form-container {
+  .SecondForm .form-container {
     position: absolute;
     top: 0;
     left: 30%;
@@ -126,7 +127,7 @@
     z-index: 100;
   }
 
-  .FormTemplate .overlay {
+  .SecondForm .overlay {
     background: #ffffff;
     /* background: linear-gradient(to right, #fcdc12, #fcdc12); */
     background-repeat: no-repeat;
@@ -138,7 +139,7 @@
     width: 200%;
   }
   
-  .FormTemplate .overlay-panel {
+  .SecondForm .overlay-panel {
     position: absolute;
     display: flex;
     align-items: center;

@@ -1,46 +1,28 @@
-  .profilPicture {
-    border-radius: 50%;
-    background-color: #FFFFFF;
-    border: 0.5px solid #545863;
-    width: 40%;
-    height: 40%;
-  }
-  
-  #containerLvl span {
-    color: #000000;
-    font-family: sans-serif;
-    font-size: 1em;
-  }
-
-  #container-header{
-height: auto;
-  }
-
-  * {
+* {
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
    }
   
-  .UserUpdate .body {
+  .CreateEvent .body {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     font-family: "Roboto", sans-serif;
-    max-height: 70vh;
+    min-height: 100vh;
   }
   
-  .UserUpdate h1 {
+  .CreateEvent h1 {
     font-weight: bold;
     margin-top: 100px;
     text-align: center;
   }
   
-  .UserUpdate h2 {
+  .CreateEvent h2 {
     text-align: center;
   }
   
-  .UserUpdate p {
+  .CreateEvent p {
     font-size: 14px;
     font-weight: 100;
     line-height: 20px;
@@ -48,18 +30,18 @@ height: auto;
     margin: 20px 0 30px;
   }
   
-  .UserUpdate span {
+  .CreateEvent span {
     font-size: 12px;
   }
   
-  .UserUpdate a {
+  .CreateEvent a {
     color: #333;
     font-size: 14px;
     text-decoration: none;
     margin: 15px 0;
   }
   
-  .UserUpdate button {
+  .CreateEvent button {
     border-radius: 20px;
     border: 1px solid #27c7d4;
     background-color: #27c7d4;
@@ -72,15 +54,15 @@ height: auto;
     transition: transform 80ms ease-in;
   }
   
-  .UserUpdate button:active {
+  .CreateEvent button:active {
     transform: scale(0.95);
   }
   
-  .UserUpdate button:focus {
+  .CreateEvent button:focus {
     outline: none;
   }
   
-  .UserUpdate form {
+  .CreateEvent form {
     color: #545863;
     background-color: #ffffff;
     display: flex;
@@ -90,22 +72,17 @@ height: auto;
     padding: 0 50px;
     height: 100%;
     text-align: center;
+    width: 100%;
+  }
+
+  .CreateEvent .form-control {
+    width: 100%;
+  }
+  .CreateEvent #floatingStartDate {
+    width: 100%;
   }
   
-  .UserUpdate input {
-    font-size: large;
-    color: #545863;
-    background-color: #eee;
-    border: none;
-    padding: 12px 15px;
-    margin: 8px 0;
-    width: 100%;
-
-  }
-
-  .UserUpdate textarea {
-    font-size: large;
-    color: #545863;    
+  .CreateEvent input {
     background-color: #eee;
     border: none;
     padding: 12px 15px;
@@ -113,7 +90,15 @@ height: auto;
     width: 100%;
   }
 
-  .UserUpdate .container {
+  .CreateEvent textarea {
+    background-color: #eee;
+    border: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    width: 100%;
+  }
+
+  .CreateEvent .container {
     background: #ffffff;
     border-radius: 10px;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
@@ -124,7 +109,7 @@ height: auto;
     margin-bottom: 20px;
   }
 
-  .UserUpdate .title-container {
+  .CreateEvent .title-container {
     background: #27c7d4;
     position: absolute;
     top: 0;
@@ -135,7 +120,7 @@ height: auto;
     color: #ffffff;
   }
   
-  .UserUpdate .form-container {
+  .CreateEvent .form-container {
     position: absolute;
     top: 0;
     left: 30%;
@@ -144,9 +129,10 @@ height: auto;
     overflow: hidden;
     z-index: 100;
   }
-
-  .UserUpdate .overlay {
+  
+  .CreateEvent .overlay {
     background: #ffffff;
+    /* background: linear-gradient(to right, #fcdc12, #fcdc12); */
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 0 0;
@@ -156,7 +142,7 @@ height: auto;
     width: 200%;
   }
   
-  .UserUpdate .overlay-panel {
+  .CreateEvent .overlay-panel {
     position: absolute;
     display: flex;
     align-items: center;

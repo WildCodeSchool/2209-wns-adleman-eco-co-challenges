@@ -85,10 +85,7 @@
 }
 
 .form__container{
-	background-image: url(..//src/assets/updateBg.png);
+    background-image: url("./assets/bg_template.png");
+    background-size: cover;
 	margin: 100px 0; 
-	background-size: cover;
-	background-repeat: repeat;
-	/* background: rgb(255,254,91);
-	background: linear-gradient(90deg, rgba(255,254,91,0.7355020491803279) 0%, rgba(39,199,212,1) 79%); */
 }
