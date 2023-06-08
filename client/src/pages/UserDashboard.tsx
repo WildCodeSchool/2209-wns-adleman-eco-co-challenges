@@ -26,8 +26,13 @@ export default function UserDashboard() {
     },
     errorPolicy: "ignore",
   });
+  let lvl = Math.floor((currentUser?.profile.xp ?? 0) / 100);
+  const backgroundImageLvlGenerator = (lvl: number) => {
+    const lvlExpression = Math.floor((lvl ?? 0) / 10);
+    return Math.min(lvlExpression, 10).toString();
+  };
+  const backgroundImageLvl = backgroundImageLvlGenerator(lvl);
 
-  console.log(events);
   function redirectToUserPage(u: Partial<UserInterface>) {
     navigate(`/friend/${u}`);
   }
@@ -46,50 +51,60 @@ export default function UserDashboard() {
       <div className="header">
         <Header />
       </div>
-      <div>
-        <User />
-      </div>
-      <div className=""></div>
-      {isUserConnected && (
-        <>
-          <div>
-            {events === undefined ? (
-              <EventList events={events} onUserClick={navigateToEvent} />
-            ) : (
-              <>
-                <p className="fs-2 mb-5 fw-bold text-center">Mes challenges</p>
-                <p className="fs-4 mb-5 text-center">
-                  Aucun événement disponible pour le moment.
-                </p>
-              </>
-            )}
-          </div>
-          <div className="d-flex align-content-center justify-content-center gap-5 ">
-            <button
-              className="d-inline-flex align-items-center btn btn-lg ecoco-button"
-              type="button"
-              onClick={navigateToCreateEvent}
-            >
-              Créer un événement
-            </button>
-            <button
-              className="btn  btn-lg px-4 ecoco-button"
-              type="button"
-              onClick={navigateToEvents}
-            >
-              Voir tous les événements
-            </button>
-          </div>
-          <div>
+      <div
+        className="userBody px-4 py-5 my-5 text-center"
+        style={{
+          backgroundImage: `url(${require("../assets/" +
+            backgroundImageLvl +
+            ".png")})`,
+        }}
+      >
+        <div>
+          <User />
+        </div>
+        {isUserConnected && (
+          <>
             <div>
-              <UserListDashboard
-                users={currentUser?.profile.friends ?? []}
-                onUserClick={redirectToUserPage}
-              />
+              {events === undefined ? (
+                <EventList events={events} onUserClick={navigateToEvent} />
+              ) : (
+                <>
+                  <p className="fs-2 mb-5 fw-bold text-center">
+                    Mes challenges
+                  </p>
+                  <p className="fs-4 mb-5 text-center">
+                    Aucun événement disponible pour le moment.
+                  </p>
+                </>
+              )}
             </div>
-          </div>
-        </>
-      )}
+            <div className="d-flex align-content-center justify-content-center gap-5 ">
+              <button
+                className="d-inline-flex align-items-center btn btn-lg ecoco-button"
+                type="button"
+                onClick={navigateToCreateEvent}
+              >
+                Créer un événement
+              </button>
+              <button
+                className="btn  btn-lg px-4 ecoco-button"
+                type="button"
+                onClick={navigateToEvents}
+              >
+                Voir tous les événements
+              </button>
+            </div>
+            <div>
+              <div>
+                <UserListDashboard
+                  users={currentUser?.profile.friends ?? []}
+                  onUserClick={redirectToUserPage}
+                />
+              </div>
+            </div>
+          </>
+        )}
+      </div>
       <div className="footer">
         <Footer />
       </div>

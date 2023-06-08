@@ -1,5 +1,4 @@
-import { User } from "../../../gql/generated/schema";
-import { useGetProfileQuery } from "../../../gql/generated/schema";
+import { User, useGetProfileQuery } from "../../../gql/generated/schema";
 
 // Function to generate a random user url
 const randomUser = () => {
@@ -29,7 +28,7 @@ const UserListDashboard = (props: Props) => {
   // The render
   return (
     <>
-      <div className="album py-5 bg-light">
+      <div className="album py-5">
       <p className="fs-2 mb-5 fw-bold text-center">Mes Amis Favoris</p>
         <div className="container col-xxl-8 px-4 py-5">
           <div className="row row-cols-1 row-cols-sm-3 row-cols-md-5 g-5">

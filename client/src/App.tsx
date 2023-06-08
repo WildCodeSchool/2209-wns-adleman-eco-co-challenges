@@ -48,14 +48,6 @@ function App() {
               }
             />
             <Route
-              path="/friends/add"
-              element={
-                <ProtectedRoute>
-                  <UserFriendsAdd />
-                </ProtectedRoute>
-              }
-            />
-            <Route
               path="/user/:id"
               element={
                 <ProtectedRoute>
