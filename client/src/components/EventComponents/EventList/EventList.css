@@ -1,7 +1,12 @@
 .album{
-    background-color: white;
-  }
-  
+  margin: 10% 0 2% 0;
+}
+
+.eventList__title {
+  margin: 7% 0 2% 0;
+  font-family: 'Caveat';
+  color: #545863;
+}
   
   
   

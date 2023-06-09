@@ -1,4 +1,8 @@
-.landing{
+* {
+	box-sizing: border-box;
+  }
+  
+  .landing{
 	display: flex;
 	justify-content:center;
 	align-items: center;

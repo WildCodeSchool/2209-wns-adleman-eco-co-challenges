@@ -1,4 +1,6 @@
 import { User, useGetProfileQuery } from "../../../gql/generated/schema";
+import { useNavigate } from "react-router-dom";
+
 
 // Function to generate a random user url
 const randomUser = () => {
@@ -25,10 +27,12 @@ const UserListDashboard = (props: Props) => {
   const { data: currentUser } = useGetProfileQuery({
     errorPolicy: "ignore",
   });
+  const navigate = useNavigate();
+
   // The render
   return (
     <>
-      <div className="album py-5">
+      <div className="py-5">
       <p className="fs-2 mb-5 fw-bold text-center">Mes Amis Favoris</p>
         <div className="container col-xxl-8 px-4 py-5">
           <div className="row row-cols-1 row-cols-sm-3 row-cols-md-5 g-5">
@@ -58,6 +62,13 @@ const UserListDashboard = (props: Props) => {
             ))}
               </div>
             </div>
+            <button
+            type="button"
+            className="btn ecoco-button btn-lg px-4 gap-3 text-center"
+            onClick={(e) => navigate("/friends/add")}
+        >
+          Ajouter des amis
+        </button>
           </div>
     </>
   );
