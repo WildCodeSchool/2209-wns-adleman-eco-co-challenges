@@ -21,7 +21,7 @@ export default function UserDashboard() {
   const isUserConnected = Number(currentUser?.profile.id) === Number(id);
   const { data: events } = useGetUserEventsQuery({
     variables: {
-      isOver: true,
+      isOver: false,
       userId: Number(currentUser?.profile.id),
     },
     errorPolicy: "ignore",
@@ -65,7 +65,7 @@ export default function UserDashboard() {
         {isUserConnected && (
           <>
             <div>
-              {events === undefined ? (
+              {events ? (
                 <EventList events={events} onUserClick={navigateToEvent} />
               ) : (
                 <>

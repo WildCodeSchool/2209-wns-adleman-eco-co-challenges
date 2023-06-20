@@ -14,7 +14,7 @@ export default function Events() {
   });
   const { data: events } = useGetUserEventsQuery({
     variables: {
-      isOver: true,
+      isOver: false,
       userId: 0,
     },
     errorPolicy: "ignore",
