@@ -22,7 +22,6 @@ const CreateEvent = () => {
       }
     );
   }
-console.log(eventInfo);
   return (
     <div className="CreateEvent">
       <div className="body">
