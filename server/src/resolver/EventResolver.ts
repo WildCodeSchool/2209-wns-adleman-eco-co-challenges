@@ -83,6 +83,7 @@ export class EventResolver {
                   })
           )
       );
+
     }
 
     return await DataSource.manager.save(eventUpdated);

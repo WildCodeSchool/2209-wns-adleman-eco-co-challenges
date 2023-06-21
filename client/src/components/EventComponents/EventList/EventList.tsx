@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import "./EventList.css";
 
 import { useEffect, useState } from "react";
@@ -6,8 +7,10 @@ interface Props {
   events: any;
   onUserClick: (...params: any) => any;
 }
+
 const EventList = (props: Props) => {
   const [isMobile, setIsMobile] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
@@ -28,6 +31,9 @@ const EventList = (props: Props) => {
   if (!events) {
     return <div>Loading events...</div>;
   }
+  function navigateToEvent(u: Partial<Event>) {
+    navigate(`/event/:id`);
+  }
 
   return (
     <>
@@ -43,8 +49,8 @@ const EventList = (props: Props) => {
               }`}
             >
               {events.getEvents?.map((event: any) => (
-                <div className="col mb-3" key={event.id}>
-                  <div className="card  shadow-sm">
+                <div className="col mb-3" key={event.id} onClick={navigateToEvent}>
+                  <div className="card shadow-sm cursor-pointer">
                     <img
                       className="bd-placeholder-img card-img-top"
                       alt={event.title}
