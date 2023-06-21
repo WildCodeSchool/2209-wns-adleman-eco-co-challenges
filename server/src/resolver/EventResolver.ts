@@ -29,6 +29,15 @@ export class EventResolver {
     return events;
   }
 
+  @Query(() => Event)
+  async getEvent(
+      @Arg("id") id: number,
+  ): Promise<Event> {
+    return await DataSource.getRepository(Event).findOneOrFail({
+      relations: { participants: true, actions: true},
+      where: {id},
+    });
+  }
   // format de date à utiliser 2024-01-01
   @Mutation(() => Event)
   async createEvent(@Arg("data") data: EventInput): Promise<Event> {
@@ -78,4 +87,5 @@ export class EventResolver {
 
     return await DataSource.manager.save(eventUpdated);
   }
+
 }

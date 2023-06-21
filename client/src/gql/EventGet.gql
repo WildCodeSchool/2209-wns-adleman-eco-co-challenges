@@ -1,0 +1,20 @@
+query GetEvent($getEventId: Float!) {
+  getEvent(id: $getEventId) {
+    id
+    name
+
+    actions {
+      id
+      points
+      title
+      description
+    }
+    description
+    endDate
+    image
+    startDate
+    participants {
+      id
+    }
+  }
+}

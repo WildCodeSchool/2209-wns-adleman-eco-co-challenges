@@ -121,9 +121,15 @@ export type MutationUpdateUserArgs = {
 export type Query = {
   __typename?: 'Query';
   actions: Array<Action>;
+  getEvent: Event;
   getEvents: Array<Event>;
   profile: User;
   users: Array<User>;
+};
+
+
+export type QueryGetEventArgs = {
+  id: Scalars['Float'];
 };
 
 
@@ -178,6 +184,13 @@ export type CreateEventMutationVariables = Exact<{
 
 
 export type CreateEventMutation = { __typename?: 'Mutation', createEvent: { __typename?: 'Event', id: string, name?: string | null, description?: string | null, startDate?: any | null, endDate?: any | null, image?: string | null } };
+
+export type GetEventQueryVariables = Exact<{
+  getEventId: Scalars['Float'];
+}>;
+
+
+export type GetEventQuery = { __typename?: 'Query', getEvent: { __typename?: 'Event', id: string, name?: string | null, description?: string | null, endDate?: any | null, image?: string | null, startDate?: any | null, actions?: Array<{ __typename?: 'Action', id: string, points?: string | null, title?: string | null, description?: string | null }> | null, participants?: Array<{ __typename?: 'User', id: number }> | null } };
 
 export type GetEventsQueryVariables = Exact<{
   isOver: Scalars['Boolean'];
@@ -316,6 +329,55 @@ export function useCreateEventMutation(baseOptions?: Apollo.MutationHookOptions<
 export type CreateEventMutationHookResult = ReturnType<typeof useCreateEventMutation>;
 export type CreateEventMutationResult = Apollo.MutationResult<CreateEventMutation>;
 export type CreateEventMutationOptions = Apollo.BaseMutationOptions<CreateEventMutation, CreateEventMutationVariables>;
+export const GetEventDocument = gql`
+    query GetEvent($getEventId: Float!) {
+  getEvent(id: $getEventId) {
+    id
+    name
+    actions {
+      id
+      points
+      title
+      description
+    }
+    description
+    endDate
+    image
+    startDate
+    participants {
+      id
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetEventQuery__
+ *
+ * To run a query within a React component, call `useGetEventQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetEventQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetEventQuery({
+ *   variables: {
+ *      getEventId: // value for 'getEventId'
+ *   },
+ * });
+ */
+export function useGetEventQuery(baseOptions: Apollo.QueryHookOptions<GetEventQuery, GetEventQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetEventQuery, GetEventQueryVariables>(GetEventDocument, options);
+      }
+export function useGetEventLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetEventQuery, GetEventQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetEventQuery, GetEventQueryVariables>(GetEventDocument, options);
+        }
+export type GetEventQueryHookResult = ReturnType<typeof useGetEventQuery>;
+export type GetEventLazyQueryHookResult = ReturnType<typeof useGetEventLazyQuery>;
+export type GetEventQueryResult = Apollo.QueryResult<GetEventQuery, GetEventQueryVariables>;
 export const GetEventsDocument = gql`
     query GetEvents($isOver: Boolean!) {
   getEvents(isOver: $isOver) {
