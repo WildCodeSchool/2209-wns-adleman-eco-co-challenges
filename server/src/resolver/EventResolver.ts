@@ -10,13 +10,13 @@ export class EventResolver {
   @Query(() => [Event])
   async getEvents(
     @Arg("isOver") isOver: boolean,
-    @Arg("userId", { defaultValue: 0 }) userId: number,
+    @Arg("userId", { defaultValue: 0 }) userId: number
   ): Promise<Event[]> {
     const overOrNot = isOver
       ? { endDate: LessThan(new Date()) }
       : { endDate: MoreThan(new Date()) };
     let events = await DataSource.getRepository(Event).find({
-      relations: { participants: true, actions: true},
+      relations: { participants: true, actions: true },
       where: overOrNot,
       order: { startDate: "ASC" },
     });
@@ -41,18 +41,13 @@ export class EventResolver {
   // format de date à utiliser 2024-01-01
   @Mutation(() => Event)
   async createEvent(@Arg("data") data: EventInput): Promise<Event> {
-    let startDateObj , endDateObj;
-    const {
-      name,
-      startDate,
-      endDate,
-      image,
-      description,
-    } = data;
+    let startDateObj, endDateObj;
+    const { name, startDate, endDate, image, description } = data;
     if (typeof startDate !== "undefined" && typeof endDate !== "undefined") {
       startDateObj = new Date(startDate);
       endDateObj = new Date(endDate);
-      if (startDateObj > endDateObj) throw new Error("Start date must be before end date");
+      if (startDateObj > endDateObj)
+        throw new Error("Start date must be before end date");
     }
     return await DataSource.getRepository(Event).save({
       name,
