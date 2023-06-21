@@ -1,9 +1,8 @@
-import { Arg, Mutation, Query, Resolver } from "type-graphql";
-import Event, { EventInput } from "../entity/Event";
+import {Arg, Mutation, Query, Resolver} from "type-graphql";
+import Event, {EventInput} from "../entity/Event";
 import User from "../entity/User";
-import { format } from 'date-fns';
 import DataSource from "../db";
-import { LessThan, MoreThan } from "typeorm";
+import {LessThan, MoreThan} from "typeorm";
 
 @Resolver(Event)
 export class EventResolver {
@@ -46,9 +45,6 @@ export class EventResolver {
       endDateObj = new Date(endDate);
       if (startDateObj > endDateObj) throw new Error("Start date must be before end date");
     }
-
-    console.log(startDate, endDate, "🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀")
-
     return await DataSource.getRepository(Event).save({
       name,
       startDate: startDateObj,
@@ -69,24 +65,14 @@ export class EventResolver {
     });
     // créé le tableau de participants
     if (typeof participantsId !== "undefined") {
-      const participants = await Promise.all(
-        participantsId?.map(
-          async (id) =>
-            await DataSource.getRepository(User).findOneOrFail({
-              where: { id },
-            })
-        )
-      );
       // rajoute à l'évent le tableau de participants
-      eventUpdated.participants = participants;
-
-      //   Pour chaque participant on lui rajouter l'event
-      await Promise.all(
-        participants.map(async (participant) => {
-          // faire un nouveau tableau et ajouter à la fin eventUpdated
-          participant.eventOfUser = [eventUpdated];
-          return await DataSource.manager.save(participant);
-        })
+      eventUpdated.participants = await Promise.all(
+          participantsId?.map(
+              async (id) =>
+                  await DataSource.getRepository(User).findOneOrFail({
+                    where: {id},
+                  })
+          )
       );
     }
 
