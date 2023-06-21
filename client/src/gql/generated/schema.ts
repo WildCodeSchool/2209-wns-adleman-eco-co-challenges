@@ -197,7 +197,7 @@ export type GetEventsQueryVariables = Exact<{
 }>;
 
 
-export type GetEventsQuery = { __typename?: 'Query', getEvents: Array<{ __typename?: 'Event', name?: string | null, image?: string | null, endDate?: any | null, startDate?: any | null, participants?: Array<{ __typename?: 'User', id: number }> | null, actions?: Array<{ __typename?: 'Action', title?: string | null, points?: string | null, description?: string | null }> | null }> };
+export type GetEventsQuery = { __typename?: 'Query', getEvents: Array<{ __typename?: 'Event', id: string, name?: string | null, image?: string | null, endDate?: any | null, startDate?: any | null, participants?: Array<{ __typename?: 'User', id: number }> | null, actions?: Array<{ __typename?: 'Action', title?: string | null, points?: string | null, description?: string | null }> | null }> };
 
 export type CreateUserMutationVariables = Exact<{
   data: UserInput;
@@ -212,7 +212,7 @@ export type GetUserEventsQueryVariables = Exact<{
 }>;
 
 
-export type GetUserEventsQuery = { __typename?: 'Query', getEvents: Array<{ __typename?: 'Event', name?: string | null, image?: string | null, endDate?: any | null, startDate?: any | null, participants?: Array<{ __typename?: 'User', id: number }> | null, actions?: Array<{ __typename?: 'Action', title?: string | null, points?: string | null, description?: string | null }> | null }> };
+export type GetUserEventsQuery = { __typename?: 'Query', getEvents: Array<{ __typename?: 'Event', id: string, name?: string | null, description?: string | null, image?: string | null, endDate?: any | null, startDate?: any | null, participants?: Array<{ __typename?: 'User', id: number }> | null, actions?: Array<{ __typename?: 'Action', title?: string | null, points?: string | null, description?: string | null }> | null }> };
 
 export type RemoveFriendMutationVariables = Exact<{
   userId: Scalars['Float'];
@@ -381,6 +381,7 @@ export type GetEventQueryResult = Apollo.QueryResult<GetEventQuery, GetEventQuer
 export const GetEventsDocument = gql`
     query GetEvents($isOver: Boolean!) {
   getEvents(isOver: $isOver) {
+    id
     name
     participants {
       id
@@ -460,7 +461,9 @@ export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMut
 export const GetUserEventsDocument = gql`
     query GetUserEvents($userId: Float!, $isOver: Boolean!) {
   getEvents(userId: $userId, isOver: $isOver) {
+    id
     name
+    description
     participants {
       id
     }
