@@ -37,7 +37,7 @@ export default function UserDashboard() {
     navigate(`/friend/${u}`);
   }
   function navigateToEvent(u: Partial<Event>) {
-    navigate(`/user/${currentUser?.profile.id}`);
+    navigate(`/event/:id`);
   }
   function navigateToCreateEvent(u: Partial<Event>) {
     navigate(`/event/create`);
@@ -62,11 +62,19 @@ export default function UserDashboard() {
         <div>
           <User />
         </div>
+        <button
+                className="d-inline-flex align-items-center btn btn-lg ecoco-button"
+                type="button"
+                onClick={navigateToCreateEvent}
+              >
+                Créer un événement
+              </button>
         {isUserConnected && (
           <>
             <div>
               {events ? (
                 <EventList events={events} onUserClick={navigateToEvent} />
+                
               ) : (
                 <>
                   <p className="fs-2 mb-5 fw-bold text-center">
@@ -78,14 +86,7 @@ export default function UserDashboard() {
                 </>
               )}
             </div>
-            <div className="d-flex align-content-center justify-content-center gap-5 ">
-              <button
-                className="d-inline-flex align-items-center btn btn-lg ecoco-button"
-                type="button"
-                onClick={navigateToCreateEvent}
-              >
-                Créer un événement
-              </button>
+            <div className="d-flex align-content-center justify-content-center gap-5">
               <button
                 className="btn  btn-lg px-4 ecoco-button"
                 type="button"
