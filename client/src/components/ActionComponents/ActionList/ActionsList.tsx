@@ -31,8 +31,36 @@ const ActionList = (Props: props) => {
 
                 });
                 const buttonClick = document.getElementById("button" + ElementClicked);
-                buttonClick?.classList.remove("SecondForm__button");
-                buttonClick?.classList.add("SecondForm__button__success");
+                if (buttonClick !== null) {
+                    // remove the current class
+                    buttonClick?.classList.remove("SecondForm__button");
+                    // add a new class to modify the color background
+                    buttonClick?.classList.add("SecondForm__button__success");
+                    // add a new class to add a new animation
+                    buttonClick?.classList.add("active");
+                    // change the text of the button
+                    buttonClick.textContent = "+ " + ActionPoints + " xp !!";
+                    // after 5 seconds
+                    setTimeout(() => {
+                        // remove the new class
+                        buttonClick?.classList.remove("SecondForm__button__success");
+                        // remove the old active class because the animation is finished
+                        buttonClick?.classList.remove("active");
+                        // add a new class to modify the color background
+                        buttonClick?.classList.add("SecondForm__button");
+                        // Add a new class to add a new animation
+                        buttonClick?.classList.add("flash-revert");
+                        // Change the button text to "Again ?"
+                        buttonClick.textContent = "Again ?";
+
+                        // After 1 second (to delay the animation)
+                        setTimeout(() => {
+                            // Remove the animation class
+                            buttonClick?.classList.remove("flash-revert");
+                        }, 1000);
+                    }, 5000); // 5000 millisecondes = 5 secondes
+                }
+
                 console.log(buttonClick);
             } catch (e) {
                 console.error(e);
