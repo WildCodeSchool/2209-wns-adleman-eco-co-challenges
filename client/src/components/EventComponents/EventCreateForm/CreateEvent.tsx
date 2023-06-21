@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { useCreateEventMutation } from "../../../gql/generated/schema";
 import { useState } from "react";
 import "./CreateEvent.css";
-import { eventNames } from "process";
 
 const CreateEvent = () => {
   const navigate = useNavigate();
@@ -23,7 +22,7 @@ const CreateEvent = () => {
       }
     );
   }
-
+console.log(eventInfo);
   return (
     <div className="CreateEvent">
       <div className="body">
@@ -116,7 +115,7 @@ const CreateEvent = () => {
                       id="floatingEndDate"
                       placeholder="Password"
                       onChange={(e) => {
-                        setEventInfo({
+                          setEventInfo({
                           ...eventInfo,
                           endDate: e.target.value,
                         });

@@ -28,10 +28,11 @@ const SecondForm = () => {
     },
   ]);
 
-  function saveAndNavigate() {
+  console.log(actionObjects)
+  const  saveAndNavigate = async () => {
     if (typeof id !== "undefined") {
       for (const actionObject of actionObjects) {
-        createAction({
+        await createAction({
           variables: {
             data: {
               ...actionObject,
@@ -152,7 +153,7 @@ const SecondForm = () => {
                       onChange={(e) => {
                         setActionObjects(
                           actionObjects.map((actionObject, index) => {
-                            if (index === 0) {
+                            if (index === 1) {
                               return {
                                 ...actionObject,
                                 title: e.target.value,
@@ -175,7 +176,7 @@ const SecondForm = () => {
                       onChange={(e) => {
                         setActionObjects(
                           actionObjects.map((actionObject, index) => {
-                            if (index === 0) {
+                            if (index === 1) {
                               return {
                                 ...actionObject,
                                 description: e.target.value,
@@ -202,7 +203,7 @@ const SecondForm = () => {
                         // setUseState(0, "points", parseInt(e.target.value));
                         setActionObjects(
                           actionObjects.map((actionObject, index) => {
-                            if (index === 0) {
+                            if (index === 1) {
                               return {
                                 ...actionObject,
                                 points: e.target.value,
