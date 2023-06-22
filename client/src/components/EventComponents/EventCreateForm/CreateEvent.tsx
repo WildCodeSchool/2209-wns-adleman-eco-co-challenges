@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { useCreateEventMutation } from "../../../gql/generated/schema";
+import {useCreateEventMutation, useGetProfileQuery, useUpdateEventMutation} from "../../../gql/generated/schema";
 import { useState } from "react";
 import "./CreateEvent.css";
 
 const CreateEvent = () => {
   const navigate = useNavigate();
   const [createEvent] = useCreateEventMutation();
+  const [updateEvent] = useUpdateEventMutation();
   const [eventInfo, setEventInfo] = useState({
     name: "",
     description: "",
@@ -14,11 +15,28 @@ const CreateEvent = () => {
     image: "",
   });
 
+    // get current user
+    const { data: currentUser } = useGetProfileQuery({
+        errorPolicy: "ignore",
+    });
+    const currentUserId = currentUser?.profile?.id;
   async function saveAndNavigate() {
     await createEvent({ variables: { data: eventInfo } }).then(
       async (resp) => {
         const id = resp.data?.createEvent?.id;
-        navigate(`/actions/add/${id}`);
+        if (id !== undefined && currentUserId !== undefined){
+            await updateEvent({variables: {
+                    eventId: parseInt(id),
+                    data: {
+                        participantsId: [currentUserId],
+                        participantsAction: "add"
+                    }}}
+            ).then(
+                (resp) => {
+                    navigate(`/actions/add/${id}`);
+                }
+            )
+        }
       }
     );
   }

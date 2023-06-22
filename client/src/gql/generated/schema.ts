@@ -51,6 +51,7 @@ export type EventInput = {
   id?: InputMaybe<Scalars['Float']>;
   image?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
+  participantsAction?: InputMaybe<Scalars['String']>;
   participantsId?: InputMaybe<Array<Scalars['Float']>>;
   startDate?: InputMaybe<Scalars['DateTime']>;
 };
@@ -191,6 +192,14 @@ export type GetEventQueryVariables = Exact<{
 
 
 export type GetEventQuery = { __typename?: 'Query', getEvent: { __typename?: 'Event', id: string, name?: string | null, description?: string | null, endDate?: any | null, image?: string | null, startDate?: any | null, actions?: Array<{ __typename?: 'Action', id: string, points?: string | null, title?: string | null, description?: string | null }> | null, participants?: Array<{ __typename?: 'User', id: number }> | null } };
+
+export type UpdateEventMutationVariables = Exact<{
+  eventId: Scalars['Float'];
+  data: EventInput;
+}>;
+
+
+export type UpdateEventMutation = { __typename?: 'Mutation', updateEvent: { __typename?: 'Event', id: string, participants?: Array<{ __typename?: 'User', id: number }> | null } };
 
 export type GetEventsQueryVariables = Exact<{
   isOver: Scalars['Boolean'];
@@ -378,6 +387,43 @@ export function useGetEventLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<G
 export type GetEventQueryHookResult = ReturnType<typeof useGetEventQuery>;
 export type GetEventLazyQueryHookResult = ReturnType<typeof useGetEventLazyQuery>;
 export type GetEventQueryResult = Apollo.QueryResult<GetEventQuery, GetEventQueryVariables>;
+export const UpdateEventDocument = gql`
+    mutation UpdateEvent($eventId: Float!, $data: EventInput!) {
+  updateEvent(eventId: $eventId, data: $data) {
+    id
+    participants {
+      id
+    }
+  }
+}
+    `;
+export type UpdateEventMutationFn = Apollo.MutationFunction<UpdateEventMutation, UpdateEventMutationVariables>;
+
+/**
+ * __useUpdateEventMutation__
+ *
+ * To run a mutation, you first call `useUpdateEventMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateEventMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateEventMutation, { data, loading, error }] = useUpdateEventMutation({
+ *   variables: {
+ *      eventId: // value for 'eventId'
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useUpdateEventMutation(baseOptions?: Apollo.MutationHookOptions<UpdateEventMutation, UpdateEventMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateEventMutation, UpdateEventMutationVariables>(UpdateEventDocument, options);
+      }
+export type UpdateEventMutationHookResult = ReturnType<typeof useUpdateEventMutation>;
+export type UpdateEventMutationResult = Apollo.MutationResult<UpdateEventMutation>;
+export type UpdateEventMutationOptions = Apollo.BaseMutationOptions<UpdateEventMutation, UpdateEventMutationVariables>;
 export const GetEventsDocument = gql`
     query GetEvents($isOver: Boolean!) {
   getEvents(isOver: $isOver) {
