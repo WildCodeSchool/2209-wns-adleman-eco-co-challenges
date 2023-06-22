@@ -36,7 +36,7 @@
     left:25%;
     min-height: fit-content;
   }
-
+  /* the original button */
   .SecondForm__button {
     border-radius: 20px;
     border: 1px solid #27c7d4;
@@ -49,9 +49,53 @@
     text-transform: uppercase;
     transition: transform 80ms ease-in;
   }
-  
+  /* here some code to make the original button modifief in color and add animation */
+  .SecondForm__button__success {
+  border-radius: 20px;
+  border: 1px solid #27c7d4;
+  background-color: #27c7d4;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: background-color 0.5s ease;
+}
+  .SecondForm__button__success.active {
+    border: 1px solid #399b00;
+    background-color: #399b00;
+    animation: flash 0.5s linear;
+}
   .SecondForm__button:active {
     transform: scale(0.95);
+    animation: flash-revert 0.5s linear;}
+  /* La classe ajoutée pour l'animation de retour */
+  .SecondForm__button.flash-revert {
+    animation: flash-revert 0.5s linear;
+  }
+  @keyframes flash {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  /* L'animation de retour */
+  @keyframes flash-revert {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
   
   .SecondForm__button:focus {
