@@ -82,7 +82,13 @@ export class EventResolver {
                   where: {id},
                 });
             if (newParticipant !== null) {
-              eventUpdated.participants?.push(newParticipant);
+              // Vérification du doublon
+              const isDuplicate = eventUpdated.participants?.some(
+                  (participant) => participant.id === newParticipant.id
+              );
+              if (isDuplicate === false) {
+                eventUpdated.participants?.push(newParticipant);
+              }
             }
           }
       );
@@ -93,16 +99,14 @@ export class EventResolver {
 
       participantsId?.map(
         async (id: number) => {
-          const participantsToremove
+          const participantToremove
               = await DataSource.getRepository(User).findOneOrFail({
                   where: {id},
           })
-          if (participantsToremove !== null) {
-
-            const indexOfParticipantToRemove = eventUpdated.participants?.indexOf(participantsToremove);
-            if (indexOfParticipantToRemove !== null && indexOfParticipantToRemove !== undefined){
-              eventUpdated.participants?.splice(indexOfParticipantToRemove, 1);
-            }
+          if (participantToremove !== null && eventUpdated.participants !== undefined) {
+            eventUpdated.participants = (eventUpdated.participants).filter(
+                (participant) => participant.id !== participantToremove.id
+            );
           }
         }
       )
