@@ -63,23 +63,51 @@ export class EventResolver {
     @Arg("data") data: EventInput,
     @Arg("eventId") eventId: number
   ): Promise<Event> {
-    const { participantsId } = data;
+    // Get array of participants id from data input
+    const { participantsId, participantsAction } = data;
+    // Get event to update from data input
     const eventUpdated = await DataSource.getRepository(Event).findOneOrFail({
       where: { id: eventId },
+      // TODO : missing participants
+      relations: { participants: true},
     });
-    // créé le tableau de participants
-    if (typeof participantsId !== "undefined") {
-      // rajoute à l'évent le tableau de participants
-      eventUpdated.participants = await Promise.all(
-          participantsId?.map(
-              async (id) =>
-                  await DataSource.getRepository(User).findOneOrFail({
-                    where: {id},
-                  })
-          )
+
+    if (typeof participantsId !== "undefined"
+        && participantsAction !== undefined
+        && participantsAction === "add") {
+      participantsId?.map(
+          async (id: number) => {
+            const newParticipant =
+                await DataSource.getRepository(User).findOneOrFail({
+                  where: {id},
+                });
+            if (newParticipant !== null) {
+              eventUpdated.participants?.push(newParticipant);
+            }
+          }
       );
     }
+    if (typeof participantsId !== "undefined"
+        && participantsAction !== undefined
+        && participantsAction === "remove") {
+
+      participantsId?.map(
+        async (id: number) => {
+          const participantsToremove
+              = await DataSource.getRepository(User).findOneOrFail({
+                  where: {id},
+          })
+          if (participantsToremove !== null) {
+
+            const indexOfParticipantToRemove = eventUpdated.participants?.indexOf(participantsToremove);
+            if (indexOfParticipantToRemove !== null && indexOfParticipantToRemove !== undefined){
+              eventUpdated.participants?.splice(indexOfParticipantToRemove, 1);
+            }
+          }
+        }
+      )
+    }
+    // return the flush
     return await DataSource.manager.save(eventUpdated);
   }
-
 }
