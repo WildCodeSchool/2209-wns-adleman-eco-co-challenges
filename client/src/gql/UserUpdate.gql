@@ -1,5 +1,5 @@
 mutation UpdateUser($userId: Float!, $data: UserUpdateInput!) {
-  updateUser(userId: $userId, data: $data) {
+  updateUser(eventId: $userId, data: $data) {
     description
     image
     hashedPassword
