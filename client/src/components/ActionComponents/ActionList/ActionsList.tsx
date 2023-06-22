@@ -1,5 +1,11 @@
 import "./ActionList.scss";
-import {Action, GetEventQuery, useGetProfileQuery, useUpdateUserMutation} from "../../../gql/generated/schema";
+import {
+    Action,
+    GetEventQuery,
+    GetUsersDocument,
+    useGetProfileQuery,
+    useUpdateUserMutation
+} from "../../../gql/generated/schema";
 import {Maybe} from "type-graphql";
 import {guessTargets} from "@graphql-codegen/cli/init/targets";
 
@@ -19,15 +25,18 @@ const ActionList = (Props: props) => {
     const [updateUserMutation] = useUpdateUserMutation();
     // Handle click function to add xp point tu current user
     const handleCompleteActionClick = async (ActionPoints: undefined | Maybe<string>, ElementClicked: String | undefined) => {
-        if (ActionPoints !== null && ActionPoints !== undefined &&  currentUser?.profile?.id !== undefined){
+        const userId = currentUser?.profile?.id;
+        if (ActionPoints !== null && ActionPoints !== undefined &&  userId !== undefined){
             try {
+
                 await updateUserMutation({
                     variables: {
-                        userId: currentUser?.profile?.id,
+                        userId: userId,
                         data: {
                             xp: parseInt(ActionPoints)
                         }
-                    }
+                    },
+                    refetchQueries: [{ query: GetUsersDocument, variables: { userId } }],
 
                 });
                 const buttonClick = document.getElementById("button" + ElementClicked);
