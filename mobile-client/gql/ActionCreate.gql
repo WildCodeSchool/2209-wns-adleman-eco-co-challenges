@@ -1,0 +1,10 @@
+mutation createAction($data: ActionInput!) {
+  createAction(data: $data) {
+    title
+    points
+    description
+    events {
+      id
+    }
+  }
+}
