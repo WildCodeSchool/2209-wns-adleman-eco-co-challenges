@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import "./EventList.css";
 
 import { useEffect, useState } from "react";
+import {useGetProfileQuery} from "../../../gql/generated/schema";
 
 interface Props {
   events: any;
@@ -21,11 +22,23 @@ const EventList = (props: Props) => {
     };
   }, []);
 
+  const { data: currentUser } = useGetProfileQuery({
+    errorPolicy: "ignore",
+  });
+
   const randomImageUrl = () => {
     const randomImageNumber = Math.floor(Math.random() * 100) + 1;
     return `https://picsum.photos/500/500?random=${randomImageNumber}&bgcolor=red`;
   };
   const { events } = props;
+
+  const curentUserHaveThisEvent = (event: any): Boolean => {
+    const result = event.participants.map((participant: any) => {
+      return currentUser?.profile?.id === participant.id;
+    })
+
+    return result.includes(true);
+  };
 
   if (!events) {
     return <div>Loading events...</div>;
@@ -40,26 +53,43 @@ const EventList = (props: Props) => {
         <div className="container d-flex justify-content-center">
           <div className="eventList-container w-100">
             <div
-              className={`row mx-auto ${
-                isMobile ? "row-cols-1" : "row-cols-4"
-              }`}
+              className="d-flex flex-wrap gap-5 justify-content-center  "
             >
               {events.getEvents?.map((event: any) => (
-                <div className="col mb-5" key={event.id}>
+                <div className="col-10 col-sm-5 col-md-3 col-lg-2" key={event.id}>
+
                   <Link to={`/event/${event.id}`}>
                     <div className="card shadow-sm mt-3 cursor-pointer">
-                      <img
-                        className="bd-placeholder-img card-img-top"
-                        alt={event.title}
-                        width="100%"
-                        height="225"
-                        src={randomImageUrl()}
-                      />
+
+                      <div className="position-relative">
+                        {
+                            curentUserHaveThisEvent(event) && (
+
+                              <div className="position-relative">
+                                <span className="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-success">
+                                  inscrit !
+                                  <span className="visually-hidden">unread messages</span>
+                                </span>
+                              </div>
+                            )
+                        }
+
+                        <img
+                            className="bd-placeholder-img card-img-top"
+                            alt={event.title}
+                            width="100%"
+                            height="225"
+                            src={randomImageUrl()}
+                        />
+
+                      </div>
+
                       <div className="card-body">
-                        <p className="card-text">{event.description}</p>
-                        <div className="d-flex justify-content-between align-items-center">
-                          <small className="text-body-secondary">9 mins</small>
-                        </div>
+                        <p className="card-text">
+                          {event.description.length > 40
+                              ? event.description.slice(0, 36) + " ..."
+                              : event.description}
+                        </p>
                       </div>
                     </div>
                   </Link>

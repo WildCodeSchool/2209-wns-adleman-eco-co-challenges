@@ -11,6 +11,11 @@
 .cursor-pointer {
   cursor: pointer;
 }
+
+
+.card-body {
+  height: 250px;
+}
   
   
   
