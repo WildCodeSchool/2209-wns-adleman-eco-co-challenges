@@ -1,7 +1,7 @@
 import ActionList from "../components/ActionComponents/ActionList/ActionsList";
+import EventItem from "../components/EventComponents/EventItem/EventItem";
 import Footer from "../components/GlobalComponents/Footer/Footer";
 import Header from "../components/GlobalComponents/Header/Header";
-import EventItem from "../components/EventComponents/EventItem/EventItem";
 import { useGetEventQuery } from "../gql/generated/schema";
 import { useParams } from "react-router-dom";
 
@@ -23,7 +23,7 @@ export default function Event() {
         <Header />
       </div>
       <div>
-        <EventItem  event={event}/>
+        <EventItem event={event}/>
       </div>
       <div>
         <h1>Event</h1>
