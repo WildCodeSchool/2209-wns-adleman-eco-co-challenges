@@ -14,6 +14,7 @@ import ProtectedRoute from "./components/GlobalComponents/ProtectedRoutes/Protec
 import UserDashboard from "./pages/UserDashboard";
 import UserFriendsAdd from "./pages/UserFriendsAdd";
 import UserUpdate from "./pages/UserUpdate";
+import UserImageAdd from "./pages/UserImageAdd";
 
 function App() {
   return (
@@ -55,7 +56,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
-                        <Route
+            <Route
               path="/user/:id/update"
               element={
                 <ProtectedRoute>
@@ -63,6 +64,14 @@ function App() {
                 </ProtectedRoute>
               }
             />
+              <Route
+                  path="/user/:id/selectimage"
+                  element={
+                      <ProtectedRoute>
+                          <UserImageAdd />
+                      </ProtectedRoute>
+                  }
+              />
             <Route
               path="/event/create"
               element={
