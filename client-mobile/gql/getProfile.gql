@@ -1,0 +1,13 @@
+query GetProfile {
+  profile {
+    id
+    nickName
+    friends {
+      id
+      nickName
+    }
+    xp
+    description
+    image
+  }
+}
