@@ -72,8 +72,7 @@ const UserUpdate = () => {
           console.error(err);
           toast.error("une erreur est survenue");
         },
-        refetchQueries: [{ query: GetUsersDocument, variables: { userId } }],
-      });
+       });
     }
   };
 
