@@ -1,22 +1,21 @@
 import { View, Text, FlatList } from "react-native";
 import {Button} from "@ui-kitten/components";
 import React from "react";
-import {useGetUserEventsQuery} from "../gql/generated/schema";
+import {useGetEventsQuery} from "../gql/generated/schema";
 import { List } from "./../components/"
 
 export default function EventsScreen() {
 
-    const { data: events } = useGetUserEventsQuery({
+    const { data: events } = useGetEventsQuery({
         variables: {
             isOver: false,
-            userId: 0,
         },
         errorPolicy: "ignore",
     });
     const datas = events?.getEvents?.map(event => {
         return {
             name: event.name,
-            description: event.description,
+            description: "",
             image: event.image,
             id: event.id,
         }
