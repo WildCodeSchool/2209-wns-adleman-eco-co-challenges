@@ -1,35 +1,47 @@
 import React from 'react';
-import { ImageProps, StyleSheet } from 'react-native';
-import { Avatar, Button, ListItem } from '@ui-kitten/components';
-import LoadingComponent from "../loading";
+import { Image, Text, View, StyleSheet } from 'react-native';
+import { Divider } from '@ui-kitten/components';
+interface IndexProps {
+    title: string;
+    description: string;
+    image: string;
+}
 
-const InstallButton = (): React.ReactElement => (
-    <Button size='tiny'>
-        INSTALL
-    </Button>
-);
-
-const ItemImage = (props: ImageProps): React.ReactElement => (
-    <Avatar
-        {...props}
-        style={[props.style, styles.itemImage]}
-        source={require('../../assets/icon.png')}
-    />
-);
-
-const Index = (): React.ReactElement => (
-    <ListItem
-        title='UI Kitten'
-        description='A set of React Native components'
-        accessoryLeft={ItemImage}
-        accessoryRight={InstallButton}
-    />
-);
+const picture = (image: string | null): string => {
+    if (typeof (image) === 'string' && image.length > 7) {
+        return image;
+    }
+    return "https://api.dicebear.com/6.x/adventurer/png?seed=Angel15";
+};
 
 const styles = StyleSheet.create({
-    itemImage: {
-        tintColor: null,
+    container: {
+        paddingTop: 50,
+    },
+    tinyLogo: {
+        width: 50,
+        height: 50,
+    },
+    logo: {
+        width: 66,
+        height: 58,
     },
 });
 
-export default Index
+const Index = ({ title, description, image }: IndexProps): React.ReactElement => (
+    <>
+        <View>
+        <Text>{title}</Text>
+        <Text>{description}</Text>
+        <Image
+            style={styles.logo}
+            source={{
+                uri: picture(image)
+            }}
+        />
+        </View>
+        <Divider/>
+    </>
+);
+
+export default Index;

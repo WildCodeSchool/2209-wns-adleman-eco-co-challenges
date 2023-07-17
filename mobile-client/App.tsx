@@ -9,15 +9,9 @@ import {Loading, List } from "./components/"
 
 export default () => (
     <ApolloProvider client={client}>
-        <ApplicationProvider {...eva} theme={{ ...eva.dark, ...theme }}>
+        <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
           <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Button>HOME </Button>
               <EventScreen />
-              <Loading />
-              <List
-                    title='UI Kitten'
-                    description='A set of React Native components'
-              />
           </Layout>
         </ApplicationProvider>
     </ApolloProvider>

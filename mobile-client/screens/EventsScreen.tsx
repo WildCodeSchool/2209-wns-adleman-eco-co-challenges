@@ -2,7 +2,7 @@ import { View, Text, FlatList } from "react-native";
 import {Button} from "@ui-kitten/components";
 import React from "react";
 import {useGetUserEventsQuery} from "../gql/generated/schema";
-import { List } from "./components/"
+import { List } from "./../components/"
 
 export default function EventsScreen() {
 
@@ -13,28 +13,35 @@ export default function EventsScreen() {
         },
         errorPolicy: "ignore",
     });
-    const datas = events.map(event => {
+    const datas = events?.getEvents?.map(event => {
         return {
-            title: event.title,
+            name: event.name,
             description: event.description,
-            date: event.date,
-            location: event.location,
+            image: event.image,
+            id: event.id,
         }
     })
 
     return (
         <View>
-            <Button>HOME</Button>
-            <Text>
-                Hello World
-            </Text>
             <FlatList
-                data={events}
-                renderItem={}
-                keyExtractor={}
+                data={datas}
+                renderItem={
+                    ({item}) => {
+                        return (
+                            <List
+                                title= {item.name}
+                                description= {item.description}
+                                image= {item.image}
+                            />                        )
+                    }
+                }
+                keyExtractor={
+                    (item) => {
+                        return item.id
+                    }
+                }
             />
         </View>
     )
 }
-
-// TODO: JE ME SUIS ARRETER LA IL FAUT FAIRE UNE LISTE DES EVENT ET METTRE LE TRUC STYLÉ DE UI KITTEN
