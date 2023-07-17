@@ -172,7 +172,6 @@ export type UserUpdateInput = {
   xp?: InputMaybe<Scalars['Float']>;
 };
 
-<<<<<<< HEAD:mobile-client/gql/generated/schema.ts
 export type CreateActionMutationVariables = Exact<{
   data: ActionInput;
 }>;
@@ -209,15 +208,6 @@ export type GetEventsQueryVariables = Exact<{
 
 export type GetEventsQuery = { __typename?: 'Query', getEvents: Array<{ __typename?: 'Event', id: string, name?: string | null, image?: string | null, endDate?: any | null, startDate?: any | null, participants?: Array<{ __typename?: 'User', id: number }> | null, actions?: Array<{ __typename?: 'Action', title?: string | null, points?: string | null, description?: string | null }> | null }> };
 
-export type CreateUserMutationVariables = Exact<{
-  data: UserInput;
-}>;
-
-
-export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', id: number } };
-
-=======
->>>>>>> e95ad893a35cafe7287bd0eed8de5558aa643751:client-mobile/gql/generated/schema.ts
 export type GetUserEventsQueryVariables = Exact<{
   userId: Scalars['Float'];
   isOver: Scalars['Boolean'];
@@ -226,20 +216,10 @@ export type GetUserEventsQueryVariables = Exact<{
 
 export type GetUserEventsQuery = { __typename?: 'Query', getEvents: Array<{ __typename?: 'Event', id: string, name?: string | null, description?: string | null, image?: string | null, endDate?: any | null, startDate?: any | null, participants?: Array<{ __typename?: 'User', id: number }> | null, actions?: Array<{ __typename?: 'Action', title?: string | null, points?: string | null, description?: string | null }> | null }> };
 
-<<<<<<< HEAD:mobile-client/gql/generated/schema.ts
-export type RemoveFriendMutationVariables = Exact<{
-  userId: Scalars['Float'];
-  friendToRemoveId: Scalars['Float'];
-}>;
-
-
-export type RemoveFriendMutation = { __typename?: 'Mutation', removeFriendUser: { __typename?: 'User', friends: Array<{ __typename?: 'User', id: number }> } };
-=======
 export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetUsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', xp?: number | null, role?: string | null, nickName: string, image?: string | null, description?: string | null, id: number, friends: Array<{ __typename?: 'User', nickName: string, image?: string | null }>, eventOfUser: Array<{ __typename?: 'Event', image?: string | null, name?: string | null, startDate?: any | null, endDate?: any | null }> }> };
->>>>>>> e95ad893a35cafe7287bd0eed8de5558aa643751:client-mobile/gql/generated/schema.ts
 
 export type UpdateUserMutationVariables = Exact<{
   userId: Scalars['Float'];
@@ -249,20 +229,26 @@ export type UpdateUserMutationVariables = Exact<{
 
 export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', description?: string | null, image?: string | null, hashedPassword: string, xp?: number | null, friends: Array<{ __typename?: 'User', id: number }> } };
 
-<<<<<<< HEAD:mobile-client/gql/generated/schema.ts
-export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
+export type CreateUserMutationVariables = Exact<{
+  data: UserInput;
+}>;
 
 
-export type GetUsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', xp?: number | null, role?: string | null, nickName: string, image?: string | null, description?: string | null, id: number, friends: Array<{ __typename?: 'User', nickName: string, image?: string | null }>, eventOfUser: Array<{ __typename?: 'Event', image?: string | null, name?: string | null, startDate?: any | null, endDate?: any | null }> }> };
+export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', id: number } };
 
-=======
->>>>>>> e95ad893a35cafe7287bd0eed8de5558aa643751:client-mobile/gql/generated/schema.ts
+export type RemoveFriendMutationVariables = Exact<{
+  userId: Scalars['Float'];
+  friendToRemoveId: Scalars['Float'];
+}>;
+
+
+export type RemoveFriendMutation = { __typename?: 'Mutation', removeFriendUser: { __typename?: 'User', friends: Array<{ __typename?: 'User', id: number }> } };
+
 export type GetProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetProfileQuery = { __typename?: 'Query', profile: { __typename?: 'User', id: number, nickName: string, xp?: number | null, description?: string | null, image?: string | null, friends: Array<{ __typename?: 'User', id: number, nickName: string }> } };
 
-<<<<<<< HEAD:mobile-client/gql/generated/schema.ts
 export type LoginMutationVariables = Exact<{
   data: UserInput;
 }>;
@@ -485,42 +471,6 @@ export function useGetEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type GetEventsQueryHookResult = ReturnType<typeof useGetEventsQuery>;
 export type GetEventsLazyQueryHookResult = ReturnType<typeof useGetEventsLazyQuery>;
 export type GetEventsQueryResult = Apollo.QueryResult<GetEventsQuery, GetEventsQueryVariables>;
-export const CreateUserDocument = gql`
-    mutation CreateUser($data: UserInput!) {
-  createUser(data: $data) {
-    id
-  }
-}
-    `;
-export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, CreateUserMutationVariables>;
-
-/**
- * __useCreateUserMutation__
- *
- * To run a mutation, you first call `useCreateUserMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateUserMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createUserMutation, { data, loading, error }] = useCreateUserMutation({
- *   variables: {
- *      data: // value for 'data'
- *   },
- * });
- */
-export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument, options);
-      }
-export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
-export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
-export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
-=======
-
->>>>>>> e95ad893a35cafe7287bd0eed8de5558aa643751:client-mobile/gql/generated/schema.ts
 export const GetUserEventsDocument = gql`
     query GetUserEvents($userId: Float!, $isOver: Boolean!) {
   getEvents(userId: $userId, isOver: $isOver) {
@@ -570,85 +520,6 @@ export function useGetUserEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type GetUserEventsQueryHookResult = ReturnType<typeof useGetUserEventsQuery>;
 export type GetUserEventsLazyQueryHookResult = ReturnType<typeof useGetUserEventsLazyQuery>;
 export type GetUserEventsQueryResult = Apollo.QueryResult<GetUserEventsQuery, GetUserEventsQueryVariables>;
-<<<<<<< HEAD:mobile-client/gql/generated/schema.ts
-export const RemoveFriendDocument = gql`
-    mutation removeFriend($userId: Float!, $friendToRemoveId: Float!) {
-  removeFriendUser(userId: $userId, friendToRemoveId: $friendToRemoveId) {
-    friends {
-      id
-    }
-  }
-}
-    `;
-export type RemoveFriendMutationFn = Apollo.MutationFunction<RemoveFriendMutation, RemoveFriendMutationVariables>;
-
-/**
- * __useRemoveFriendMutation__
- *
- * To run a mutation, you first call `useRemoveFriendMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useRemoveFriendMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [removeFriendMutation, { data, loading, error }] = useRemoveFriendMutation({
- *   variables: {
- *      userId: // value for 'userId'
- *      friendToRemoveId: // value for 'friendToRemoveId'
- *   },
- * });
- */
-export function useRemoveFriendMutation(baseOptions?: Apollo.MutationHookOptions<RemoveFriendMutation, RemoveFriendMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<RemoveFriendMutation, RemoveFriendMutationVariables>(RemoveFriendDocument, options);
-      }
-export type RemoveFriendMutationHookResult = ReturnType<typeof useRemoveFriendMutation>;
-export type RemoveFriendMutationResult = Apollo.MutationResult<RemoveFriendMutation>;
-export type RemoveFriendMutationOptions = Apollo.BaseMutationOptions<RemoveFriendMutation, RemoveFriendMutationVariables>;
-export const UpdateUserDocument = gql`
-    mutation UpdateUser($userId: Float!, $data: UserUpdateInput!) {
-  updateUser(userId: $userId, data: $data) {
-    description
-    image
-    hashedPassword
-    xp
-    friends {
-      id
-    }
-  }
-}
-    `;
-export type UpdateUserMutationFn = Apollo.MutationFunction<UpdateUserMutation, UpdateUserMutationVariables>;
-
-/**
- * __useUpdateUserMutation__
- *
- * To run a mutation, you first call `useUpdateUserMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateUserMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateUserMutation, { data, loading, error }] = useUpdateUserMutation({
- *   variables: {
- *      userId: // value for 'userId'
- *      data: // value for 'data'
- *   },
- * });
- */
-export function useUpdateUserMutation(baseOptions?: Apollo.MutationHookOptions<UpdateUserMutation, UpdateUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(UpdateUserDocument, options);
-      }
-export type UpdateUserMutationHookResult = ReturnType<typeof useUpdateUserMutation>;
-export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>;
-export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>;
-=======
->>>>>>> e95ad893a35cafe7287bd0eed8de5558aa643751:client-mobile/gql/generated/schema.ts
 export const GetUsersDocument = gql`
     query GetUsers {
   users {
@@ -698,8 +569,6 @@ export function useGetUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<G
 export type GetUsersQueryHookResult = ReturnType<typeof useGetUsersQuery>;
 export type GetUsersLazyQueryHookResult = ReturnType<typeof useGetUsersLazyQuery>;
 export type GetUsersQueryResult = Apollo.QueryResult<GetUsersQuery, GetUsersQueryVariables>;
-<<<<<<< HEAD:mobile-client/gql/generated/schema.ts
-=======
 export const UpdateUserDocument = gql`
     mutation UpdateUser($userId: Float!, $data: UserUpdateInput!) {
   updateUser(userId: $userId, data: $data) {
@@ -740,7 +609,75 @@ export function useUpdateUserMutation(baseOptions?: Apollo.MutationHookOptions<U
 export type UpdateUserMutationHookResult = ReturnType<typeof useUpdateUserMutation>;
 export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>;
 export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>;
->>>>>>> e95ad893a35cafe7287bd0eed8de5558aa643751:client-mobile/gql/generated/schema.ts
+export const CreateUserDocument = gql`
+    mutation CreateUser($data: UserInput!) {
+  createUser(data: $data) {
+    id
+  }
+}
+    `;
+export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, CreateUserMutationVariables>;
+
+/**
+ * __useCreateUserMutation__
+ *
+ * To run a mutation, you first call `useCreateUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createUserMutation, { data, loading, error }] = useCreateUserMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument, options);
+      }
+export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
+export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
+export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
+export const RemoveFriendDocument = gql`
+    mutation removeFriend($userId: Float!, $friendToRemoveId: Float!) {
+  removeFriendUser(userId: $userId, friendToRemoveId: $friendToRemoveId) {
+    friends {
+      id
+    }
+  }
+}
+    `;
+export type RemoveFriendMutationFn = Apollo.MutationFunction<RemoveFriendMutation, RemoveFriendMutationVariables>;
+
+/**
+ * __useRemoveFriendMutation__
+ *
+ * To run a mutation, you first call `useRemoveFriendMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveFriendMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeFriendMutation, { data, loading, error }] = useRemoveFriendMutation({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *      friendToRemoveId: // value for 'friendToRemoveId'
+ *   },
+ * });
+ */
+export function useRemoveFriendMutation(baseOptions?: Apollo.MutationHookOptions<RemoveFriendMutation, RemoveFriendMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveFriendMutation, RemoveFriendMutationVariables>(RemoveFriendDocument, options);
+      }
+export type RemoveFriendMutationHookResult = ReturnType<typeof useRemoveFriendMutation>;
+export type RemoveFriendMutationResult = Apollo.MutationResult<RemoveFriendMutation>;
+export type RemoveFriendMutationOptions = Apollo.BaseMutationOptions<RemoveFriendMutation, RemoveFriendMutationVariables>;
 export const GetProfileDocument = gql`
     query GetProfile {
   profile {
@@ -782,7 +719,6 @@ export function useGetProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
         }
 export type GetProfileQueryHookResult = ReturnType<typeof useGetProfileQuery>;
 export type GetProfileLazyQueryHookResult = ReturnType<typeof useGetProfileLazyQuery>;
-<<<<<<< HEAD:mobile-client/gql/generated/schema.ts
 export type GetProfileQueryResult = Apollo.QueryResult<GetProfileQuery, GetProfileQueryVariables>;
 export const LoginDocument = gql`
     mutation Login($data: UserInput!) {
@@ -845,6 +781,3 @@ export function useLogoutMutation(baseOptions?: Apollo.MutationHookOptions<Logou
 export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
 export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
-=======
-export type GetProfileQueryResult = Apollo.QueryResult<GetProfileQuery, GetProfileQueryVariables>;
->>>>>>> e95ad893a35cafe7287bd0eed8de5558aa643751:client-mobile/gql/generated/schema.ts
