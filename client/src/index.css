@@ -1,29 +1,34 @@
-.landing{
-	background-image: url("assets/landing-bg-lg.png");
-	background-size: cover;
+* {
+	box-sizing: border-box;
+  }
+  
+  .landing{
 	display: flex;
 	justify-content:center;
 	align-items: center;
 }
 
 .landing__logo{
-	margin-top: 5%;
+	margin-top: 4%;
 	z-index: 2;
 }
 
-.landing__line{
+.landing__top{
+	background: rgb(39,199,212);
+	background: linear-gradient(0deg, rgba(39,199,212,0.3897934173669467) 28%, rgba(252,220,18,0.7455357142857143) 100%);
 	border-bottom: solid 3px #545863;
+	height: 25vh;
 	width: 100vw;
-	margin-top: -120px;
 	z-index: 1;
+	display: flex;
+	justify-content:center;
+
 }
 
 .landing__container{
-	text-align: center;
-	width: 500px;
 	margin:  5% auto;
-	margin-left: 3%;;
-	width: 550px;
+	margin-left: 3%;
+	width: 60%;
 	text-align: end;
 
 }
@@ -41,19 +46,6 @@
 	color:#545863;
 }
 
-.landing__button {
-	border-radius: 20px;
-	border: 1px solid #fcdc12;
-	background-color: #fcdc12;
-	color: #FFFFFF;
-	font-size: 12px;
-	font-weight: bold;
-	padding: 12px 45px;
-	letter-spacing: 1px;
-	text-transform: uppercase;
-	transition: transform 80ms ease-in;
-}
-
 .landing__button:hover {
 	border: 1px solid #fcdc12;
 	background-color: #FFFFFF;
@@ -67,7 +59,7 @@
 }
 
 .landing__content__text{
-	font-family: 'Roboto';
+	font-family: 'Roboto', sans-serif;
 	font-size: large;
 	color:#545863;
 }
@@ -94,4 +86,10 @@
 
 .landing__content__image{
 	border-radius: 20px;
+}
+
+.form__container{
+    background-image: url("./assets/bg_template.png");
+    background-size: cover;
+	margin: 100px 0; 
 }

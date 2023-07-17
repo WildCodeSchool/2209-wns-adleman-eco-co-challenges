@@ -1,19 +1,24 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CustomBootstrap.scss";
-
 import { Route, Routes } from "react-router-dom";
-
+import EventAddActions from "./pages/EventAddActions";
 import Authentification from "./pages/Authentification";
 import FriendDashboard from "./pages/Dashboard";
-import Friends from "./pages/Friends_list";
-import Friends_add from "./pages/Friends_add";
+import UserFriendsList from "./pages/UserFriendsList";
+import EventCreate from "./pages/EventCreate";
+import Event from "./pages/Event";
+import Events from "./pages/Events";
 import Landing from "./pages/Landing";
-import ProtectedRoute from "./components/ProtectedRoutes/ProtectedRoute";
-import UserDashboard from "./pages/User";
+import ProtectedRoute from "./components/GlobalComponents/ProtectedRoutes/ProtectedRoute";
+import UserDashboard from "./pages/UserDashboard";
+import UserFriendsAdd from "./pages/UserFriendsAdd";
+import UserUpdate from "./pages/UserUpdate";
+import UserImageAdd from "./pages/UserImageAdd";
 
 function App() {
   return (
+    <>
       <div>
         <main>
           <Routes>
@@ -23,7 +28,7 @@ function App() {
               path="/friends"
               element={
                 <ProtectedRoute>
-                  <Friends />
+                  <UserFriendsList />
                 </ProtectedRoute>
               }
             />
@@ -39,7 +44,7 @@ function App() {
               path="/friends/add"
               element={
                 <ProtectedRoute>
-                  <Friends_add />
+                  <UserFriendsAdd />
                 </ProtectedRoute>
               }
             />
@@ -51,9 +56,58 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="/user/:id/update"
+              element={
+                <ProtectedRoute>
+                  <UserUpdate />
+                </ProtectedRoute>
+              }
+            />
+              <Route
+                  path="/user/:id/selectimage"
+                  element={
+                      <ProtectedRoute>
+                          <UserImageAdd />
+                      </ProtectedRoute>
+                  }
+              />
+            <Route
+              path="/event/create"
+              element={
+                <ProtectedRoute>
+                  <EventCreate />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/event/:id"
+              element={
+                <ProtectedRoute>
+                  <Event />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/events"
+              element={
+                <ProtectedRoute>
+                  <Events />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/actions/add/:id"
+              element={
+                <ProtectedRoute>
+                  <EventAddActions />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </main>
       </div>
+    </>
   );
 }
 

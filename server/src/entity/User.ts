@@ -112,11 +112,23 @@ export class UserInput {
 
 @InputType()
 export class UserUpdateInput {
+  @Field({ nullable: true })
+  nickName?: string;
+
   @Field(() => [Number], { nullable: true })
   friendsId?: number[];
 
   @Field({ nullable: true })
   xp?: number;
+
+  @Field({ nullable: true })
+  description?: string;
+
+  @Field({ nullable: true })
+  image?: string;
+
+  @Field({ nullable: true })
+  password?: string
 }
 
 export default User;

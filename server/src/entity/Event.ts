@@ -6,6 +6,7 @@ import {
 } from "typeorm";
 import { Field, ID, InputType, ObjectType } from "type-graphql";
 
+import Action from "./Action";
 import User from "./User";
 
 @Entity()
@@ -19,11 +20,11 @@ class Event {
   @Field({ nullable: true })
   name: string;
 
-  @Column({ type: "date", nullable: true })
+  @Column({ nullable: true })
   @Field({ nullable: true })
   startDate: Date;
 
-  @Column({ type: "date", nullable: true })
+  @Column({ nullable: true })
   @Field({ nullable: true })
   endDate: Date;
 
@@ -31,15 +32,26 @@ class Event {
   @Field({ nullable: true })
   image: string;
 
+  @Column({ nullable: true })
+  @Field({ nullable: true })
+  description: string;
+
   // ici j'ai rajouté le field, j'ai rajouté "(user) => user.eventOfUser)"  dans @ManyToMany j'ai rajouté la column nullable
   // @Column({ nullable: true })
   @Field(() => [User], { nullable: true })
   @ManyToMany(() => User, (user) => user.eventOfUser)
-  participants: User[];
+  participants?: User[];
+
+  @Field(() => [Action], { nullable: true })
+  @ManyToMany(() => Action, (action) => action.events)
+  actions?: Action[];
 }
 
 @InputType()
 export class EventInput {
+  @Field({ nullable: true })
+  id: number;
+
   @Field({ nullable: true })
   name: string;
 
@@ -50,9 +62,18 @@ export class EventInput {
   endDate?: Date;
 
   @Field({ nullable: true })
-  image: string;
+  image?: string;
+
+  @Field({ nullable: true })
+  description?: string;
 
   @Field(() => [Number], { nullable: true })
   participantsId?: number[];
+
+  @Field(() => String, { nullable: true })
+  participantsAction?: String;
+
+  @Field(() => [Number], { nullable: true })
+  actionsId?: number[];
 }
 export default Event;

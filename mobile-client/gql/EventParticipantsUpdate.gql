@@ -1,0 +1,9 @@
+mutation UpdateEvent($eventId: Float!, $data: EventInput!) {
+  updateEvent(eventId: $eventId, data: $data) {
+    id,
+    participants {
+      id
+    }
+  }
+}
+

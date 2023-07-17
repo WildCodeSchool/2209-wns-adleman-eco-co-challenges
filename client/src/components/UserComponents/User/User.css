@@ -1,0 +1,31 @@
+
+.profilPicture {
+  border-radius: 50%;
+  border: 2px solid black;
+  width: 30%;
+  height: 30%;
+}
+.userBody{
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+#containerLvl span {
+  color: #000000;
+  font-family: sans-serif;
+  font-size: 1em;
+}
+.userName {
+  font-size: xx-large;
+  font-weight: bold;
+}
+.description-container {
+  background-color: rgb(255 255 255 / 0.4);
+  border-radius: 20px;
+}
+
+
+
+
+
+
+

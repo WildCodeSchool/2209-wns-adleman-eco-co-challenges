@@ -1,0 +1,21 @@
+.album{
+  margin: 10% 0 2% 0;
+}
+
+.eventList__title {
+  margin: 7% 0 2% 0;
+  font-family: 'Caveat';
+  color: #545863;
+}
+  
+.cursor-pointer {
+  cursor: pointer;
+}
+
+
+.card-body {
+  height: 250px;
+}
+  
+  
+  

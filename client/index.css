@@ -20,11 +20,9 @@
 
 .landing__container{
 	text-align: center;
-	width: 500px;
 	margin:  5% auto;
-	margin-left: 3%;;
+	margin-left: 3%;
 	width: 550px;
-	text-align: end;
 
 }
 .landing__paragraph{
@@ -89,11 +87,3 @@
 	width: 400px;
 	border-radius: 20px;
 }
-/* @media (max-width:1020px){
-	background-image: url("assets/landing-bg-md.png");
-}
-
-@media (max-width:650px){
-	background-image: url("assets/landing-bg-sm.png");
-
-} */

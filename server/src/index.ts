@@ -1,5 +1,6 @@
 import "reflect-metadata";
 
+import { ActionResolver } from "./resolver/ActionResolver";
 import { ApolloServer } from "apollo-server-express";
 import { ApolloServerPluginLandingPageLocalDefault } from "apollo-server-core";
 import { EventResolver } from "./resolver/EventResolver";
@@ -13,7 +14,6 @@ import { env } from "./environment";
 import express from "express";
 import http from "http";
 import jwt from "jsonwebtoken";
-
 
 export interface ContextType {
   req: express.Request;
@@ -39,7 +39,7 @@ const start = async (): Promise<void> => {
   app.use(cookieParser());
 
   const schema = await buildSchema({
-    resolvers: [UserResolver, EventResolver],
+    resolvers: [UserResolver, EventResolver, ActionResolver],
     authChecker: async ({ context }: { context: ContextType }, roles) => {
       const tokenInHeaders = context.req.headers.authorization?.split(" ")[1];
       const tokenInCookie = context.req.cookies?.token;

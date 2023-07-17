@@ -1,0 +1,153 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+   }
+  
+  .SecondForm{
+    background-image: url("../../../assets/bg_template.png");
+    background-size: cover;
+  }
+  
+  .SecondForm .body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Roboto", sans-serif;
+    min-height: 100vh;
+  }
+  
+  .SecondForm h1 {
+    font-weight: bold;
+    margin-top: 100px;
+    text-align: center;
+  }
+  
+  .SecondForm h2 {
+    text-align: center;
+  }
+  
+  .SecondForm p {
+    font-size: 14px;
+    font-weight: 100;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    margin: 20px 0 30px;
+  }
+  
+  .SecondForm span {
+    font-size: 12px;
+  }
+  
+  .SecondForm a {
+    color: #333;
+    font-size: 14px;
+    text-decoration: none;
+    margin: 15px 0;
+  }
+  
+  .SecondForm button {
+    border-radius: 20px;
+    border: 1px solid #27c7d4;
+    background-color: #27c7d4;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+  }
+  
+  .SecondForm button:active {
+    transform: scale(0.95);
+  }
+  
+  .SecondForm button:focus {
+    outline: none;
+  }
+  
+  .SecondForm form {
+    color: #545863;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 50px;
+    height: 100%;
+    text-align: center;
+  }
+  
+  .SecondForm input {
+    background-color: #eee;
+    border: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    width: 100%;
+  }
+
+  .SecondForm textarea {
+    background-color: #eee;
+    border: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    width: 100%;
+  }
+
+  .SecondForm .container {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    position: relative;
+    overflow: hidden;
+    width: 70%;
+    min-height: 480px;
+    margin-bottom: 20px;
+  }
+
+  .SecondForm .title-container {
+    background: #27c7d4;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    left: 0;
+    width: 30%;
+    z-index: 2;
+    color: #ffffff;
+  }
+  
+  .SecondForm .form-container {
+    position: absolute;
+    top: 0;
+    left: 30%;
+    width: 70%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 100;
+  }
+
+  .SecondForm .overlay {
+    background: #ffffff;
+    /* background: linear-gradient(to right, #fcdc12, #fcdc12); */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0 0;
+    color: #ffffff;
+    position: relative;
+    height: 100%;
+    width: 200%;
+  }
+  
+  .SecondForm .overlay-panel {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    text-align: center;
+    top: 0;
+    height: 100%;
+    width: 50%;
+  }

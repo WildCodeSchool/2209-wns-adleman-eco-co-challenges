@@ -1,4 +1,4 @@
-import Footer from "../components/Footer/Footer";
+import Footer from "../components/GlobalComponents/Footer/Footer";
 import { Link } from "react-router-dom";
 import bananaLeft from "../assets/bananas-r.png";
 import bananaRight from "../assets/bananas-l.png";
@@ -9,10 +9,12 @@ export default function Landing() {
   return (
     <>
       <div className="landing cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+     
+        <p className="landing__top">
         <div className="landing__logo">
           <img src={logo} alt="Eco-co Challenge" />
         </div>
-        <p className="landing__line"></p>
+        </p>
         <div className="landing__container fs-5 col-md-6">
           <p className="landing__paragraph">
             <img src={bananaRight} alt="guillemets bananes" />
@@ -29,7 +31,7 @@ export default function Landing() {
           </p>
         </div>
         <Link to="/login">
-          <button className="landing__button"> Let's go Coco !</button>
+          <button className="ecoco-button"> Let's go Coco !</button>
         </Link>
 
         <div className="container col-xxl-10 px-4 py-5">
