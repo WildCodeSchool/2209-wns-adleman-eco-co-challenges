@@ -1,8 +1,8 @@
-import {Arg, Mutation, Query, Resolver} from "type-graphql";
-import Event, {EventInput} from "../entity/Event";
+import { Arg, Mutation, Query, Resolver } from "type-graphql";
+import Event, { EventInput } from "../entity/Event";
 import User from "../entity/User";
 import DataSource from "../db";
-import {LessThan, MoreThan} from "typeorm";
+import { LessThan, MoreThan } from "typeorm";
 
 @Resolver(Event)
 export class EventResolver {
@@ -30,12 +30,10 @@ export class EventResolver {
   }
 
   @Query(() => Event)
-  async getEvent(
-      @Arg("id") id: number,
-  ): Promise<Event> {
+  async getEvent(@Arg("id") id: number): Promise<Event> {
     return await DataSource.getRepository(Event).findOneOrFail({
-      relations: { participants: true, actions: true},
-      where: {id},
+      relations: { participants: true, actions: true },
+      where: { id },
     });
   }
   // format de date à utiliser 2024-01-01
