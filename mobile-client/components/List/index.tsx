@@ -1,6 +1,5 @@
 import React from 'react';
 import { Image, Text, View, StyleSheet } from 'react-native';
-import { Divider } from '@ui-kitten/components';
 interface IndexProps {
     title: string;
     description: string;
@@ -40,7 +39,6 @@ const Index = ({ title, description, image }: IndexProps): React.ReactElement =>
             }}
         />
         </View>
-        <Divider/>
     </>
 );
 

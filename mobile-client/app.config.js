@@ -24,7 +24,6 @@ web: {
 favicon: "./assets/favicon.png",
 },
 android: {
-package: "com.comicscrip.mobileclient",
 adaptiveIcon: {
 foregroundImage: "./assets/adaptive-icon.png",
 backgroundColor: "#FFFFFF",
