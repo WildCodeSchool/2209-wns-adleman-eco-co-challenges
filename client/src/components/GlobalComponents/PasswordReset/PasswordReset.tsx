@@ -2,15 +2,18 @@ import {
   useChangePasswordMutation,
   useFetchTokenQuery,
 } from "../../../gql/generated/schema";
+import { useNavigate, useParams } from "react-router-dom";
 
 import Logo from "../Logo/Logo";
-import { useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 import { useState } from "react";
 
 export default function PasswordReset() {
   const [serverToken, setServerToken] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
   const togglePassword = () => setShowPassword(!showPassword);
+  const backToLogin = () => navigate("/login");
 
   const { token, id } = useParams();
 
@@ -39,9 +42,34 @@ export default function PasswordReset() {
   if (!token || cleanToken !== cleanServerToken)
     return (
       <div>
-        <p>OOOPPS invalid token</p>
+        <p>OOOPPS le lien n'est plus disponible</p>
       </div>
     );
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    changePassword({
+      variables: {
+        newPassword: credentials.newPassword,
+        changePasswordId: +credentials.id,
+      },
+    })
+      .then(() => {
+        console.log("success");
+        toast.success("Votre Mot de passe a bien été modifié.", {
+          duration: 5000,
+        });
+      })
+      .then(() => {
+        navigate("/login");
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error("OOOPPS une erreur est survenue.", {
+          duration: 5000,
+        });
+      });
+  };
 
   return (
     <div className="AuthForm">
@@ -49,21 +77,7 @@ export default function PasswordReset() {
         <div className="logoForm">
           <Logo />
         </div>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            changePassword({
-              variables: {
-                newPassword: credentials.newPassword,
-                changePasswordId: +credentials.id,
-              },
-            })
-              .then(() => {
-                console.log("success");
-              })
-              .catch(console.error);
-          }}
-        >
+        <form onSubmit={handleSubmit}>
           <label htmlFor="newPassword">
             <input
               type={showPassword ? "text" : "password"}
@@ -82,7 +96,9 @@ export default function PasswordReset() {
             </button>
           </label>
           <div>
-            <button>Retour</button>
+            <button type="button" onClick={backToLogin}>
+              Retour
+            </button>
             <button type="submit">Valider</button>
           </div>
         </form>
