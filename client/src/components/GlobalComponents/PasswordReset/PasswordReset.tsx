@@ -1,8 +1,13 @@
+import {
+  useChangePasswordMutation,
+  useFetchTokenQuery,
+} from "../../../gql/generated/schema";
+
+import Logo from "../Logo/Logo";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 
 export default function PasswordReset() {
-
   const [serverToken, setServerToken] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const togglePassword = () => setShowPassword(!showPassword);
@@ -17,15 +22,14 @@ export default function PasswordReset() {
     newPassword: "",
   });
 
-  // useFetchTokenQuery({
-  //   variables: { fetchTokenId: +cleanId },
-  //   onCompleted: (response) => {
-  //     setServerToken(JSON.stringify(response.fetchToken.changePasswordToken));
-  //   },
-  // });
+  useFetchTokenQuery({
+    variables: { fetchTokenId: +cleanId },
+    onCompleted: (response) => {
+      setServerToken(JSON.stringify(response.fetchToken.changePasswordToken));
+    },
+  });
 
-
-  // const [changePassword] = useChangePasswordMutation();
+  const [changePassword] = useChangePasswordMutation();
 
   const cleanServerToken = JSON.stringify(serverToken)
     .replace(/[\\]/g, "")
@@ -40,16 +44,24 @@ export default function PasswordReset() {
     );
 
   return (
-    <>
-      <div>
+    <div className="AuthForm">
+      <div className="body">
+        <div className="logoForm">
+          <Logo />
+        </div>
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            // changePassword({ variables: { newPassword: credentials.newPassword, changePasswordId: +credentials.id } })
-            //   .then(() => {
-            //     console.log("success");
-            //   })
-            //   .catch(console.error);
+            changePassword({
+              variables: {
+                newPassword: credentials.newPassword,
+                changePasswordId: +credentials.id,
+              },
+            })
+              .then(() => {
+                console.log("success");
+              })
+              .catch(console.error);
           }}
         >
           <label htmlFor="newPassword">
@@ -59,19 +71,22 @@ export default function PasswordReset() {
               placeholder="Nouveau mot de passe"
               value={credentials.newPassword}
               onChange={(e) =>
-                setCredentials({ id: cleanId ?? "", newPassword: e.target.value })
+                setCredentials({
+                  id: cleanId ?? "",
+                  newPassword: e.target.value,
+                })
               }
             ></input>
-            <button type="button" onClick={togglePassword}>{showPassword ? "Hide password" : "Show password"}</button>
+            <button type="button" onClick={togglePassword}>
+              {showPassword ? "Hide password" : "Show password"}
+            </button>
           </label>
           <div>
             <button>Retour</button>
-            <button type="submit">
-              Valider
-            </button>
+            <button type="submit">Valider</button>
           </div>
         </form>
       </div>
-    </>
+    </div>
   );
 }

@@ -39,8 +39,8 @@ class User {
   @Column({ nullable: true, type: "varchar" })
   description?: string;
 
-  @Field()
-  @Column({ length: 100, type: "varchar" })
+  @Field({ nullable: true })
+  @Column({ nullable: true, length: 100, type: "varchar" })
   hashedPassword?: string;
 
   @Field({ nullable: true })
