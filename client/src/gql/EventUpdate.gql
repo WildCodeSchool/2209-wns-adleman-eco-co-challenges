@@ -1,7 +1,0 @@
-mutation UpdateEvent($eventId: Float!, $data: eventUpdateInput!) {
-  updateUser(userId: $userId, data: $data) {
-   participants {
-      id
-    }
-  }
-}

@@ -58,6 +58,7 @@ export type EventInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  changePassword: User;
   createAction: Action;
   createEvent: Event;
   createUser: User;
@@ -65,9 +66,16 @@ export type Mutation = {
   login: Scalars['String'];
   logout: Scalars['String'];
   removeFriendUser: User;
+  sendPasswordEmail: User;
   subscribeToEvent: User;
   updateEvent: Event;
   updateUser: User;
+};
+
+
+export type MutationChangePasswordArgs = {
+  id: Scalars['Float'];
+  newPassword: Scalars['String'];
 };
 
 
@@ -102,6 +110,11 @@ export type MutationRemoveFriendUserArgs = {
 };
 
 
+export type MutationSendPasswordEmailArgs = {
+  data: UserSendPassword;
+};
+
+
 export type MutationSubscribeToEventArgs = {
   eventId: Scalars['Float'];
   userId: Scalars['Float'];
@@ -122,10 +135,16 @@ export type MutationUpdateUserArgs = {
 export type Query = {
   __typename?: 'Query';
   actions: Array<Action>;
+  fetchToken: User;
   getEvent: Event;
   getEvents: Array<Event>;
   profile: User;
   users: Array<User>;
+};
+
+
+export type QueryFetchTokenArgs = {
+  id: Scalars['Float'];
 };
 
 
@@ -141,7 +160,9 @@ export type QueryGetEventsArgs = {
 
 export type User = {
   __typename?: 'User';
+  changePasswordToken?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
   eventOfUser: Array<Event>;
   friends: Array<User>;
   hashedPassword: Scalars['String'];
@@ -154,6 +175,7 @@ export type User = {
 
 export type UserInput = {
   description?: InputMaybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['String']>;
   eventOfUser?: InputMaybe<Array<Scalars['Float']>>;
   friendsId?: InputMaybe<Array<Scalars['Float']>>;
   image?: InputMaybe<Scalars['String']>;
@@ -161,6 +183,11 @@ export type UserInput = {
   password: Scalars['String'];
   role?: InputMaybe<Scalars['String']>;
   xp?: InputMaybe<Scalars['Float']>;
+};
+
+export type UserSendPassword = {
+  email: Scalars['String'];
+  token?: InputMaybe<Scalars['String']>;
 };
 
 export type UserUpdateInput = {
@@ -260,6 +287,13 @@ export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
 
 export type LogoutMutation = { __typename?: 'Mutation', logout: string };
+
+export type SendPasswordEmailMutationVariables = Exact<{
+  data: UserSendPassword;
+}>;
+
+
+export type SendPasswordEmailMutation = { __typename?: 'Mutation', sendPasswordEmail: { __typename?: 'User', email?: string | null } };
 
 
 export const CreateActionDocument = gql`
@@ -781,3 +815,36 @@ export function useLogoutMutation(baseOptions?: Apollo.MutationHookOptions<Logou
 export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>;
 export type LogoutMutationResult = Apollo.MutationResult<LogoutMutation>;
 export type LogoutMutationOptions = Apollo.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
+export const SendPasswordEmailDocument = gql`
+    mutation sendPasswordEmail($data: UserSendPassword!) {
+  sendPasswordEmail(data: $data) {
+    email
+  }
+}
+    `;
+export type SendPasswordEmailMutationFn = Apollo.MutationFunction<SendPasswordEmailMutation, SendPasswordEmailMutationVariables>;
+
+/**
+ * __useSendPasswordEmailMutation__
+ *
+ * To run a mutation, you first call `useSendPasswordEmailMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSendPasswordEmailMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [sendPasswordEmailMutation, { data, loading, error }] = useSendPasswordEmailMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useSendPasswordEmailMutation(baseOptions?: Apollo.MutationHookOptions<SendPasswordEmailMutation, SendPasswordEmailMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SendPasswordEmailMutation, SendPasswordEmailMutationVariables>(SendPasswordEmailDocument, options);
+      }
+export type SendPasswordEmailMutationHookResult = ReturnType<typeof useSendPasswordEmailMutation>;
+export type SendPasswordEmailMutationResult = Apollo.MutationResult<SendPasswordEmailMutation>;
+export type SendPasswordEmailMutationOptions = Apollo.BaseMutationOptions<SendPasswordEmailMutation, SendPasswordEmailMutationVariables>;

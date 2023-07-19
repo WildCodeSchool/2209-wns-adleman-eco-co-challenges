@@ -214,17 +214,17 @@ export class UserResolver {
     const userToEmail = await DataSource
       .getRepository(User)
       .findOne({ where: { email } });
-
+      
     if (userToEmail === null) throw new ApolloError("invalid credentials");
 
     // sender information used to authenticate
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      service: "hotmail",
       auth: {
-        user: "ecocochallengewcs@gmail.com",
-        pass: "ecochallenge88",
+        user: "ecocochallenge@outlook.fr",
+        pass: "WCS2023!",
       },
-      from: "ecocochallengewcs@gmail.com",
+      from: "ecocochallenge@outlook.fr",
     });
 
     const userId = userToEmail.id ?? "";
@@ -237,10 +237,10 @@ export class UserResolver {
     try {
       // create token
       const url = `http://localhost:3000/password/reset/:${userId}/:${emailToken}`;
-
+      
       //  send password reset email
       await transporter.sendMail({
-        from: "EcoChallenge Team ecocochallengewcs@gmail.com",
+        from: "EcoChallenge Team ecocochallenge@outlook.fr",
         to: email,
         subject: "EcoChallenge reset password",
         html: `Hi ${email}, we received a request to reset your password. Please click the following link to reset your password.: <a href="${url}">${url}</a>`,

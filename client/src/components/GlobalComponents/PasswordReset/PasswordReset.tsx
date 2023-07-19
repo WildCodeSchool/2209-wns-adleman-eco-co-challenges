@@ -17,15 +17,15 @@ export default function PasswordReset() {
     newPassword: "",
   });
 
-  useFetchTokenQuery({
-    variables: { fetchTokenId: +cleanId },
-    onCompleted: (response) => {
-      setServerToken(JSON.stringify(response.fetchToken.changePasswordToken));
-    },
-  });
+  // useFetchTokenQuery({
+  //   variables: { fetchTokenId: +cleanId },
+  //   onCompleted: (response) => {
+  //     setServerToken(JSON.stringify(response.fetchToken.changePasswordToken));
+  //   },
+  // });
 
 
-  const [changePassword] = useChangePasswordMutation();
+  // const [changePassword] = useChangePasswordMutation();
 
   const cleanServerToken = JSON.stringify(serverToken)
     .replace(/[\\]/g, "")
@@ -45,11 +45,11 @@ export default function PasswordReset() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            changePassword({ variables: { newPassword: credentials.newPassword, changePasswordId: +credentials.id } })
-              .then(() => {
-                console.log("success");
-              })
-              .catch(console.error);
+            // changePassword({ variables: { newPassword: credentials.newPassword, changePasswordId: +credentials.id } })
+            //   .then(() => {
+            //     console.log("success");
+            //   })
+            //   .catch(console.error);
           }}
         >
           <label htmlFor="newPassword">
