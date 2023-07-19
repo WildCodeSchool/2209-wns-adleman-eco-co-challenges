@@ -9,8 +9,8 @@ import * as SecureStore from "expo-secure-store";
 
 export default function LoginScreen() {
   const [credentials, setCredentials] = useState({
-    nickName: "Jane B",
-    password: "Password1",
+    nickName: "Entrez votre login",
+    password: "Mot de passe",
   });
   const [error, setError] = useState("");
 
