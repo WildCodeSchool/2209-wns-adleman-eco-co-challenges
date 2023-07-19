@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const AuthForm = () => {
-  const [userInfos, setUserInfo] = useState({ nickName: "", password: "" });
+  const [userInfos, setUserInfo] = useState({ nickName: "", password: "", email: ""});
   const [passwordError, setPasswordError] = useState(false);
   const [createUser] = useCreateUserMutation();
   const navigate = useNavigate();
@@ -98,14 +98,24 @@ const AuthForm = () => {
               <input
                 type="text"
                 value={userInfos.nickName}
+                placeholder="Pseudo"
                 onChange={(e) =>
                   setUserInfo({ ...userInfos, nickName: e.target.value })
+                }
+              />
+                            <input
+                type="text"
+                value={userInfos.email}
+                placeholder="Email"
+                onChange={(e) =>
+                  setUserInfo({ ...userInfos, email: e.target.value })
                 }
               />
               <input
                 type="password"
                 id="password"
                 name="password"
+                placeholder="Password"
                 minLength={8}
                 value={userInfos.password}
                 onChange={(e) => {

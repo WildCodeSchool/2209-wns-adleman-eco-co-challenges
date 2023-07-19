@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Field, InputType, ObjectType } from "type-graphql";
-import { Matches, MinLength } from "class-validator";
+import { IsEmail, Matches, MinLength } from "class-validator";
 import { argon2id, hash, verify } from "argon2";
 
 import Event from "./Event";
@@ -30,6 +30,10 @@ class User {
   @Field()
   @Column({ length: 100, type: "varchar", unique: true })
   nickName?: string;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true, type: "text" })
+  email?: string;
 
   @Field({ nullable: true })
   @Column({ nullable: true, type: "varchar" })
@@ -60,6 +64,10 @@ class User {
   @ManyToMany(() => Event, (event) => event.participants, { cascade: true })
   @JoinTable()
   eventOfUser?: Event[];
+
+  @Field({ nullable: true })
+  @Column({ nullable: true, type: "text" })
+  changePasswordToken: string;
 }
 
 const hashingOptions = {
@@ -81,6 +89,11 @@ export const getSafeAttributes = (user: User): User => ({
   hashedPassword: undefined,
 });
 
+export const sendPasswordEmail = async (
+  email: string,
+  token?: string
+): Promise<UserSendPassword> => ({ email, token });
+
 @InputType()
 export class UserInput {
   @Field()
@@ -90,6 +103,10 @@ export class UserInput {
   @MinLength(8)
   @Matches(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)
   password: string;
+
+  @Field({ nullable: true })
+  @IsEmail()
+  email?: string;
 
   @Field({ nullable: true })
   role?: string;
@@ -129,6 +146,26 @@ export class UserUpdateInput {
 
   @Field({ nullable: true })
   password?: string
+}
+
+@InputType()
+export class UserSendPassword {
+  @Field()
+  email: string;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true})
+  token?: string;
+}
+
+@InputType()
+export class UserChangePassword {
+    @Field()
+    id: number;
+
+    @Field()
+    @Matches(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)
+    newPassword: string;
 }
 
 export default User;
