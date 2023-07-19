@@ -80,7 +80,7 @@ const AuthForm = () => {
       await login({ variables: { data: credentials } });
       await client.resetStore();
       const res = await getProfile();
-      toast.success("YVous êtes connecté !", {
+      toast.success("Vous êtes connecté !", {
         duration: 5000,
       });
       navigate(`/user/${res?.data?.profile.id}`);
