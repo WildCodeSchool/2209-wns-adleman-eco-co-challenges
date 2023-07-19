@@ -179,13 +179,6 @@ export type CreateActionMutationVariables = Exact<{
 
 export type CreateActionMutation = { __typename?: 'Mutation', createAction: { __typename?: 'Action', title?: string | null, points?: string | null, description?: string | null, events: Array<{ __typename?: 'Event', id: string }> } };
 
-export type CreateEventMutationVariables = Exact<{
-  data: EventInput;
-}>;
-
-
-export type CreateEventMutation = { __typename?: 'Mutation', createEvent: { __typename?: 'Event', id: string, name?: string | null, description?: string | null, startDate?: any | null, endDate?: any | null, image?: string | null } };
-
 export type GetEventQueryVariables = Exact<{
   getEventId: Scalars['Float'];
 }>;
@@ -235,14 +228,6 @@ export type CreateUserMutationVariables = Exact<{
 
 
 export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', id: number } };
-
-export type RemoveFriendMutationVariables = Exact<{
-  userId: Scalars['Float'];
-  friendToRemoveId: Scalars['Float'];
-}>;
-
-
-export type RemoveFriendMutation = { __typename?: 'Mutation', removeFriendUser: { __typename?: 'User', friends: Array<{ __typename?: 'User', id: number }> } };
 
 export type GetProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -300,44 +285,6 @@ export function useCreateActionMutation(baseOptions?: Apollo.MutationHookOptions
 export type CreateActionMutationHookResult = ReturnType<typeof useCreateActionMutation>;
 export type CreateActionMutationResult = Apollo.MutationResult<CreateActionMutation>;
 export type CreateActionMutationOptions = Apollo.BaseMutationOptions<CreateActionMutation, CreateActionMutationVariables>;
-export const CreateEventDocument = gql`
-    mutation CreateEvent($data: EventInput!) {
-  createEvent(data: $data) {
-    id
-    name
-    description
-    startDate
-    endDate
-    image
-  }
-}
-    `;
-export type CreateEventMutationFn = Apollo.MutationFunction<CreateEventMutation, CreateEventMutationVariables>;
-
-/**
- * __useCreateEventMutation__
- *
- * To run a mutation, you first call `useCreateEventMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateEventMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createEventMutation, { data, loading, error }] = useCreateEventMutation({
- *   variables: {
- *      data: // value for 'data'
- *   },
- * });
- */
-export function useCreateEventMutation(baseOptions?: Apollo.MutationHookOptions<CreateEventMutation, CreateEventMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateEventMutation, CreateEventMutationVariables>(CreateEventDocument, options);
-      }
-export type CreateEventMutationHookResult = ReturnType<typeof useCreateEventMutation>;
-export type CreateEventMutationResult = Apollo.MutationResult<CreateEventMutation>;
-export type CreateEventMutationOptions = Apollo.BaseMutationOptions<CreateEventMutation, CreateEventMutationVariables>;
 export const GetEventDocument = gql`
     query GetEvent($getEventId: Float!) {
   getEvent(id: $getEventId) {
@@ -642,42 +589,6 @@ export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
 export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
 export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
-export const RemoveFriendDocument = gql`
-    mutation removeFriend($userId: Float!, $friendToRemoveId: Float!) {
-  removeFriendUser(userId: $userId, friendToRemoveId: $friendToRemoveId) {
-    friends {
-      id
-    }
-  }
-}
-    `;
-export type RemoveFriendMutationFn = Apollo.MutationFunction<RemoveFriendMutation, RemoveFriendMutationVariables>;
-
-/**
- * __useRemoveFriendMutation__
- *
- * To run a mutation, you first call `useRemoveFriendMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useRemoveFriendMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [removeFriendMutation, { data, loading, error }] = useRemoveFriendMutation({
- *   variables: {
- *      userId: // value for 'userId'
- *      friendToRemoveId: // value for 'friendToRemoveId'
- *   },
- * });
- */
-export function useRemoveFriendMutation(baseOptions?: Apollo.MutationHookOptions<RemoveFriendMutation, RemoveFriendMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<RemoveFriendMutation, RemoveFriendMutationVariables>(RemoveFriendDocument, options);
-      }
-export type RemoveFriendMutationHookResult = ReturnType<typeof useRemoveFriendMutation>;
-export type RemoveFriendMutationResult = Apollo.MutationResult<RemoveFriendMutation>;
-export type RemoveFriendMutationOptions = Apollo.BaseMutationOptions<RemoveFriendMutation, RemoveFriendMutationVariables>;
 export const GetProfileDocument = gql`
     query GetProfile {
   profile {
