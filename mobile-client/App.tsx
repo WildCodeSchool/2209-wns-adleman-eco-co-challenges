@@ -3,7 +3,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 
 import { ApolloProvider } from "@apollo/client/react";
-import client from "./gql/client";
+import { client } from "./gql/client";
 import LoginScreen from "./screens/LoginScreen";
 import EventsScreen from "././screens/EventsScreen";
 
