@@ -1,7 +1,0 @@
-mutation removeFriend($userId: Float!, $friendToRemoveId: Float!) {
-  removeFriendUser(userId: $userId, friendToRemoveId: $friendToRemoveId) {
-    friends {
-      id
-    }
-  }
-}
