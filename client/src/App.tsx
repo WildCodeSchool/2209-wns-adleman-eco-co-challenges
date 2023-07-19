@@ -1,20 +1,24 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CustomBootstrap.scss";
+
 import { Route, Routes } from "react-router-dom";
-import EventAddActions from "./pages/EventAddActions";
+
 import Authentification from "./pages/Authentification";
-import FriendDashboard from "./pages/Dashboard";
-import UserFriendsList from "./pages/UserFriendsList";
-import EventCreate from "./pages/EventCreate";
+import EmailPassword from "./components/GlobalComponents/EmailresetPassword/EmailPassword";
 import Event from "./pages/Event";
+import EventAddActions from "./pages/EventAddActions";
+import EventCreate from "./pages/EventCreate";
 import Events from "./pages/Events";
+import FriendDashboard from "./pages/Dashboard";
 import Landing from "./pages/Landing";
+import PasswordReset from "./components/GlobalComponents/PasswordReset/PasswordReset";
 import ProtectedRoute from "./components/GlobalComponents/ProtectedRoutes/ProtectedRoute";
 import UserDashboard from "./pages/UserDashboard";
 import UserFriendsAdd from "./pages/UserFriendsAdd";
-import UserUpdate from "./pages/UserUpdate";
+import UserFriendsList from "./pages/UserFriendsList";
 import UserImageAdd from "./pages/UserImageAdd";
+import UserUpdate from "./pages/UserUpdate";
 
 function App() {
   return (
@@ -24,6 +28,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Authentification />} />
+            <Route path="/password/reset/:id/:token" element={<PasswordReset/>}/>
+            <Route path="/password/email" element={<EmailPassword/>}/>
             <Route
               path="/friends"
               element={
