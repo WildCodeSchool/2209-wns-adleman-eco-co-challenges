@@ -4,11 +4,12 @@ import {
   useGetProfileQuery,
   useUpdateUserMutation,
 } from "../../../gql/generated/schema";
+import { Toast, toast } from "react-hot-toast";
 import { gql, useQuery } from "@apollo/client";
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import UserList from "../UserList/UserList";
+import { useNavigate } from "react-router-dom";
 
 // Write the query to get all users
 const GET_USERS = gql`
@@ -59,7 +60,9 @@ const FriendsAdd = () => {
             friendsId: [friendId],
           },
         },
-        refetchQueries: [{ query: GetUsersDocument, variables: { currentUserId } }],
+        refetchQueries: [
+          { query: GetUsersDocument, variables: { currentUserId } },
+        ],
       });
       if (result.data?.updateUser) {
         // update the state of users
@@ -67,6 +70,9 @@ const FriendsAdd = () => {
           (user: User) => user.id !== friendId
         );
         updateUserState(newUsersState);
+        toast.success("Ami ajouté", {
+          duration: 2000,
+        });
         return true;
       }
       return true;
@@ -93,30 +99,31 @@ const FriendsAdd = () => {
         <div className="row flex-lg-row-reverse align-items-center g-5 py-5">
           <div className="col-10 col-sm-8 col-lg-6">
             <img
-                src="https://img.obox.group/u-j1Ak6qH-bdf8cAuch0kBtr8GM=/2280x1282/smart/filters:format(webp)/https%3A%2F%2Flecahier.com%2Fwp-content%2Fuploads%2F2019%2F11%2Fhelena-lopes-pgnqt0rxwls-unsplash.jpg"
-                className="d-block mx-lg-auto img-fluid"
-                alt="Bootstrap Themes"
-                loading="lazy"
-                width="700"
-                height="500"
+              src="https://img.obox.group/u-j1Ak6qH-bdf8cAuch0kBtr8GM=/2280x1282/smart/filters:format(webp)/https%3A%2F%2Flecahier.com%2Fwp-content%2Fuploads%2F2019%2F11%2Fhelena-lopes-pgnqt0rxwls-unsplash.jpg"
+              className="d-block mx-lg-auto img-fluid"
+              alt="Bootstrap Themes"
+              loading="lazy"
+              width="700"
+              height="500"
             />
           </div>
           <div className="col-lg-6">
             <h1 className="display-5 fw-bold lh-1 mb-3">Ajouter des amis</h1>
             <p className="lead">
-              Bienvenue sur la page ajouter des amis! Ici, vous pouvez voir la liste des
-              utilisateurs qui ne sont pas encore vos amis. Vous pouvez
-              inviter de nouveaux amis à rejoindre l'application et créer des
-              groupes pour participer à des défis écologiques ensemble. Cliquez
-              sur un utilisateur pour voir l'ajouter à votre liste d'amis
-              Montrez votre engagement écologique en accomplissant des actions durables ensemble!
+              Bienvenue sur la page ajouter des amis! Ici, vous pouvez voir la
+              liste des utilisateurs qui ne sont pas encore vos amis. Vous
+              pouvez inviter de nouveaux amis à rejoindre l'application et créer
+              des groupes pour participer à des défis écologiques ensemble.
+              Cliquez sur un utilisateur pour voir l'ajouter à votre liste
+              d'amis Montrez votre engagement écologique en accomplissant des
+              actions durables ensemble!
             </p>
           </div>
         </div>
         <button
-            type="button"
-            className="btn btn-custom-yellow btn-lg px-4 gap-3 text-center"
-            onClick={(e) => navigate("/friends")}
+          type="button"
+          className="btn btn-custom-yellow btn-lg px-4 gap-3 text-center"
+          onClick={(e) => navigate("/friends")}
         >
           Retourner à la liste des amis
         </button>

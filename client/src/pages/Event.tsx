@@ -16,7 +16,6 @@ export default function Event() {
     errorPolicy: "ignore",
   });
 
-  console.log(event);
   return (
     <>
       <div className="header">

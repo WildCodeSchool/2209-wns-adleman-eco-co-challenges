@@ -84,6 +84,8 @@ export default function PasswordReset() {
               id="newPassword"
               placeholder="Nouveau mot de passe"
               value={credentials.newPassword}
+              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+              title="Le mot de passe doit contenir au moins 8 caractères, dont au moins une minuscule, une majuscule et un chiffre."
               onChange={(e) =>
                 setCredentials({
                   id: cleanId ?? "",
