@@ -14,6 +14,8 @@ import { env } from "./environment";
 import express from "express";
 import http from "http";
 import jwt from "jsonwebtoken";
+import cookie from "cookie";
+
 
 export interface ContextType {
   req: express.Request;
@@ -42,8 +44,11 @@ const start = async (): Promise<void> => {
     resolvers: [UserResolver, EventResolver, ActionResolver],
     authChecker: async ({ context }: { context: ContextType }, roles) => {
       const tokenInHeaders = context.req.headers.authorization?.split(" ")[1];
-      const tokenInCookie = context.req.cookies?.token;
+      const tokenInCookie = cookie.parse(context.req.headers.cookie ?? "").token;
       const token = tokenInHeaders ?? tokenInCookie;
+      console.log({ tokenInHeaders, tokenInCookie });
+
+      if (typeof token !== "string") return false;
       try {
         let decoded;
         if (typeof token === "string")

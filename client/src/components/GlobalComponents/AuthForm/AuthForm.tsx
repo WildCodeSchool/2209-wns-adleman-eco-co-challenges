@@ -1,5 +1,6 @@
 import "./AuthForm.css";
 
+import { Link, useNavigate } from "react-router-dom";
 import {
   useCreateUserMutation,
   useGetProfileLazyQuery,
@@ -10,11 +11,14 @@ import {
 
 import Logo from "../Logo/Logo";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const AuthForm = () => {
-  const [userInfos, setUserInfo] = useState({ nickName: "", password: "", email: ""});
+  const [userInfos, setUserInfo] = useState({
+    nickName: "",
+    password: "",
+    email: "",
+  });
   const [passwordError, setPasswordError] = useState(false);
   const [createUser] = useCreateUserMutation();
   const navigate = useNavigate();
@@ -56,10 +60,15 @@ const AuthForm = () => {
       await login({ variables: { data: userInfos } });
       await client.resetStore();
       const res = await getProfile();
+      toast.success("Vous êtes inscrit, bienvenue !", {
+        duration: 5000,
+      });
       navigate(`/user/${res?.data?.profile.id}`);
     } catch (err: any) {
       if (err.message === "EMAIL_ALREADY_EXISTS") {
-        toast.error("This email is already taken");
+        toast.error("Cet Email est déjà utilisé", {
+          duration: 5000,
+        });
       }
     }
   };
@@ -71,14 +80,22 @@ const AuthForm = () => {
       await login({ variables: { data: credentials } });
       await client.resetStore();
       const res = await getProfile();
+      toast.success("Vous êtes connecté !", {
+        duration: 5000,
+      });
       navigate(`/user/${res?.data?.profile.id}`);
     } catch (err) {
-      toast.error("Invalid credentials");
+      toast.error("Les informations sont incorrectes", {
+        duration: 5000,
+      });
     }
   };
 
   const handleLogout = async () => {
     await logout();
+    toast.success("Vous êtes déconnecté !", {
+      duration: 5000,
+    });
     await client.resetStore();
   };
 
@@ -94,7 +111,7 @@ const AuthForm = () => {
         <div className="container" id="container">
           <div className="form-container sign-up-container">
             <form onSubmit={handleSignUp}>
-              <h1>Create Account</h1>
+              <h1>Créer un compte</h1>
               <input
                 type="text"
                 value={userInfos.nickName}
@@ -103,7 +120,7 @@ const AuthForm = () => {
                   setUserInfo({ ...userInfos, nickName: e.target.value })
                 }
               />
-                            <input
+              <input
                 type="text"
                 value={userInfos.email}
                 placeholder="Email"
@@ -129,7 +146,7 @@ const AuthForm = () => {
                   uppercase letter and a number
                 </div>
               )}
-              <button type="submit">Sign Up</button>
+              <button type="submit">S'enregistrer</button>
             </form>
           </div>
           <div className="form-container sign-in-container">
@@ -147,8 +164,7 @@ const AuthForm = () => {
               </div>
             ) : (
               <form onSubmit={handleSignIn}>
-                <h1>Sign in</h1>
-                <span>or use your account</span>
+                <h1>Se connecter</h1>
                 <input
                   data-testid="login-login"
                   type="text"
@@ -167,6 +183,9 @@ const AuthForm = () => {
                   }
                 />
                 <button type="submit">Login</button>
+                <p>
+                  <Link to={`/password/email`}>Mot de passe oublié</Link>
+                </p>
               </form>
             )}
 
@@ -175,19 +194,17 @@ const AuthForm = () => {
           <div className="overlay-container">
             <div className="overlay">
               <div className="overlay-panel overlay-left">
-                <h1>Welcome Back!</h1>
-                <p>
-                  To keep connected with us please login with your personal info
-                </p>
+                <h1>Enfin de retour!</h1>
+                <p>connecte toi avec tes informations de connexion</p>
                 <button className="ghost" id="signIn">
-                  Sign In
+                  Connexion
                 </button>
               </div>
               <div className="overlay-panel overlay-right">
-                <h1>Hello, Friend!</h1>
-                <p>Enter your personal details and start journey with us</p>
+                <h1>Bienvenue Coco</h1>
+                <p>renseigne tes informations pour créer ton compte</p>
                 <button className="ghost" id="signUp">
-                  Sign Up
+                  s'enregistrer
                 </button>
               </div>
             </div>

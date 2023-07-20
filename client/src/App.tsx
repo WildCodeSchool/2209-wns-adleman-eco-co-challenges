@@ -14,6 +14,7 @@ import FriendDashboard from "./pages/Dashboard";
 import Landing from "./pages/Landing";
 import PasswordReset from "./components/GlobalComponents/PasswordReset/PasswordReset";
 import ProtectedRoute from "./components/GlobalComponents/ProtectedRoutes/ProtectedRoute";
+import { Toaster } from "react-hot-toast";
 import UserDashboard from "./pages/UserDashboard";
 import UserFriendsAdd from "./pages/UserFriendsAdd";
 import UserFriendsList from "./pages/UserFriendsList";
@@ -24,6 +25,7 @@ function App() {
   return (
     <>
       <div>
+      <Toaster position="top-center" />
         <main>
           <Routes>
             <Route path="/" element={<Landing />} />

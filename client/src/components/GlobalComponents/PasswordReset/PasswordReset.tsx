@@ -1,11 +1,19 @@
-import { useParams } from "react-router-dom";
+import {
+  useChangePasswordMutation,
+  useFetchTokenQuery,
+} from "../../../gql/generated/schema";
+import { useNavigate, useParams } from "react-router-dom";
+
+import Logo from "../Logo/Logo";
+import toast from "react-hot-toast";
 import { useState } from "react";
 
 export default function PasswordReset() {
-
   const [serverToken, setServerToken] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
   const togglePassword = () => setShowPassword(!showPassword);
+  const backToLogin = () => navigate("/login");
 
   const { token, id } = useParams();
 
@@ -17,15 +25,14 @@ export default function PasswordReset() {
     newPassword: "",
   });
 
-  // useFetchTokenQuery({
-  //   variables: { fetchTokenId: +cleanId },
-  //   onCompleted: (response) => {
-  //     setServerToken(JSON.stringify(response.fetchToken.changePasswordToken));
-  //   },
-  // });
+  useFetchTokenQuery({
+    variables: { fetchTokenId: +cleanId },
+    onCompleted: (response) => {
+      setServerToken(JSON.stringify(response.fetchToken.changePasswordToken));
+    },
+  });
 
-
-  // const [changePassword] = useChangePasswordMutation();
+  const [changePassword] = useChangePasswordMutation();
 
   const cleanServerToken = JSON.stringify(serverToken)
     .replace(/[\\]/g, "")
@@ -35,23 +42,42 @@ export default function PasswordReset() {
   if (!token || cleanToken !== cleanServerToken)
     return (
       <div>
-        <p>OOOPPS invalid token</p>
+        <p>OOOPPS le lien n'est plus disponible</p>
       </div>
     );
 
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    changePassword({
+      variables: {
+        newPassword: credentials.newPassword,
+        changePasswordId: +credentials.id,
+      },
+    })
+      .then(() => {
+        console.log("success");
+        toast.success("Votre Mot de passe a bien été modifié.", {
+          duration: 5000,
+        });
+      })
+      .then(() => {
+        navigate("/login");
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error("OOOPPS une erreur est survenue.", {
+          duration: 5000,
+        });
+      });
+  };
+
   return (
-    <>
-      <div>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            // changePassword({ variables: { newPassword: credentials.newPassword, changePasswordId: +credentials.id } })
-            //   .then(() => {
-            //     console.log("success");
-            //   })
-            //   .catch(console.error);
-          }}
-        >
+    <div className="AuthForm">
+      <div className="body">
+        <div className="logoForm">
+          <Logo />
+        </div>
+        <form onSubmit={handleSubmit}>
           <label htmlFor="newPassword">
             <input
               type={showPassword ? "text" : "password"}
@@ -59,19 +85,24 @@ export default function PasswordReset() {
               placeholder="Nouveau mot de passe"
               value={credentials.newPassword}
               onChange={(e) =>
-                setCredentials({ id: cleanId ?? "", newPassword: e.target.value })
+                setCredentials({
+                  id: cleanId ?? "",
+                  newPassword: e.target.value,
+                })
               }
             ></input>
-            <button type="button" onClick={togglePassword}>{showPassword ? "Hide password" : "Show password"}</button>
+            <button type="button" onClick={togglePassword}>
+              {showPassword ? "Hide password" : "Show password"}
+            </button>
           </label>
           <div>
-            <button>Retour</button>
-            <button type="submit">
-              Valider
+            <button type="button" onClick={backToLogin}>
+              Retour
             </button>
+            <button type="submit">Valider</button>
           </div>
         </form>
       </div>
-    </>
+    </div>
   );
 }
