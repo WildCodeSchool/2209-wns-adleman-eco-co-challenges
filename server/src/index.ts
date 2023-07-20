@@ -46,7 +46,6 @@ const start = async (): Promise<void> => {
       const tokenInHeaders = context.req.headers.authorization?.split(" ")[1];
       const tokenInCookie = cookie.parse(context.req.headers.cookie ?? "").token;
       const token = tokenInHeaders ?? tokenInCookie;
-      console.log({ tokenInHeaders, tokenInCookie });
 
       if (typeof token !== "string") return false;
       try {

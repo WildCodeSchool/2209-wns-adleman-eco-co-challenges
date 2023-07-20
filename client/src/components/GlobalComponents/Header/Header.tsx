@@ -1,20 +1,31 @@
 import "./Header.css";
 
+import { useGetProfileQuery, useLogoutMutation } from "../../../gql/generated/schema";
+
 import { Link } from "react-router-dom";
 import logo from "../../../assets/logo150-1.png";
-import { useGetProfileQuery } from "../../../gql/generated/schema";
+import toast from "react-hot-toast";
 import { useState } from "react";
 
 export default function Header() {
   const [showLinks, setShowLinks] = useState(false);
+  const [logout] = useLogoutMutation();
 
   const handleShowLinks = () => {
     setShowLinks(!showLinks);
   };
-  const { data: currentUser } = useGetProfileQuery({
+  const { data: currentUser, client} = useGetProfileQuery({
     errorPolicy: "ignore",
   });
   const currentUserId = currentUser?.profile.id;
+
+  const handleLogout = async () => {
+    await logout();
+    toast.success("Vous êtes déconnecté !", {
+      duration: 5000,
+    });
+    await client.resetStore();
+  };
 
   return (
     <>
@@ -43,7 +54,7 @@ export default function Header() {
             </li>
 
             <li className="navbar__item slideInDown-4">
-              <Link to="/login">Logout</Link>
+              <Link to="/login" onClick={handleLogout}>Logout</Link>
             </li>
           </ul>
 
