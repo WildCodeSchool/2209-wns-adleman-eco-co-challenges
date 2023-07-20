@@ -1,19 +1,8 @@
 import { User, useGetProfileQuery } from "../../../gql/generated/schema";
+
 import { useNavigate } from "react-router-dom";
 
-
 // Function to generate a random user url
-const randomUser = () => {
-  const gender = ["male", "female"];
-  const rand = Math.floor(Math.random() * gender.length);
-  return (
-    "https://xsgames.co/randomusers/assets/avatars/" +
-    gender[rand] +
-    "/" +
-    Math.floor(Math.random() * 100) +
-    ".jpg"
-  );
-};
 // type the props
 interface Props {
   users: Array<Partial<User>>;
@@ -28,6 +17,8 @@ const UserListDashboard = (props: Props) => {
     errorPolicy: "ignore",
   });
   const navigate = useNavigate();
+
+  console.log(users)
 
   // The render
   return (
@@ -48,12 +39,13 @@ const UserListDashboard = (props: Props) => {
                 role="button"
               >
                   <div className="img-container rounded-circle overflow-hidden d-flex justify-content-center align-items-center">
-                    <img
-                      src={user.image ?? randomUser()}
-                      alt=""
-                      loading="lazy"
-                      className="w-100 h-auto"
-                    />
+                  <img
+                  alt="profilePicture"
+                  src={
+                    user?.image ??
+                   ""
+                  }
+                />
                   </div>
                   <div className="card-body">
                     <h3 className="card-text text-center">{user.nickName}</h3>

@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
 import "./EventList.css";
 
 import { useEffect, useState } from "react";
+
+import { Link } from "react-router-dom";
 import {useGetProfileQuery} from "../../../gql/generated/schema";
 
 interface Props {
@@ -78,7 +79,7 @@ const EventList = (props: Props) => {
                             className="bd-placeholder-img card-img-top"
                             alt={event.title}
                             width="100%"
-                            height="225"
+                            height="100"
                             src={randomImageUrl()}
                         />
 

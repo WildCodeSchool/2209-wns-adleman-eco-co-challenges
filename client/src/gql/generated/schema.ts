@@ -165,7 +165,7 @@ export type User = {
   email?: Maybe<Scalars['String']>;
   eventOfUser: Array<Event>;
   friends: Array<User>;
-  hashedPassword: Scalars['String'];
+  hashedPassword?: Maybe<Scalars['String']>;
   id: Scalars['Float'];
   image?: Maybe<Scalars['String']>;
   nickName: Scalars['String'];
@@ -264,7 +264,7 @@ export type UpdateUserMutationVariables = Exact<{
 }>;
 
 
-export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', description?: string | null, image?: string | null, hashedPassword: string, xp?: number | null, friends: Array<{ __typename?: 'User', id: number }> } };
+export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', description?: string | null, image?: string | null, hashedPassword?: string | null, xp?: number | null, friends: Array<{ __typename?: 'User', id: number }> } };
 
 export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -277,7 +277,7 @@ export type ChangePasswordMutationVariables = Exact<{
 }>;
 
 
-export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword: { __typename?: 'User', hashedPassword: string } };
+export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword: { __typename?: 'User', hashedPassword?: string | null } };
 
 export type FetchTokenQueryVariables = Exact<{
   fetchTokenId: Scalars['Float'];
@@ -289,7 +289,7 @@ export type FetchTokenQuery = { __typename?: 'Query', fetchToken: { __typename?:
 export type GetProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetProfileQuery = { __typename?: 'Query', profile: { __typename?: 'User', id: number, nickName: string, xp?: number | null, description?: string | null, image?: string | null, friends: Array<{ __typename?: 'User', id: number, nickName: string }> } };
+export type GetProfileQuery = { __typename?: 'Query', profile: { __typename?: 'User', id: number, nickName: string, xp?: number | null, description?: string | null, image?: string | null, friends: Array<{ __typename?: 'User', id: number, nickName: string, image?: string | null }> } };
 
 export type LoginMutationVariables = Exact<{
   data: UserInput;
@@ -804,6 +804,7 @@ export const GetProfileDocument = gql`
     friends {
       id
       nickName
+      image
     }
     xp
     description

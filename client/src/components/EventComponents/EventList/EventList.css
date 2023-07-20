@@ -14,7 +14,10 @@
 
 
 .card-body {
-  height: 250px;
+  height: 150px;
+}
+.card-text {
+  font-size: 16px;
 }
   
   
