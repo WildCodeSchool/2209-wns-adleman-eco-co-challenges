@@ -5,6 +5,7 @@ query GetProfile {
     friends {
       id
       nickName
+      image
     }
     xp
     description

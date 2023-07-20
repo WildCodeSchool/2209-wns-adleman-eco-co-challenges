@@ -63,7 +63,7 @@ const AuthForm = () => {
       toast.success("Vous êtes inscrit, bienvenue !", {
         duration: 5000,
       });
-      navigate(`/user/${res?.data?.profile.id}`);
+      navigate(`/user/${res?.data?.profile.id}/selectimage`);
     } catch (err: any) {
       if (err.message === "EMAIL_ALREADY_EXISTS") {
         toast.error("Cet Email est déjà utilisé", {
@@ -194,7 +194,7 @@ const AuthForm = () => {
           <div className="overlay-container">
             <div className="overlay">
               <div className="overlay-panel overlay-left">
-                <h1>Enfin de retour!</h1>
+                <h1>Déjà inscrit ?</h1>
                 <p>connecte toi avec tes informations de connexion</p>
                 <button className="ghost" id="signIn">
                   Connexion

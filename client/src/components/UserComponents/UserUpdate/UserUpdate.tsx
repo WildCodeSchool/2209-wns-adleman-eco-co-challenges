@@ -1,12 +1,14 @@
 import "./UserUpdate.css";
-import { useState, useEffect } from "react";
+
 import {
   GetUsersDocument,
   UserUpdateInput,
   useGetUsersQuery,
   useUpdateUserMutation,
 } from "../../../gql/generated/schema";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+
 import toast from "react-hot-toast";
 
 const UserUpdate = () => {
@@ -72,7 +74,7 @@ const UserUpdate = () => {
           console.error(err);
           toast.error("une erreur est survenue");
         },
-       });
+      });
     }
   };
 
@@ -85,7 +87,7 @@ const UserUpdate = () => {
               <div className="feature col">
                 <h3 className="fs-2">{selectedUser?.nickName}</h3>
               </div>
-              <div className="feature col">
+              <div className="feature col d-flex flex-column align-items-center">
                 <img
                   alt="profilePicture"
                   className="profilPicture"
@@ -94,6 +96,7 @@ const UserUpdate = () => {
                     require("../../../assets/avatarToucan.png")
                   }
                 />
+                <Link to={`/user/${id}/selectimage`}> Changer ma photo </Link>
               </div>
               <div className="feature col">
                 <div id="containerLvl">
@@ -142,7 +145,9 @@ const UserUpdate = () => {
                           value={textareaValue}
                           onChange={(e) => setTextareaValue(e.target.value)}
                         />
-                        <button className="mt-3" onClick={handleSave}>Enregistrer</button>
+                        <button className="mt-3" onClick={handleSave}>
+                          Enregistrer
+                        </button>
                       </form>
                     </div>
                   </div>

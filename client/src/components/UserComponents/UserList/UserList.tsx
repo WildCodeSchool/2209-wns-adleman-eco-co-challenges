@@ -3,18 +3,6 @@ import Header from "../../GlobalComponents/Header/Header";
 import { User } from "../../../gql/generated/schema";
 import { useGetProfileQuery } from "../../../gql/generated/schema";
 
-// Function to generate a random user url
-const randomUser = () => {
-  const gender = ["male", "female"];
-  const rand = Math.floor(Math.random() * gender.length);
-  return (
-    "https://xsgames.co/randomusers/assets/avatars/" +
-    gender[rand] +
-    "/" +
-    Math.floor(Math.random() * 100) +
-    ".jpg"
-  );
-};
 // type the props
 interface Props {
   users: Array<Partial<User>>;
@@ -65,11 +53,13 @@ const UserList = (props: Props) => {
                 role="button"
               >
                 <div className="card shadow-sm">
-                  <img
-                    src={user.image ?? randomUser()}
-                    alt=""
-                    loading="lazy"
-                  />
+                <img
+                  alt="profilePicture"
+                  src={
+                    user?.image ??
+                    require("../../../assets/cartonRouge.png")
+                  }
+                />
                   <title>Placeholder</title>
                   <rect width="100%" height="100%" fill="#55595c"></rect>
                   <div className="card-body">
