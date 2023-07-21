@@ -84,6 +84,19 @@ const FriendsAdd = () => {
       return false;
     }
   };
+  // handle changes to nonuser
+  useEffect(() => {
+    const nonUser = data?.users.filter((user: any) => {
+      const isCurrentUserFriend = currentUser?.profile?.friends.some(
+        (friend) => friend.id === user.id
+      );
+      const isCurrentUser = currentUser?.profile?.id === user.id;
+
+      return !isCurrentUserFriend;
+    });
+    updateUserState(nonUser);
+  }, [data]);
+
   // the render
   return (
     <div className="mt-5">

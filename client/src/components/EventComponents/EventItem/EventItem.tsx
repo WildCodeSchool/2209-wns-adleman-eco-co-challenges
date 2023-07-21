@@ -76,7 +76,7 @@ const EventItem = (Props: props) => {
               <img
                 alt="EventPicture"
                 className="eventPicture"
-                src={randomImageUrl()}
+                src={event?.getEvent?.image ?? randomImageUrl()}
               />
             </div>
             <div className="feature col">

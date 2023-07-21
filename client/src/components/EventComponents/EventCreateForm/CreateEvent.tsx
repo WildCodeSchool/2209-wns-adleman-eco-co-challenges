@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import {useCreateEventMutation, useGetProfileQuery, useUpdateEventMutation} from "../../../gql/generated/schema";
 import { useState } from "react";
 import "./CreateEvent.css";
-
+import EventImageAdd from "../EventImageAdd/eventImageAdd";
 const CreateEvent = () => {
   const navigate = useNavigate();
   const [createEvent] = useCreateEventMutation();
@@ -40,6 +40,15 @@ const CreateEvent = () => {
       }
     );
   }
+
+  const selectedImage = (url: string) => {
+      setEventInfo({
+          ...eventInfo,
+          image: url,
+      });
+      return console.log(eventInfo);
+  }
+
   return (
     <div className="CreateEvent">
       <div className="body">
@@ -142,19 +151,8 @@ const CreateEvent = () => {
                       Date de fin de l'évènement
                     </label>
                   </div>
-                  {/*image */}
-                  <div className="form-floating w-100">
-                    <input
-                      type="text"
-                      className="form-control rounded-3"
-                      id="floatingImage"
-                      placeholder="Image"
-                      onChange={(e) => {
-                        setEventInfo({ ...eventInfo, image: e.target.value });
-                      }}
-                    />
-                    <label htmlFor="floatingImage">Image </label>
-                  </div>
+
+                    <EventImageAdd selectedImage = {selectedImage}/>
                   <button
                     className="mt-3"
                     type="submit"
