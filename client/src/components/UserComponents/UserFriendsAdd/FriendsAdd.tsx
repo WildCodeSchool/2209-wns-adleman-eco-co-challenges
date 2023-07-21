@@ -81,6 +81,8 @@ const FriendsAdd = () => {
       const isCurrentUserFriend = currentUser?.profile?.friends.some(
         (friend) => friend.id === user.id
       );
+      const isCurrentUser = currentUser?.profile?.id === user.id;
+
       return !isCurrentUserFriend;
     });
     updateUserState(nonUser);

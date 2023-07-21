@@ -15,6 +15,7 @@ import UserDashboard from "./pages/UserDashboard";
 import UserFriendsAdd from "./pages/UserFriendsAdd";
 import UserUpdate from "./pages/UserUpdate";
 import UserImageAdd from "./pages/UserImageAdd";
+import EventImageSelection from "./pages/EventImageSelection";
 
 function App() {
   return (
@@ -97,13 +98,21 @@ function App() {
               }
             />
             <Route
-              path="/actions/add/:id"
-              element={
-                <ProtectedRoute>
-                  <EventAddActions />
-                </ProtectedRoute>
-              }
+                path="/event/image/add/:id"
+                element={
+                    <ProtectedRoute>
+                        <EventImageSelection  />
+                    </ProtectedRoute>
+                }
             />
+              <Route
+                  path="/actions/add/:id"
+                  element={
+                      <ProtectedRoute>
+                          <EventAddActions />
+                      </ProtectedRoute>
+                  }
+              />
           </Routes>
         </main>
       </div>

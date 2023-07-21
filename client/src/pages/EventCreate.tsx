@@ -1,15 +1,15 @@
 import Header from "../components/GlobalComponents/Header/Header";
-import CreateEvent from "../components/EventComponents/EventCreateForm/CreateEvent";
+import EventImageAdd from "../components/EventComponents/EventImageAdd/eventImageAdd";
 import Footer from "../components/GlobalComponents/Footer/Footer";
 
-export default function EventCreate() {
+export default function EventImageSelection() {
   return (
     <div>
       <div className="header">
         <Header />
       </div>
       <div className="form__container">
-        <CreateEvent />
+        <EventImageAdd/>
       </div>
       <div className="footer">
         <Footer />
