@@ -17,6 +17,7 @@ const GET_USERS = gql`
     users {
       id
       nickName
+      image
     }
   }
 `;
@@ -34,11 +35,13 @@ const FriendsAdd = () => {
   const nonUser = useMemo(() => {
     return data?.users.filter((user: User) => {
       const isCurrentUserFriend = currentUser?.profile?.friends.some(
-        (friend) => friend.id === user.id
+        (friend) => friend.id === user.id 
       );
-      return !isCurrentUserFriend;
+      const isCurrentUserInFriendsList = currentUser?.profile?.id === user.id;
+      return !isCurrentUserFriend && !isCurrentUserInFriendsList;
     });
   }, [data, currentUser]);
+
   // define a state to modify the users display
   const [usersState, updateUserState] = useState([]);
   // update usersState when nonUser changes
@@ -81,17 +84,6 @@ const FriendsAdd = () => {
       return false;
     }
   };
-  // handle changes to nonuser
-  useEffect(() => {
-    const nonUser = data?.users.filter((user: any) => {
-      const isCurrentUserFriend = currentUser?.profile?.friends.some(
-        (friend) => friend.id === user.id
-      );
-      return !isCurrentUserFriend;
-    });
-    updateUserState(nonUser);
-  }, [data]);
-
   // the render
   return (
     <div className="mt-5">
