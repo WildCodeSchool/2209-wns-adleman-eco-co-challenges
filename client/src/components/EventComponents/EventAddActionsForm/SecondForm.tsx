@@ -1,7 +1,9 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useState } from "react";
-import { useCreateActionMutation } from "../../../gql/generated/schema";
 import "./SecondForm.css";
+
+import { useNavigate, useParams } from "react-router-dom";
+
+import { useCreateActionMutation } from "../../../gql/generated/schema";
+import { useState } from "react";
 
 const SecondForm = () => {
   const { id } = useParams();
@@ -28,7 +30,6 @@ const SecondForm = () => {
     },
   ]);
 
-  console.log(actionObjects)
   const  saveAndNavigate = async () => {
     if (typeof id !== "undefined") {
       for (const actionObject of actionObjects) {

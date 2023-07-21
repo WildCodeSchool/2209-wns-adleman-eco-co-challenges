@@ -142,7 +142,7 @@ height: auto;
     width: 70%;
     height: 100%;
     overflow: hidden;
-    z-index: 100;
+    z-index: 3;
   }
 
   .UserUpdate .overlay {
@@ -168,3 +168,4 @@ height: auto;
     height: 100%;
     width: 50%;
   }
+

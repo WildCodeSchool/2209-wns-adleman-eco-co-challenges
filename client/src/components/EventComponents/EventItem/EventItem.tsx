@@ -1,9 +1,10 @@
+import "./EventItem.css";
+
 import {
   GetEventQuery,
   useGetProfileQuery,
   useUpdateEventMutation,
 } from "../../../gql/generated/schema";
-import "./EventItem.css";
 
 interface props {
   event: GetEventQuery | undefined;
@@ -18,10 +19,21 @@ const EventItem = (Props: props) => {
   // Get event
   const { event } = Props;
 
+  const formatDate = (dateString: any) => {
+    const options = {
+      day: "numeric",
+      month: "numeric",
+      year: "numeric",
+    };
+    return new Date(dateString).toLocaleDateString(undefined);
+  };
+
   // Get event's id, name and description
   const userId = currentUser?.profile?.id;
   const eventId = event?.getEvent?.id;
   const titre = event?.getEvent?.name;
+  const StartDate = formatDate(event?.getEvent?.startDate);
+  const endDate = formatDate(event?.getEvent?.endDate);
   const description = event?.getEvent?.description;
 
   //Check if user has subscribed
@@ -66,6 +78,9 @@ const EventItem = (Props: props) => {
                 className="eventPicture"
                 src={randomImageUrl()}
               />
+            </div>
+            <div className="feature col">
+              <p className="fs-2">Début: {StartDate} </p> <p className="fs-2">Fin: {endDate}</p>
             </div>
             {!registeredUser() && (
               <div className="feature col">

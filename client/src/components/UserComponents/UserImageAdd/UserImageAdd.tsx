@@ -1,7 +1,8 @@
-import {useEffect, useState} from "react";
 import {GetUsersDocument, useGetProfileQuery, useUpdateUserMutation} from "../../../gql/generated/schema";
-import toast from "react-hot-toast";
+import {useEffect, useState} from "react";
 import { useNavigate, useParams } from "react-router-dom";
+
+import toast from "react-hot-toast";
 
 const UserImageAdd = () => {
     // get the navigate function from react-router-dom
@@ -100,7 +101,6 @@ const UserImageAdd = () => {
                                         onClick={
                                             (event) => {
                                                 event.preventDefault();
-                                                console.log('ici');
                                                 // @ts-ignore
                                                 theChoosenOne(event.target.previousElementSibling.getAttribute('src'));
                                             }

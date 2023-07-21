@@ -1,18 +1,21 @@
-import React from 'react';
-import * as eva from '@eva-design/eva';
-import { ApplicationProvider, Layout, Button } from '@ui-kitten/components';
-import { default as theme } from './theme.json'; // <-- Import app theme
+import "react-native-gesture-handler";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { NavigationContainer } from "@react-navigation/native";
+
 import { ApolloProvider } from "@apollo/client/react";
-import client from "./gql/client";
-import EventScreen from '././screens/EventsScreen'
-import {Loading, List } from "./components/"
+import { client } from "./gql/client";
+import LoginScreen from "./screens/LoginScreen";
+import EventsScreen from "././screens/EventsScreen";
+
+const Drawer = createDrawerNavigator();
 
 export default () => (
-    <ApolloProvider client={client}>
-        <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
-          <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-              <EventScreen />
-          </Layout>
-        </ApplicationProvider>
-    </ApolloProvider>
+  <ApolloProvider client={client}>
+    <NavigationContainer>
+      <Drawer.Navigator>
+        <Drawer.Screen name="Login" component={LoginScreen} />
+        <Drawer.Screen name="Events" component={EventsScreen} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+  </ApolloProvider>
 );

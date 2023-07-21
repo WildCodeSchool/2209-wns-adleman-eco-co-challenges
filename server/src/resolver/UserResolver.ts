@@ -1,3 +1,5 @@
+import nodemailer from 'nodemailer';
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 import jwt from "jsonwebtoken";
 import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from "type-graphql";
 import User, {
@@ -6,6 +8,7 @@ import User, {
   UserUpdateInput,
   verifyPassword,
   hashPassword,
+  UserSendPassword,
 } from "../entity/User";
 import { ContextType } from "../index";
 import { ApolloError } from "apollo-server-errors";
@@ -202,5 +205,99 @@ export class UserResolver {
   async logout(@Ctx() ctx: ContextType): Promise<string> {
     ctx.res.clearCookie("token");
     return "Déconnection réussie";
+  }
+
+  @Mutation(() => User)
+  async sendPasswordEmail(@Arg("data") data: UserSendPassword): Promise<User> {
+    const { email } = data;
+
+    const userToEmail = await DataSource
+      .getRepository(User)
+      .findOne({ where: { email } });
+      
+    if (userToEmail === null) throw new ApolloError("invalid credentials");
+
+    // sender information used to authenticate
+    const transporter = nodemailer.createTransport({
+      service: "hotmail",
+      auth: {
+        user: "ecocochallenge@outlook.fr",
+        pass: "WCS2023!",
+      },
+      from: "ecocochallenge@outlook.fr",
+    });
+
+    const userId = userToEmail.id ?? "";
+    const hashedPassword = userToEmail?.hashedPassword ?? "";
+    const userToEmailName = userToEmail?.nickName ?? "";
+    const secret = hashedPassword + "-" + userToEmailName;
+
+    const emailToken = jwt.sign({ userId }, secret, { expiresIn: 36000 });
+
+    try {
+      // create token
+      const url = `http://localhost:3000/password/reset/:${userId}/:${emailToken}`;
+      
+      //  send password reset email
+      await transporter.sendMail({
+        from: "EcoChallenge Team ecocochallenge@outlook.fr",
+        to: email,
+        subject: "EcoChallenge reset password",
+        html: `Hi ${email}, we received a request to reset your password. Please click the following link to reset your password.: <a href="${url}">${url}</a>`,
+        text: `Hi ${email}, we received a request to reset your password. Please click the following link to reset your password.: <a href="${url}">${url}</a>`,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+
+    // add token to user in db
+    userToEmail.changePasswordToken = emailToken;
+
+    // save token in db
+    await DataSource.getRepository(User).save(userToEmail);
+
+    return userToEmail;
+  }
+
+
+  @Query(() => User)
+  async fetchToken(@Arg("id") id: number): Promise<User> {
+    const userToUpdatePassword = await DataSource
+      .getRepository(User)
+      .findOne({ where: { id } });
+    if (userToUpdatePassword === null)
+      throw new ApolloError("user not found", "NOT_FOUND");
+    return userToUpdatePassword;
+  }
+
+  // mutation to change password
+  @Mutation(() => User)
+  async changePassword(
+    @Arg('id') id: number,
+    @Arg('newPassword') newPassword: string
+  ): Promise<boolean> {
+
+    // create userToUpdate which is the user in the db matching the email (with properties email, hashedPassword, etc)
+    const userToUpdate = await DataSource
+      .getRepository(User)
+      .findOne({ where: { id } });
+    // verify if user is null > throw error
+    if (userToUpdate === null)
+      throw new ApolloError("invalid credentials no such user");
+
+    // match UserSendPassword token to token in headers
+    if (userToUpdate.changePasswordToken === null)
+      throw new ApolloError("invalid credentials no such token");
+
+    // hash new password
+    const newHashedPassword = await hashPassword(newPassword);
+
+    // update password in user data
+    userToUpdate.hashedPassword = newHashedPassword;
+
+    // save new password in db
+    await DataSource.getRepository(User).save(userToUpdate);
+
+    return true;
   }
 }
