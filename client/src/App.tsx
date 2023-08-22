@@ -9,6 +9,7 @@ import EmailPassword from "./components/GlobalComponents/EmailresetPassword/Emai
 import Event from "./pages/Event";
 import EventAddActions from "./pages/EventAddActions";
 import EventCreate from "./pages/EventCreate";
+import EventImageSelection from "./pages/EventImageSelection";
 import Events from "./pages/Events";
 import FriendDashboard from "./pages/Dashboard";
 import Landing from "./pages/Landing";
@@ -19,7 +20,6 @@ import UserDashboard from "./pages/UserDashboard";
 import UserFriendsAdd from "./pages/UserFriendsAdd";
 import UserFriendsList from "./pages/UserFriendsList";
 import UserImageAdd from "./pages/UserImageAdd";
-import EventImageSelection from "./pages/EventImageSelection";
 import UserUpdate from "./pages/UserUpdate";
 
 function App() {

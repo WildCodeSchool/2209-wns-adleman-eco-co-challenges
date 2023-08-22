@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 
-.AuthForm{
+.AuthForm {
   background-image: url("../../../assets/BG_banana.png");
   background-size: cover;
 }
@@ -81,6 +81,12 @@
 }
 
 .logoutButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.googleAuth {
   display: flex;
   align-items: center;
   justify-content: center;

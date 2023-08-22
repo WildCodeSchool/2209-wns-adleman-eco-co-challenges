@@ -9,6 +9,7 @@ import {
   useLogoutMutation,
 } from "../../../gql/generated/schema";
 
+import GoogleAuth from "../GoogleAuth/GoogleAuth";
 import Logo from "../Logo/Logo";
 import toast from "react-hot-toast";
 import { useState } from "react";
@@ -19,6 +20,7 @@ const AuthForm = () => {
     password: "",
     email: "",
   });
+  console.log("🚀 ~ file: AuthForm.tsx:23 ~ AuthForm ~ userInfos:", userInfos);
   const [passwordError, setPasswordError] = useState(false);
   const [createUser] = useCreateUserMutation();
   const navigate = useNavigate();
@@ -71,6 +73,20 @@ const AuthForm = () => {
         });
       }
     }
+  };
+
+  const handleGoogleProfileChange = async (profile: any) => {
+    await setUserInfo({
+      ...userInfos,
+      nickName: profile.name,
+      email: profile.email,
+    });
+    await createUser({ variables: { data: userInfos } });
+    const res = await getProfile();
+    toast.success("Vous êtes connecté !", {
+      duration: 5000,
+    });
+    navigate(`/user/${res?.data?.profile.id}`);
   };
 
   const handleSignIn = async (e: any) => {
@@ -170,7 +186,10 @@ const AuthForm = () => {
                   type="text"
                   value={credentials.nickName}
                   onChange={(e) =>
-                    setCredentials({ ...credentials, nickName: e.target.value })
+                    setCredentials({
+                      ...credentials,
+                      nickName: e.target.value,
+                    })
                   }
                 />
                 <input
@@ -179,7 +198,10 @@ const AuthForm = () => {
                   placeholder="Password"
                   value={credentials.password}
                   onChange={(e) =>
-                    setCredentials({ ...credentials, password: e.target.value })
+                    setCredentials({
+                      ...credentials,
+                      password: e.target.value,
+                    })
                   }
                 />
                 <button type="submit">Login</button>
@@ -209,6 +231,9 @@ const AuthForm = () => {
               </div>
             </div>
           </div>
+        </div>
+        <div className="googleAuth">
+          <GoogleAuth onGoogleProfileChange={handleGoogleProfileChange} />
         </div>
       </div>
     </div>
