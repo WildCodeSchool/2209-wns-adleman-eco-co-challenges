@@ -71,7 +71,7 @@ export class EventInput {
   participantsId?: number[];
 
   @Field(() => String, { nullable: true })
-  participantsAction?: String;
+  participantsAction?: string;
 
   @Field(() => [Number], { nullable: true })
   actionsId?: number[];

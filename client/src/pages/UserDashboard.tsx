@@ -88,7 +88,7 @@ export default function UserDashboard() {
             </div>
             <div className="d-flex align-content-center justify-content-center gap-5">
               <button
-                className="btn  btn-lg px-4 ecoco-button"
+                className="btn btn-lg px-4 ecoco-button"
                 type="button"
                 onClick={navigateToEvents}
               >

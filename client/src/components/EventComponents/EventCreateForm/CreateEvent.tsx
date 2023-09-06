@@ -1,5 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import {useCreateEventMutation, useGetProfileQuery, useUpdateEventMutation} from "../../../gql/generated/schema";
+import {
+  useCreateEventMutation,
+  useGetProfileQuery,
+  useUpdateEventMutation,
+} from "../../../gql/generated/schema";
 import { useState } from "react";
 import "./CreateEvent.css";
 import EventImageAdd from "../EventImageAdd/eventImageAdd";
@@ -15,39 +19,37 @@ const CreateEvent = () => {
     image: "",
   });
 
-    // get current user
-    const { data: currentUser } = useGetProfileQuery({
-        errorPolicy: "ignore",
-    });
-    const currentUserId = currentUser?.profile?.id;
+  // get current user
+  const { data: currentUser } = useGetProfileQuery({
+    errorPolicy: "ignore",
+  });
+  const currentUserId = currentUser?.profile?.id;
   async function saveAndNavigate() {
-    await createEvent({ variables: { data: eventInfo } }).then(
-      async (resp) => {
-        const id = resp.data?.createEvent?.id;
-        if (id !== undefined && currentUserId !== undefined){
-            await updateEvent({variables: {
-                    eventId: parseInt(id),
-                    data: {
-                        participantsId: [currentUserId],
-                        participantsAction: "add"
-                    }}}
-            ).then(
-                (resp) => {
-                    navigate(`/actions/add/${id}`);
-                }
-            )
-        }
+    await createEvent({ variables: { data: eventInfo } }).then(async (resp) => {
+      const id = resp.data?.createEvent?.id;
+      if (id !== undefined && currentUserId !== undefined) {
+        await updateEvent({
+          variables: {
+            eventId: parseInt(id),
+            data: {
+              participantsId: [currentUserId],
+              participantsAction: "add",
+            },
+          },
+        }).then((resp) => {
+          navigate(`/actions/add/${id}`);
+        });
       }
-    );
+    });
   }
 
   const selectedImage = (url: string) => {
-      setEventInfo({
-          ...eventInfo,
-          image: url,
-      });
-      return console.log(eventInfo);
-  }
+    setEventInfo({
+      ...eventInfo,
+      image: url,
+    });
+    return console.log(eventInfo);
+  };
 
   return (
     <div className="CreateEvent">
@@ -141,7 +143,7 @@ const CreateEvent = () => {
                       id="floatingEndDate"
                       placeholder="Password"
                       onChange={(e) => {
-                          setEventInfo({
+                        setEventInfo({
                           ...eventInfo,
                           endDate: e.target.value,
                         });
@@ -152,7 +154,7 @@ const CreateEvent = () => {
                     </label>
                   </div>
 
-                    <EventImageAdd selectedImage = {selectedImage}/>
+                  <EventImageAdd selectedImage={selectedImage} />
                   <button
                     className="mt-3"
                     type="submit"
